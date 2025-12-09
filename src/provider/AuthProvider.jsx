@@ -42,6 +42,9 @@ const AuthProvider = ({ children }) => {
         photoURL,
         role,
       });
+
+      await getUser(email);
+
       console.log(res);
       setLoading(false);
       return userCredential;
@@ -64,23 +67,19 @@ const AuthProvider = ({ children }) => {
     // eslint-disable-next-line no-useless-catch
     try {
       setLoading(true);
-      return await signInWithEmailAndPassword(auth, email, password);
+      const res = await signInWithEmailAndPassword(auth, email, password);
+      console.log(res)
     } catch (error) {
       throw error;
     }
   };
 
-  const getUser = async (email) => {
+ const getUser = async (email) => {
     try {
-      const res = await api.get(
-        `/users/${email}`,
-      );
-      if (res.status === 200) {
-        setLoading(true);
-        setUserData(res.data);
-      }
+      const res = await api.get(`/users/${encodeURIComponent(email)}`);
+      setUserData(res.data);
     } catch (error) {
-      throw error;
+      console.log(error);
     }
   };
 
@@ -125,11 +124,14 @@ const AuthProvider = ({ children }) => {
   });
 
   useEffect(() => {
-    if (user) {
-      getUser(user.email);
-      setLoading(false);
+    if (user?.email) {
+    getUser(user?.email);
+      // setLoading(false);
     }
+    
   }, [user]);
+
+  console.log(userData)
 
   const authData = {
     user,

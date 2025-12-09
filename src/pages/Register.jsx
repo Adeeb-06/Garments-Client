@@ -26,7 +26,7 @@ export default function Register() {
 
   const onSubmit = async(data) => {
     try{
-      const res = await registerUser(data.email, data.password, data.name, data.photoURL);
+      const res = await registerUser(data.email, data.password, data.name, data.photoURL, data.role);
       console.log(res);
       if(res){
         navigate("/");

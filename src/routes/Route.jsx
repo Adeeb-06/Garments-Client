@@ -4,7 +4,7 @@ import Login from "../pages/Login";
 import AuthLayout from "../layout/AuthLayout";
 import Register from "../pages/Register";
 import DashboardLayout from "../layout/DashboardLayout";
-import Dashboard from "../dashboard/dashboard";
+import UserManagement from "../components/dashboards/admin/UsersManagement";
 
 export const router = createBrowserRouter([
     {
@@ -40,8 +40,11 @@ export const router = createBrowserRouter([
         element:<DashboardLayout/>,
         children: [
             {
-                path: "",
-                element: <Dashboard/>
-            },]
+                path: "users",
+                element: <UserManagement/>
+            },
+            
+        ]
+       
     }
 ])

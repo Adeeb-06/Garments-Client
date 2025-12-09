@@ -11,17 +11,15 @@ export default function Login() {
 
   const navigate = useNavigate();
   const onSubmit = async(data) => {
-
     try {
       const res = await loginUser(data.email, data.password);
-      if (res) {
+      console.log(res)
+      if(res) {
         navigate("/");
       }
     } catch (error) {
       console.log(error)
     }
-
-
   };
 
   const handleGoogleSignIn = async () => {

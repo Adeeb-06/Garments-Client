@@ -11,16 +11,16 @@ import {
   LogOut
 } from 'lucide-react';
 
-export default function Sidebar() {
+export default function ManagerSidebar() {
   const menuItems = [
     { name: 'Dashboard', icon: LayoutDashboard },
     { name: 'Orders', icon: ShoppingCart },
-    { name: 'Production', icon: Scissors },
+    // { name: 'Production', icon: Scissors },
     { name: 'Inventory', icon: Package },
-    { name: 'Buyers', icon: Users },
+    // { name: 'Buyers', icon: Users },
     { name: 'User Management', icon: UserCheck },
     { name: 'Analytics', icon: BarChart3 },
-    { name: 'Settings', icon: Settings },
+    // { name: 'Settings', icon: Settings },
   ];
 
   return (
@@ -33,7 +33,7 @@ export default function Sidebar() {
           </div>
           <div>
             <h1 className="text-secondary font-bold text-lg">Garments Tracker</h1>
-            <p className="text-secondary/70 text-xs">Production System</p>
+            <p className="text-secondary/70 text-xs">Manager</p>
           </div>
         </div>
       </div>
