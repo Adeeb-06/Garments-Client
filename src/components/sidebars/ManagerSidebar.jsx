@@ -18,6 +18,7 @@ export default function ManagerSidebar({ logoutUser }) {
     { name: "Orders", icon: ShoppingCart },
     // { name: 'Production', icon: Scissors },
     { name: "Add Products", icon: Package, href: "/dashboard/add-product" },
+    { name: "Products", icon: Package, href: "/dashboard/products" },
     // { name: 'Buyers', icon: Users },
     { name: "User Management", icon: UserCheck },
     { name: "Analytics", icon: BarChart3 },

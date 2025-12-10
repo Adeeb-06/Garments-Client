@@ -27,7 +27,7 @@ const AdminProvider = ({ children }) => {
 
   const data = {
     users,
-    isLoading,
+    isLoadingUser:isLoading,
     isError,
     refetch
   };

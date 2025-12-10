@@ -7,6 +7,7 @@ import DashboardLayout from "../layout/DashboardLayout";
 import UserManagement from "../components/dashboards/admin/UsersManagement";
 import AddProduct from "../components/dashboards/manager/AddProduct";
 import PrivateRoute from "../provider/PrivateRoute";
+import ProductManagement from "../components/dashboards/manager/ProductManagement";
 
 export const router = createBrowserRouter([
     {
@@ -48,6 +49,10 @@ export const router = createBrowserRouter([
             {
                 path: "add-product",
                 element: <AddProduct/>
+            },
+            {
+                path: "products",
+                element: <ProductManagement/>
             }
             
         ]

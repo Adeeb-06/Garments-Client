@@ -18,6 +18,7 @@ import { useMutation } from "@tanstack/react-query";
 export default function AddProduct() {
   const [imageList, setImageList] = useState([]);
   const { userData, user } = useContext(AuthContext);
+  const navigate = useNavigate();
 
   const {
     register,
@@ -61,6 +62,7 @@ export default function AddProduct() {
     },
 
     onSuccess: () => {
+      navigate("/dashboard/products");
       console.log("Product created successfully!");
     },
 
