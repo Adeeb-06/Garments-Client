@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react';
 import { Mail, Lock, Scissors, Eye, EyeOff } from 'lucide-react';
-import { Link, useNavigate } from 'react-router';
+import { Link, useLocation, useNavigate } from 'react-router';
 import { useForm } from 'react-hook-form';
 import { AuthContext } from '../context/AuthContext';
 
@@ -10,12 +10,13 @@ export default function Login() {
   const { loginUser, googleSignIn } = useContext(AuthContext);
 
   const navigate = useNavigate();
+  const location = useLocation();
   const onSubmit = async(data) => {
     try {
       const res = await loginUser(data.email, data.password);
       console.log(res)
       if(res) {
-        navigate("/");
+      navigate(location.state || "/");
       }
     } catch (error) {
       console.log(error)
@@ -26,7 +27,7 @@ export default function Login() {
     try {
       const res = await googleSignIn();
       if (res) {
-        navigate("/");
+         navigate(location.state || "/");
       }
     } catch (error) {
       console.log(error);

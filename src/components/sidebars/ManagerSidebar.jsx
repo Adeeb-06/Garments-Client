@@ -1,25 +1,26 @@
-import React from 'react';
-import { 
-  LayoutDashboard, 
-  ShoppingCart, 
-  Scissors, 
-  Package, 
-  Users, 
+import React from "react";
+import {
+  LayoutDashboard,
+  ShoppingCart,
+  Scissors,
+  Package,
+  Users,
   UserCheck,
-  BarChart3, 
-  Settings, 
-  LogOut
-} from 'lucide-react';
+  BarChart3,
+  Settings,
+  LogOut,
+} from "lucide-react";
+import { Link } from "react-router";
 
-export default function ManagerSidebar() {
+export default function ManagerSidebar({ logoutUser }) {
   const menuItems = [
-    { name: 'Dashboard', icon: LayoutDashboard },
-    { name: 'Orders', icon: ShoppingCart },
+    { name: "Dashboard", icon: LayoutDashboard },
+    { name: "Orders", icon: ShoppingCart },
     // { name: 'Production', icon: Scissors },
-    { name: 'Inventory', icon: Package },
+    { name: "Add Products", icon: Package, href: "/dashboard/add-product" },
     // { name: 'Buyers', icon: Users },
-    { name: 'User Management', icon: UserCheck },
-    { name: 'Analytics', icon: BarChart3 },
+    { name: "User Management", icon: UserCheck },
+    { name: "Analytics", icon: BarChart3 },
     // { name: 'Settings', icon: Settings },
   ];
 
@@ -32,7 +33,9 @@ export default function ManagerSidebar() {
             <Scissors className="w-6 h-6" />
           </div>
           <div>
-            <h1 className="text-secondary font-bold text-lg">Garments Tracker</h1>
+            <h1 className="text-secondary font-bold text-lg">
+              Garments Tracker
+            </h1>
             <p className="text-secondary/70 text-xs">Manager</p>
           </div>
         </div>
@@ -45,13 +48,13 @@ export default function ManagerSidebar() {
             const Icon = item.icon;
             return (
               <li key={index}>
-                <a
-                  href="#"
+                <Link
+                  to={item.href}
                   className="flex items-center space-x-3 px-4 py-3 text-secondary rounded-lg hover:bg-secondary hover:text-primary transition-all"
                 >
                   <Icon className="w-5 h-5" />
                   <span className="font-medium">{item.name}</span>
-                </a>
+                </Link>
               </li>
             );
           })}
@@ -60,13 +63,13 @@ export default function ManagerSidebar() {
 
       {/* Logout Section */}
       <div className="p-4 border-t border-secondary/20">
-        <a
-          href="#"
+        <button
+          onClick={() => logoutUser()}
           className="flex items-center space-x-3 px-4 py-3 text-secondary rounded-lg hover:bg-red-500 hover:text-white transition-all"
         >
           <LogOut className="w-5 h-5" />
           <span className="font-medium">Logout</span>
-        </a>
+        </button>
       </div>
     </div>
   );

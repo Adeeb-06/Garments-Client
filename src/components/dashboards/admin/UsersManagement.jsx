@@ -5,6 +5,7 @@ import { AdminContext } from "../../../context/AdminContext";
 import { useForm } from "react-hook-form";
 import { TbBatteryCharging } from "react-icons/tb";
 import api from "../../../api";
+import UnauthorizedPage from "../../UnauthorizedPage";
 
 export default function UserManagement() {
   const { userData, user } = useContext(AuthContext);
@@ -57,7 +58,8 @@ export default function UserManagement() {
     setSelectedUser(null);
   };
 
-  return (
+  if(userData?.role == "admin") {
+    return (
     <div className="min-h-screen w-[80vw] bg-base-200 p-8">
       <div className=" mx-auto">
         {/* Header with Search */}
@@ -285,5 +287,7 @@ export default function UserManagement() {
         </div>
       )}
     </div>
-  );
+  );} else{
+    return <UnauthorizedPage/>
+  }
 }

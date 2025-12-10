@@ -3,7 +3,7 @@ import { useNavigate } from "react-router";
 import { AuthContext } from "../context/AuthContext";
 
 import AdminDashboard from "../components/dashboards/admin/AdminDashboard";
-import ManagerDashboard from "../components/dashboards/ManagerDashboard";
+import ManagerDashboard from "../components/dashboards/manager/ManagerDashboard";
 import BuyerDashboard from "../components/dashboards/BuyerDashboard";
 
 const DashboardLayout = () => {

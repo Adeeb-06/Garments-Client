@@ -68,7 +68,7 @@ const AuthProvider = ({ children }) => {
     try {
       setLoading(true);
       const res = await signInWithEmailAndPassword(auth, email, password);
-      console.log(res)
+      return res;
     } catch (error) {
       throw error;
     }
