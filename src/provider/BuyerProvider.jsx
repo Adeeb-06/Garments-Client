@@ -1,5 +1,5 @@
 import React, {useContext, useState } from "react";
-import api from "../api";
+import api from "../api.js";
 import {AdminContext}  from "../context/AdminContext.jsx";
 import  {AuthContext}  from "../context/AuthContext.jsx";
 import { useQuery } from "@tanstack/react-query";

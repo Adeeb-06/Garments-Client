@@ -9,6 +9,8 @@ export default function ProductsSection() {
 
  console.log(products)
 
+ if(isLoadingProducts) return <div className='flex justify-center items-center  w-full h-screen'><span className="loading mx-auto  w-10 h-10 loading-spinner text-secondary"></span></div>;
+
   return (
     <section className="bg-primary py-16 px-8">
       <div className="max-w-7xl mx-auto">
