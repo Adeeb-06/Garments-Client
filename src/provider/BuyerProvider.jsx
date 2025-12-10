@@ -23,7 +23,7 @@ const BuyerProvider = ({ children }) => {
   };
 
   const fetchProducts = async () => {
-    const res = await api.get("/products", {
+    const res = await api.get("/products-homepage", {
       headers: {
         Authorization: `Bearer ${user.accessToken}`,
       },

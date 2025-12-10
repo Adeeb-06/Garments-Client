@@ -2,9 +2,10 @@ import React, { useContext } from 'react'
 import ProductCard from './ProductCard';
 import { ArrowRight, Sparkles } from 'lucide-react';
 import { ManagerContext } from '../context/ManagerContext';
+import { BuyerContext } from '../context/BuyerContext';
 
 export default function ProductsSection() {
- const {products, isLoadingProducts, isErrorProducts, refetchProducts} = useContext(ManagerContext);
+ const {products, isLoadingProducts, isErrorProducts, refetchProducts} = useContext(BuyerContext);
 
  console.log(products)
 

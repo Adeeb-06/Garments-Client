@@ -8,6 +8,7 @@ import AdminProvider from "./provider/AdminProvider.jsx";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import ManagerProvider from "./provider/ManagerProvider.jsx";
 import { ToastContainer } from "react-toastify";
+import BuyerProvider from "./provider/BuyerProvider.jsx";
 
 const queryClient = new QueryClient();
 
@@ -17,8 +18,10 @@ createRoot(document.getElementById("root")).render(
       <AuthProvider>
         <AdminProvider>
           <ManagerProvider>
+            <BuyerProvider>
             <ToastContainer/>
             <RouterProvider router={router} />
+            </BuyerProvider>
           </ManagerProvider>
         </AdminProvider>
       </AuthProvider>
