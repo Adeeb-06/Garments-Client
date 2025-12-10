@@ -29,7 +29,7 @@ export default function ProductManagement() {
     refetch,
   } = useQuery({
     queryKey: ["products"],
-    queryFn: fetchProducts,
+    queryFn: () => fetchProducts(),
     enabled: !!user,
   });
 

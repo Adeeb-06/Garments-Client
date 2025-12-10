@@ -4,10 +4,11 @@ import {AdminContext}  from "../context/AdminContext.jsx";
 import  {AuthContext}  from "../context/AuthContext.jsx";
 import { useQuery } from "@tanstack/react-query";
 import { ManagerContext } from "../context/ManagerContext.jsx";
+import { BuyerContext } from "../context/BuyerContext.jsx";
 
 
 
-const ManagerProvider = ({ children }) => {
+const BuyerProvider = ({ children }) => {
   const { user } = useContext(AuthContext);
   const [id, setId] = useState(null);
 
@@ -23,8 +24,10 @@ const ManagerProvider = ({ children }) => {
 
   const fetchProducts = async () => {
     const res = await api.get("/products", {
+      headers: {
+        Authorization: `Bearer ${user.accessToken}`,
+      },
     });
-    console.log(res)
     return res.data;
   };
  
@@ -37,6 +40,7 @@ const ManagerProvider = ({ children }) => {
   const {data:products, isLoading:isLoadingProducts, isError:isErrorProducts, refetch:refetchProducts} = useQuery({
     queryKey: ["products"],
     queryFn:()=> fetchProducts(),
+    enabled: !!user,
   });
 
 
@@ -50,14 +54,13 @@ const ManagerProvider = ({ children }) => {
     isLoadingProducts,
     isErrorProducts,
     refetchProducts,
-    isLoading
   };
 
   return (
-    <ManagerContext value={data}>
+    <BuyerContext value={data}>
       {children}
-    </ManagerContext>
+    </BuyerContext>
   );
 };
 
-export default ManagerProvider;
+export default BuyerProvider;

@@ -9,59 +9,83 @@ import AddProduct from "../components/dashboards/manager/AddProduct";
 import PrivateRoute from "../provider/PrivateRoute";
 import ProductManagement from "../components/dashboards/manager/ProductManagement";
 import UpdateProduct from "../components/dashboards/manager/UpdateProduct";
-
+import Home from "../pages/Home";
+import ProductDetailsPage from "../pages/ProductDetails";
+import OrderPage from "../pages/OrderPage";
+import AccountStatus from "../components/AccountStatus";
+import ApproveRoute from "../provider/ApproveRoute";
 
 export const router = createBrowserRouter([
-    {
-        path: "/",
-        element: <HomeLayout />,
-        children: [
-            {
-                path: "/",
-                element: <h1>Home</h1>
-            },
-            {
-                path: "/about",
-                element: <h1>About</h1>
-            }
-        ]
-    },
-    {
-        path: "/auth",
-        element: <AuthLayout />,
-        children: [
-            {
-                path: "login",
-                element: <Login />
-            },
-            {
-                path: "register",
-                element: <Register/>
-            }
-        ]
-    },
-    {
-        path: "/dashboard",
-        element: <PrivateRoute><DashboardLayout /></PrivateRoute>,
-        children: [
-            {
-                path: "users",
-                element: <UserManagement/>
-            },
-            {
-                path: "add-product",
-                element: <AddProduct/>
-            },
-            {
-                path: "products",
-                element: <ProductManagement/>
-            },
-            {
-                path: "update-product/:id",
-                element: <UpdateProduct/>
-            }
-            
-        ]
-       
-    }
-])
+  {
+    path: "/",
+    element: <HomeLayout />,
+    children: [
+      {
+        path: "",
+        element: <Home />,
+      },
+      {
+        path: "/about",
+        element: <h1>About</h1>,
+      },
+      {
+        path: "product/:id",
+        element: (
+          <PrivateRoute>
+            <ProductDetailsPage />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "order/:id",
+        element: <ApproveRoute>
+            <OrderPage />
+          </ApproveRoute>
+      }
+    ],
+  },
+  {
+    path: "/auth",
+    element: <AuthLayout />,
+    children: [
+      {
+        path: "login",
+        element: <Login />,
+      },
+      {
+        path: "register",
+        element: <Register />,
+      },
+    ],
+  },
+  {
+    path: "/dashboard",
+    element: (
+      <PrivateRoute>
+        <DashboardLayout />
+      </PrivateRoute>
+    ),
+    children: [
+      {
+        path: "users",
+        element: <UserManagement />,
+      },
+      {
+        path: "add-product",
+        element: <AddProduct />,
+      },
+      {
+        path: "products",
+        element: <ProductManagement />,
+      },
+      {
+        path: "update-product/:id",
+        element: <UpdateProduct />,
+      },
+    ],
+  },
+  {
+    path: "/access-denied",
+    element: <AccountStatus/>,
+  }
+]);
