@@ -17,7 +17,7 @@ export default function Sidebar({logoutUser}) {
     { name: 'Dashboard', icon: LayoutDashboard },
     { name: 'Orders', icon: ShoppingCart },
     // { name: 'Production', icon: Scissors },
-    { name: 'Inventory', icon: Package },
+    { name: 'Products', icon: Package , href:"/dashboard/all-products" },
     // { name: 'Buyers', icon: Users },
     { name: 'User Management', icon: UserCheck , href:"/dashboard/users"},
     { name: 'Analytics', icon: BarChart3 },

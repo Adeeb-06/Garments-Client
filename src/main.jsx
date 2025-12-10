@@ -7,6 +7,7 @@ import AuthProvider from "./provider/AuthProvider.jsx";
 import AdminProvider from "./provider/AdminProvider.jsx";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import ManagerProvider from "./provider/ManagerProvider.jsx";
+import { ToastContainer } from "react-toastify";
 
 const queryClient = new QueryClient();
 
@@ -16,6 +17,7 @@ createRoot(document.getElementById("root")).render(
       <AuthProvider>
         <AdminProvider>
           <ManagerProvider>
+            <ToastContainer/>
             <RouterProvider router={router} />
           </ManagerProvider>
         </AdminProvider>

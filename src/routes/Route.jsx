@@ -14,6 +14,7 @@ import ProductDetailsPage from "../pages/ProductDetails";
 import OrderPage from "../pages/OrderPage";
 import AccountStatus from "../components/AccountStatus";
 import ApproveRoute from "../provider/ApproveRoute";
+import Products from "../components/dashboards/admin/Products";
 
 export const router = createBrowserRouter([
   {
@@ -82,6 +83,10 @@ export const router = createBrowserRouter([
         path: "update-product/:id",
         element: <UpdateProduct />,
       },
+      {
+        path:"all-products",
+        element:<Products/>
+      }
     ],
   },
   {
