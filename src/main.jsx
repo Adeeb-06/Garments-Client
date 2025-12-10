@@ -6,6 +6,7 @@ import { router } from "./routes/Route.jsx";
 import AuthProvider from "./provider/AuthProvider.jsx";
 import AdminProvider from "./provider/AdminProvider.jsx";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import ManagerProvider from "./provider/ManagerProvider.jsx";
 
 const queryClient = new QueryClient();
 
@@ -14,7 +15,9 @@ createRoot(document.getElementById("root")).render(
     <QueryClientProvider client={queryClient}>
       <AuthProvider>
         <AdminProvider>
-          <RouterProvider router={router} />
+          <ManagerProvider>
+            <RouterProvider router={router} />
+          </ManagerProvider>
         </AdminProvider>
       </AuthProvider>
     </QueryClientProvider>

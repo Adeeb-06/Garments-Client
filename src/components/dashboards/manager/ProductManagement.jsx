@@ -7,6 +7,7 @@ import { TbBatteryCharging } from "react-icons/tb";
 import api from "../../../api";
 import UnauthorizedPage from "../../UnauthorizedPage";
 import { useQuery } from "@tanstack/react-query";
+import { Link } from "react-router";
 
 export default function ProductManagement() {
   const { userData, user, isLoadingUser } = useContext(AuthContext);
@@ -139,17 +140,17 @@ export default function ProductManagement() {
                         </td>
                         <td className="px-6 py-4">
                           <div className="flex items-center justify-center gap-2">
-                            {/* Update Button */}
-                            <button className="flex items-center space-x-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition-all shadow-md hover:shadow-lg font-medium">
+                            {/* Update Link */}
+                            <Link to={`/dashboard/update-product/${product._id}`} className="flex items-center space-x-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition-all shadow-md hover:shadow-lg font-medium">
                               <Edit className="w-4 h-4" />
                               <span>Update</span>
-                            </button>
+                            </Link>
 
-                            {/* Delete Button */}
-                            <button className="flex items-center space-x-2 bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg transition-all shadow-md hover:shadow-lg font-medium">
+                            {/* Delete Link */}
+                            <Link className="flex items-center space-x-2 bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg transition-all shadow-md hover:shadow-lg font-medium">
                               <X className="w-4 h-4" />
                               <span>Delete</span>
-                            </button>
+                            </Link>
                           </div>
                         </td>
                       </tr>

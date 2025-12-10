@@ -8,6 +8,8 @@ import UserManagement from "../components/dashboards/admin/UsersManagement";
 import AddProduct from "../components/dashboards/manager/AddProduct";
 import PrivateRoute from "../provider/PrivateRoute";
 import ProductManagement from "../components/dashboards/manager/ProductManagement";
+import UpdateProduct from "../components/dashboards/manager/UpdateProduct";
+
 
 export const router = createBrowserRouter([
     {
@@ -53,6 +55,10 @@ export const router = createBrowserRouter([
             {
                 path: "products",
                 element: <ProductManagement/>
+            },
+            {
+                path: "update-product/:id",
+                element: <UpdateProduct/>
             }
             
         ]
