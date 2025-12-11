@@ -11,6 +11,7 @@ import { BuyerContext } from "../context/BuyerContext.jsx";
 const BuyerProvider = ({ children }) => {
   const { user } = useContext(AuthContext);
   const [id, setId] = useState(null);
+  const [orderID, setOrderID] = useState();
 
  const fetchProductByID = async (id) => {
     if (!user?.accessToken) return [];
@@ -30,6 +31,15 @@ const BuyerProvider = ({ children }) => {
     });
     return res.data;
   };
+
+  const fetchOrderByID = async (id) => {
+    const res = await api.get(`/order/${orderID}`, {
+      headers: {
+        Authorization: `Bearer ${user.accessToken}`,
+      },
+    });
+    return res.data;
+  };
  
   const  {data:product, isLoading, isError, refetch} = useQuery({
     queryKey: ["product",id],
@@ -41,6 +51,11 @@ const BuyerProvider = ({ children }) => {
     queryKey: ["products"],
     queryFn:()=> fetchProducts(),
     enabled: !!user,
+  });
+  const {data:order, isLoading:isLoadingOrder, isError:isErrorOrder, refetch:refetchOrders} = useQuery({
+    queryKey: ["order"],
+    queryFn:()=> fetchOrderByID(orderID),
+    enabled: !!user && !!orderID,
   });
 
 
@@ -54,6 +69,9 @@ const BuyerProvider = ({ children }) => {
     isLoadingProducts,
     isErrorProducts,
     refetchProducts,
+    order,
+    isLoadingOrder,
+    setOrderID
   };
 
   return (

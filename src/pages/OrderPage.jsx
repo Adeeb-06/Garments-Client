@@ -45,7 +45,13 @@ export default function OrderPage() {
         }
       })
       if(res.status === 201){
-        toast.success("Order placed successfully!")
+        if(product?.payment === "PayFirst"){
+          
+          navigate(`/payment/${res.data._id}`)
+        } else{
+          navigate(`/`)
+          toast.success("Order placed successfully!")
+        }
       }
       console.log(res)
     } catch (error) {
