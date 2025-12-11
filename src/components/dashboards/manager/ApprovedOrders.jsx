@@ -36,7 +36,7 @@ const ApprovedOrders = () => {
     );
     if (res.status === 200) {
       toast.error("Order Rejected!");
-    //   refetchPendingOrders();
+      refetchApprovedOrders();
     }
   };
 

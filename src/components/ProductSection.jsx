@@ -5,9 +5,9 @@ import { ManagerContext } from '../context/ManagerContext';
 import { BuyerContext } from '../context/BuyerContext';
 
 export default function ProductsSection() {
- const {products, isLoadingProducts, isErrorProducts, refetchProducts} = useContext(BuyerContext);
+ const {productsHome, isLoadingProducts, isErrorProducts, refetchProducts} = useContext(BuyerContext);
 
- console.log(products)
+
 
  if(isLoadingProducts) return <div className='flex justify-center items-center  w-full h-screen'><span className="loading mx-auto  w-10 h-10 loading-spinner text-secondary"></span></div>;
 
@@ -37,7 +37,7 @@ export default function ProductsSection() {
 
         {/* Products Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {products?.map((product, index) => (
+          {productsHome?.map((product, index) => (
             <ProductCard key={index} product={product} />
           ))}
         </div>

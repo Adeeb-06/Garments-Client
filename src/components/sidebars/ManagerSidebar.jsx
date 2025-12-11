@@ -20,7 +20,8 @@ export default function ManagerSidebar({ logoutUser }) {
     { name: "Add Products", icon: Package, href: "/dashboard/add-product" },
     { name: "Products", icon: Package, href: "/dashboard/products" },
     {name:"Pending Orders", icon: TimerIcon, href: "/dashboard/pending-orders"},
-    {name:"Approved Orders", icon: ShoppingCart, href: "/dashboard/approved-orders"},,
+    {name:"Approved Orders", icon: ShoppingCart, href: "/dashboard/approved-orders"},
+    { name: 'Profile', icon: UserCheck , href: "/dashboard/profile"},
   ];
 
   return (

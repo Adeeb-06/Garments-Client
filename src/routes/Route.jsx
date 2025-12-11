@@ -25,6 +25,8 @@ import ApprovedOrders from "../components/dashboards/manager/ApprovedOrders";
 import AdminRoute from "../provider/AdminRoute";
 import BuyerRoute from "../provider/BuyerRoute";
 import Orders from "../components/dashboards/buyer/Orders";
+import Profile from "../pages/Profile";
+import ManagerOrBuyerRoute from "../provider/ManagerOrBuyerRoute";
 
 export const router = createBrowserRouter([
   {
@@ -108,7 +110,11 @@ export const router = createBrowserRouter([
     children: [
       {
         path: "users",
-        element: <AdminRoute><UserManagement /></AdminRoute> 
+        element: (
+          <AdminRoute>
+            <UserManagement />
+          </AdminRoute>
+        ),
       },
       {
         path: "add-product",
@@ -128,7 +134,11 @@ export const router = createBrowserRouter([
       },
       {
         path: "all-products",
-        element: <AdminRoute><Products /></AdminRoute> ,
+        element: (
+          <AdminRoute>
+            <Products />
+          </AdminRoute>
+        ),
       },
       {
         path: "pending-orders",
@@ -144,6 +154,14 @@ export const router = createBrowserRouter([
           <BuyerRoute>
             <Orders />
           </BuyerRoute>
+        ),
+      },
+      {
+        path: "profile",
+        element: (
+          <ManagerOrBuyerRoute>
+            <Profile />
+          </ManagerOrBuyerRoute>
         ),
       },
       {

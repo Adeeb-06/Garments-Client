@@ -56,8 +56,8 @@ const BuyerProvider = ({ children }) => {
     enabled: !!user && !!id,
   });
 
-  const {data:products, isLoading:isLoadingProducts, isError:isErrorProducts, refetch:refetchProducts} = useQuery({
-    queryKey: ["products"],
+  const {data:productsHome, isLoading:isLoadingProducts, isError:isErrorProducts, refetch:refetchProducts} = useQuery({
+    queryKey: ["productsHome"],
     queryFn:()=> fetchProducts(),
     enabled: !!user,
   });
@@ -86,7 +86,7 @@ const BuyerProvider = ({ children }) => {
     isError,
     refetch,
     setId,
-    products,
+    productsHome,
     isLoadingProducts,
     isErrorProducts,
     refetchProducts,

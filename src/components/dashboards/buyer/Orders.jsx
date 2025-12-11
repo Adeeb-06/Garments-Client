@@ -12,6 +12,7 @@ const Orders = () => {
   const { user } = useContext(AuthContext);
   const [searchQuery, setSearchQuery] = useState("");
 
+  console.log(orders)
 
 
  

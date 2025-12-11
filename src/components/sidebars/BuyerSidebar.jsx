@@ -16,7 +16,7 @@ export default function BuyerSidebar({logoutUser}) {
   const menuItems = [
     { name: 'Dashboard', icon: LayoutDashboard },
     { name: 'Orders', icon: ShoppingCart , href: "/dashboard/orders"},
-    { name: 'Profile', icon: UserCheck },
+    { name: 'Profile', icon: UserCheck , href: "/dashboard/profile"},
   ];
 
   return (

@@ -7,7 +7,7 @@ import { toast } from "react-toastify";
 import { AuthContext } from "../../../context/AuthContext";
 
 const PendingOrders = () => {
-  const { pendingOrders, refetchPendingOrders } = useContext(ManagerContext);
+  const { pendingOrders, refetchPendingOrders,refetchApprovedOrders } = useContext(ManagerContext);
   const { user } = useContext(AuthContext);
   const [searchQuery, setSearchQuery] = useState("");
 
@@ -37,6 +37,7 @@ const PendingOrders = () => {
     if (res.status === 200) {
       toast.error("Order Rejected!");
       refetchPendingOrders();
+      refetchApprovedOrders()
     }
   };
 

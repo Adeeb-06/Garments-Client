@@ -6,6 +6,7 @@ import { useForm } from "react-hook-form";
 import { TbBatteryCharging } from "react-icons/tb";
 import api from "../../../api";
 import UnauthorizedPage from "../../../pages/UnauthorizedPage";
+import { toast } from "react-toastify";
 
 export default function UserManagement() {
   const { userData, user } = useContext(AuthContext);
@@ -13,40 +14,47 @@ export default function UserManagement() {
   const [searchQuery, setSearchQuery] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedUser, setSelectedUser] = useState(null);
+  const [isReject, setIsReject] = useState(false);
   const {
-    register,
-    handleSubmit,
+    register: registerStatus,
+    handleSubmit: handleStatusSubmit,
+    watch,
     formState: { errors },
   } = useForm();
 
   const onsubmit = async (data) => {
     try {
-      // console.log(userData.accessToken)
       const res = await api.patch(
         `/admin/user-status/${selectedUser.email}`,
         data,
         { headers: { Authorization: `Bearer ${user.accessToken}` } }
       );
       console.log(res);
-      refetch();
-      closeModal();
+      if (res.status === 200) {
+
+        toast.success("User status updated successfully!");
+        refetch();
+        closeModal();
+      }
+      console.log(data);
     } catch (error) {
       console.log(error);
     }
   };
 
+  const selectedStatus = watch("status");
+
   if (userData.role !== "admin") return <p>Not authorized</p>;
   if (isLoading) return <p> Loading...</p>;
 
- const filteredUsers = users
-  .filter(user => user) 
-  .filter(
-    (user) =>
-      (user.name?.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      user.email?.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      user.role?.toLowerCase().includes(searchQuery.toLowerCase()))
-  );
-
+  const filteredUsers = users
+    ?.filter((user) => user)
+    ?.filter(
+      (user) =>
+        user?.name?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        user?.email?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        user?.role?.toLowerCase().includes(searchQuery.toLowerCase())
+    );
 
   const handleUpdateClick = (user) => {
     setSelectedUser(user);
@@ -58,7 +66,7 @@ export default function UserManagement() {
     setSelectedUser(null);
   };
 
-    return (
+  return (
     <div className="min-h-screen w-[80vw] bg-base-200 p-8">
       <div className=" mx-auto">
         {/* Header with Search */}
@@ -111,8 +119,8 @@ export default function UserManagement() {
 
               {/* Table Body */}
               <tbody className="divide-y divide-base-300">
-                {filteredUsers.length > 0 ? (
-                  filteredUsers.map((user, index) => (
+                {filteredUsers?.length > 0 ? (
+                  filteredUsers?.map((user, index) => (
                     <tr
                       key={index}
                       className="hover:bg-base-200 transition-colors"
@@ -173,7 +181,7 @@ export default function UserManagement() {
         {/* Table Footer Info */}
         <div className="mt-4 text-sm text-gray-600">
           <p>
-            Showing {filteredUsers.length} of {users.length} users
+            Showing {filteredUsers?.length} of {users?.length} users
           </p>
         </div>
       </div>
@@ -235,48 +243,79 @@ export default function UserManagement() {
                 <label className="block text-sm font-medium text-primary mb-3">
                   Update Status
                 </label>
-                <form onSubmit={handleSubmit(onsubmit)}>
+                <form onSubmit={handleStatusSubmit(onsubmit)}>
                   <div className="flex gap-2 mb-4">
+                    {" "}
                     <label
                       htmlFor="approve"
                       className="w-full bg-green-100 border-2 border-green-300 text-green-800 px-4 py-3 rounded-lg hover:bg-green-200 transition-all font-medium text-left cursor-pointer"
                     >
+                      {" "}
                       <input
                         type="radio"
                         id="approve"
-                        {...register("status")}
+                        {...registerStatus("status")}
                         name="status"
                         value="approve"
                         className="mr-2"
-                      />
-                      Approve User
-                    </label>
-
+                      />{" "}
+                      Approve User{" "}
+                    </label>{" "}
                     <label
                       htmlFor="reject"
                       className="w-full bg-red-100 border-2 border-red-300 text-red-800 px-4 py-3 rounded-lg hover:bg-red-200 transition-all font-medium text-left cursor-pointer"
                     >
+                      {" "}
                       <input
                         type="radio"
                         id="reject"
-                        {...register("status")}
+                        {...registerStatus("status")}
                         name="status"
                         value="reject"
                         className="mr-2"
-                      />
-                      Reject User
-                    </label>
+                      />{" "}
+                      Reject User{" "}
+                    </label>{" "}
                   </div>
 
-                  {/* Modal Footer Buttons */}
-                  <div className="flex items-center justify-end space-x-3 p-6 border-t border-base-300">
-                    <button
-                      type="submit"
-                      className="px-6 py-2 bg-primary text-secondary rounded-lg hover:opacity-90 transition-all font-medium"
-                    >
-                      Save Changes
-                    </button>
-                  </div>
+                  {/* SECOND FORM APPEARS IF STATUS = reject */}
+                  {selectedStatus === "reject" && (
+                    <div className="flex flex-col gap-2">
+                      {" "}
+                      <fieldset className="fieldset">
+                        {" "}
+                        <legend className="fieldset-legend">
+                          {" "}
+                          Suspend Reason{" "}
+                        </legend>{" "}
+                        <select
+                          defaultValue="Suspend Reason"
+                          className="select"
+                          {...registerStatus("reason")}
+                        >
+                          {" "}
+                          <option disabled={true}>Suspend Reason</option>{" "}
+                          <option>Spam</option> <option>Fraud</option>{" "}
+                          <option>Other</option>{" "}
+                        </select>{" "}
+                      </fieldset>{" "}
+                      <fieldset className="fieldset">
+                        {" "}
+                        <legend className="fieldset-legend">
+                          {" "}
+                          Suspend Feedback{" "}
+                        </legend>{" "}
+                        <input
+                        {...registerStatus("feedback")}
+                          type="text"
+                          className="input"
+                          placeholder="Type here"
+                        />{" "}
+                      </fieldset>{" "}
+                    </div>
+                  )}
+
+                  <button type="submit" className="px-6 py-2 bg-primary text-secondary rounded-lg hover:opacity-90 transition-all font-medium" > Save Changes </button>
                 </form>
               </div>
             </div>
