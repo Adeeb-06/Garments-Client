@@ -5,7 +5,7 @@ import { AdminContext } from "../../../context/AdminContext";
 import { useForm } from "react-hook-form";
 import { TbBatteryCharging } from "react-icons/tb";
 import api from "../../../api";
-import UnauthorizedPage from "../../UnauthorizedPage";
+import UnauthorizedPage from "../../../pages/UnauthorizedPage";
 
 export default function UserManagement() {
   const { userData, user } = useContext(AuthContext);

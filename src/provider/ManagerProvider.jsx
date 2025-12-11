@@ -1,17 +1,15 @@
-import React, {useContext, useState } from "react";
+import React, { useContext, useState } from "react";
 import api from "../api";
-import {AdminContext}  from "../context/AdminContext.jsx";
-import  {AuthContext}  from "../context/AuthContext.jsx";
+import { AdminContext } from "../context/AdminContext.jsx";
+import { AuthContext } from "../context/AuthContext.jsx";
 import { useQuery } from "@tanstack/react-query";
 import { ManagerContext } from "../context/ManagerContext.jsx";
-
-
 
 const ManagerProvider = ({ children }) => {
   const { user } = useContext(AuthContext);
   const [id, setId] = useState(null);
 
- const fetchProductByID = async (id) => {
+  const fetchProductByID = async (id) => {
     if (!user?.accessToken) return [];
     const res = await api.get(`/product/${id}`, {
       headers: {
@@ -22,27 +20,54 @@ const ManagerProvider = ({ children }) => {
   };
 
   const fetchProducts = async () => {
-    const res = await api.get("/products", {
-    });
-    console.log(res)
+    const res = await api.get("/products", {});
+    console.log(res);
     return res.data;
   };
- 
-  const  {data:product, isLoading, isError, refetch} = useQuery({
-    queryKey: ["product",id],
-    queryFn:()=> fetchProductByID(id),
+
+  const fetchPendingOrders = async () => {
+    const res = await api.get("/manager/pending-orders", {
+      headers: {
+        Authorization: `Bearer ${user.accessToken}`,
+      },
+    });
+    return res.data;
+  };
+
+  const {
+    data: product,
+    isLoading,
+    isError,
+    refetch,
+  } = useQuery({
+    queryKey: ["product", id],
+    queryFn: () => fetchProductByID(id),
     enabled: !!user,
   });
 
-  const {data:products, isLoading:isLoadingProducts, isError:isErrorProducts, refetch:refetchProducts} = useQuery({
+  const {
+    data: products,
+    isLoading: isLoadingProducts,
+    isError: isErrorProducts,
+    refetch: refetchProducts,
+  } = useQuery({
     queryKey: ["products"],
-    queryFn:()=> fetchProducts(),
+    queryFn: () => fetchProducts(),
   });
 
+  const {
+    data: pendingOrders,
+    isLoading: isLoadingPendingOrders,
+    isError: isErrorPendingOrders,
+    refetch: refetchPendingOrders,
+  } = useQuery({
+    queryKey: ["pendingOrders"],
+    queryFn: () => fetchPendingOrders(),
+  });
 
   const data = {
     product,
-    isLoadingUser:isLoading,
+    isLoadingUser: isLoading,
     isError,
     refetch,
     setId,
@@ -50,13 +75,15 @@ const ManagerProvider = ({ children }) => {
     isLoadingProducts,
     isErrorProducts,
     refetchProducts,
-    isLoading
+    isLoading,
+    pendingOrders,
+    isLoadingPendingOrders,
+    isErrorPendingOrders,
+    refetchPendingOrders,
   };
 
   return (
-    <ManagerContext.Provider value={data}>
-      {children}
-    </ManagerContext.Provider>
+    <ManagerContext.Provider value={data}>{children}</ManagerContext.Provider>
   );
 };
 

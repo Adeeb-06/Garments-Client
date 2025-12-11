@@ -26,12 +26,12 @@ const ManagerDashboard = () => {
   return (
     <div className="flex">
       {/* Sidebar */}
-      <aside className="w-[20%]">
+      <aside className="w-[]">
        <ManagerSidebar logoutUser={logoutUser}/>
       </aside>
 
       {/* Dashboard content */}
-      <main className="ml-4">
+      <main className="w-[%]">
        <Outlet/>
       </main>
     </div>

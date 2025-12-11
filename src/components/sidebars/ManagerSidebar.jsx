@@ -9,6 +9,7 @@ import {
   BarChart3,
   Settings,
   LogOut,
+  PackageIcon,
 } from "lucide-react";
 import { Link } from "react-router";
 
@@ -19,14 +20,13 @@ export default function ManagerSidebar({ logoutUser }) {
     // { name: 'Production', icon: Scissors },
     { name: "Add Products", icon: Package, href: "/dashboard/add-product" },
     { name: "Products", icon: Package, href: "/dashboard/products" },
-    // { name: 'Buyers', icon: Users },
-    { name: "User Management", icon: UserCheck },
+    {name:"Pending Orders", icon: PackageIcon, href: "/dashboard/pending-orders"},
     { name: "Analytics", icon: BarChart3 },
     // { name: 'Settings', icon: Settings },
   ];
 
   return (
-    <div className="w-64 bg-primary h-screen flex flex-col">
+    <div className="w-64 bg-secondary/40 h-screen flex flex-col">
       {/* Logo Section */}
       <div className="p-6 border-b border-secondary/20">
         <div className="flex items-center space-x-3">
@@ -51,7 +51,7 @@ export default function ManagerSidebar({ logoutUser }) {
               <li key={index}>
                 <Link
                   to={item.href}
-                  className="flex items-center space-x-3 px-4 py-3 text-secondary rounded-lg hover:bg-secondary hover:text-primary transition-all"
+                  className="flex items-center space-x-3 px-4 py-3 text-base-200 rounded-lg hover:bg-primary hover:text-secondary transition-all"
                 >
                   <Icon className="w-5 h-5" />
                   <span className="font-medium">{item.name}</span>

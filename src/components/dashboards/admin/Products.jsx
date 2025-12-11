@@ -5,7 +5,7 @@ import { AdminContext } from "../../../context/AdminContext";
 import { useForm } from "react-hook-form";
 import { TbBatteryCharging } from "react-icons/tb";
 import api from "../../../api";
-import UnauthorizedPage from "../../UnauthorizedPage";
+import UnauthorizedPage from "../../../pages/UnauthorizedPage";
 import { QueryClient, useQuery, useQueryClient } from "@tanstack/react-query";
 import { Link } from "react-router";
 import { toast } from "react-toastify";

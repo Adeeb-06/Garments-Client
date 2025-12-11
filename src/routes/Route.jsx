@@ -18,6 +18,9 @@ import Products from "../components/dashboards/admin/Products";
 import Payment from "../pages/Payment";
 import PaymentSuccess from "../pages/PaymentSuccess";
 import PaymentCancel from "../pages/PaymentCancel";
+import PendingOrders from "../components/dashboards/manager/PendingOrders";
+import UnauthorizedPage from "../pages/UnauthorizedPage";
+import ManagerRoute from "../provider/ManagerRoute";
 
 export const router = createBrowserRouter([
   {
@@ -104,10 +107,18 @@ export const router = createBrowserRouter([
         path: "all-products",
         element: <Products />,
       },
+      {
+        path: "pending-orders",
+        element: <ManagerRoute><PendingOrders /></ManagerRoute>
+      }
     ],
   },
   {
     path: "/access-denied",
     element: <AccountStatus />,
   },
+  {
+    path: "/unauthorized",
+    element: <UnauthorizedPage />,
+  }
 ]);

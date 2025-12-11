@@ -169,13 +169,13 @@ export default function OrderPage() {
                 <div className="">
                   <div>
                     <label className="block text-sm font-medium text-base-200 mb-2">
-                      Name <span className="text-red-500">*</span>
+                      First Name <span className="text-red-500">*</span>
                     </label>
                     <div className="relative">
                       <User className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
                       <input
                         type="text"
-                        {...register("name", {
+                        {...register("firstName", {
                           required: {
                             value: true,
                             message: "Name is required",
@@ -185,10 +185,35 @@ export default function OrderPage() {
                         className="w-full pl-10 pr-4 py-3 border border-base-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all"
                       />
                     </div>
-                    {errors.name && (
+                    {errors.firstName && (
                       <p className="text-red-500 text-sm mt-1 flex items-center gap-1">
                         <AlertCircle className="w-4 h-4" />
-                        {errors.name.message}
+                        {errors.firstName.message}
+                      </p>
+                    )}
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-base-200 mb-2">
+                     Last Name <span className="text-red-500">*</span>
+                    </label>
+                    <div className="relative">
+                      <User className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+                      <input
+                        type="text"
+                        {...register("lastName", {
+                          required: {
+                            value: true,
+                            message: "Name is required",
+                          },
+                        })}
+                        placeholder="John"
+                        className="w-full pl-10 pr-4 py-3 border border-base-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all"
+                      />
+                    </div>
+                    {errors.lastName && (
+                      <p className="text-red-500 text-sm mt-1 flex items-center gap-1">
+                        <AlertCircle className="w-4 h-4" />
+                        {errors.lastName.message}
                       </p>
                     )}
                   </div>

@@ -10,7 +10,7 @@ import {
 import { AuthContext } from "../../../context/AuthContext";
 import { useNavigate, useParams } from "react-router";
 import AccountStatus from "../../AccountStatus";
-import UnauthorizedPage from "../../UnauthorizedPage";
+import UnauthorizedPage from "../../../pages/UnauthorizedPage";
 import { useForm } from "react-hook-form";
 import api from "../../../api";
 import { useMutation } from "@tanstack/react-query";
