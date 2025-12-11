@@ -1,8 +1,8 @@
 import React, { useContext } from "react";
 import { Outlet, useNavigate } from "react-router";
-import { AuthContext } from "../../context/AuthContext";
+import { AuthContext } from "../../../context/AuthContext";
 
-import BuyerSidebar from "../sidebars/BuyerSidebar";
+import BuyerSidebar from "../../sidebars/BuyerSidebar";
 
 
 const BuyerDashboard = () => {
@@ -26,12 +26,12 @@ const BuyerDashboard = () => {
   return (
     <div className="flex">
       {/* Sidebar */}
-      <aside className="w-[20%]">
+      <aside className="w">
        <BuyerSidebar logoutUser={logoutUser}/>
       </aside>
 
       {/* Dashboard content */}
-      <main className="ml-4">
+      <main className="">
        <Outlet/>
       </main>
     </div>

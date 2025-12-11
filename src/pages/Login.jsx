@@ -35,12 +35,12 @@ export default function Login() {
   };
 
   return (
-    <div className="min-h-screen bg-base-200 flex items-center justify-center px-4 py-8">
+    <div className="min-h-screen bg-primary flex items-center justify-center px-4 py-8">
       <div className="w-full max-w-md">
         {/* Logo and Header */}
         <div className="text-center mb-8">
        
-          <h1 className="text-3xl font-bold text-primary mb-2">Welcome Back</h1>
+          <h1 className="text-3xl font-bold text-base-200 mb-2">Welcome Back</h1>
           <p className="text-gray-600">Sign in to your Garments Tracker account</p>
         </div>
 
@@ -49,7 +49,7 @@ export default function Login() {
           <form onSubmit={handleSubmit(onSubmit)}>
             {/* Email Input */}
             <div>
-              <label htmlFor="email" className="block text-sm font-medium text-primary mb-2">
+              <label htmlFor="email" className="block text-sm font-medium text-secondary mb-2">
                 Email Address
               </label>
               <div className="relative">
@@ -69,7 +69,7 @@ export default function Login() {
 
             {/* Password Input */}
             <div>
-              <label htmlFor="password" className="block text-sm font-medium text-primary mb-2">
+              <label htmlFor="password" className="block text-sm font-medium text-secondary mb-2">
                 Password
               </label>
               <div className="relative">
@@ -102,9 +102,9 @@ export default function Login() {
                   className="absolute inset-y-0 right-0 pr-3 flex items-center"
                 >
                   {showPassword ? (
-                    <EyeOff className="h-5 w-5 text-gray-400 hover:text-primary transition-colors" />
+                    <EyeOff className="h-5 w-5 text-gray-400 hover:text-base-200 transition-colors" />
                   ) : (
-                    <Eye className="h-5 w-5 text-gray-400 hover:text-primary transition-colors" />
+                    <Eye className="h-5 w-5 text-gray-400 hover:text-base-200 transition-colors" />
                   )}
                 </button>
               </div>
@@ -114,7 +114,7 @@ export default function Login() {
             {/* Sign In Button */}
             <button
               type="submit"
-              className="w-full bg-primary text-secondary py-3 rounded-lg font-semibold hover:opacity-90 transition-all shadow-md hover:shadow-lg"
+              className="w-full bg-secondary text-primary py-3 rounded-lg font-semibold hover:opacity-90 transition-all shadow-md hover:shadow-lg"
             >
               Sign In
             </button>
@@ -161,7 +161,7 @@ export default function Login() {
           <div className="mt-6 text-center">
             <p className="text-sm text-gray-600">
               Don't have an account?{' '}
-              <Link to="/auth/register" className="text-primary font-semibold hover:underline">
+              <Link to="/auth/register" className="text-base-200 font-semibold hover:underline">
                 Sign up now
               </Link>
             </p>

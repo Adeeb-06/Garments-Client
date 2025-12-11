@@ -22,7 +22,7 @@ export default function Products() {
     });
     return res.data;
   };
-  const queryClient = useQueryClient();
+
   const {
     data: products,
     isLoading,
@@ -33,9 +33,6 @@ export default function Products() {
     queryKey: ["products"],
     queryFn: () => fetchProducts(),
     enabled: !!user,
-    staleTime: 0, // ensures cache becomes stale immediately
-    refetchOnMount: true,
-    refetchOnWindowFocus: false,
   });
 
   console.log(products);
@@ -51,30 +48,24 @@ export default function Products() {
 
   console.log(filteredProducts);
 
-  // --- Add this inside your component ---
-  const toggleShowOnHome = async (id, current) => {
-    try {
-      const res = await api.patch(
-        `/admin/product-status/${id}`,
-        { onHomePage: !current },
-        {
-          headers: { Authorization: `Bearer ${user.accessToken}` },
-        }
-      );
-         queryClient.setQueryData(["products"], (old) =>
-      old.map((p) =>
-        p._id === id ? { ...p, onHomePage: !current } : p
-      )
-    );
-      if (res.status === 200) {
-        toast.success("Product status updated successfully!");
-        refetch(); // refresh table
+
+  const toggleShowOnHome = async (id, onHomePage) => {
+    const res = await api.patch(
+      `/admin/product-status/${id}`,
+      { onHomePage: !onHomePage },
+      {
+        headers: { Authorization: `Bearer ${user.accessToken}` },
       }
-    } catch (err) {
-      console.log(err);
+    );
+    if (res.status === 200) {
+      toast.success("Product updated successfully!");
+      refetch();
     }
   };
 
+  // --- Add this inside your component ---
+  
+if(isLoadingUser) return <p> Loading...</p>;
  
     return (
       <div className="min-h-screen w-[80vw] bg-primary p-8">

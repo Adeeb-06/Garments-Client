@@ -48,11 +48,11 @@ export default function Register() {
   };
 
   return (
-    <div className="min-h-screen bg-base-200 flex items-center justify-center px-4 py-8">
+    <div className="min-h-screen bg-primary flex items-center justify-center px-4 py-8">
       <div className="w-full max-w-md">
         {/* Logo and Header */}
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-primary mb-2">
+          <h1 className="text-3xl font-bold text-base-200 mb-2">
             Create Account
           </h1>
           <p className="text-gray-600">Join Garments Tracker System</p>
@@ -66,7 +66,7 @@ export default function Register() {
               <div>
                 <label
                   htmlFor="name"
-                  className="block text-sm font-medium text-primary mb-2"
+                  className="block text-sm font-medium text-secondary mb-2"
                 >
                   Full Name <span className="text-red-500">*</span>
                 </label>
@@ -89,7 +89,7 @@ export default function Register() {
               <div>
                 <label
                   htmlFor="email"
-                  className="block text-sm font-medium text-primary mb-2"
+                  className="block text-sm font-medium text-secondary mb-2"
                 >
                   Email Address <span className="text-red-500">*</span>
                 </label>
@@ -112,7 +112,7 @@ export default function Register() {
               <div>
                 <label
                   htmlFor="photoURL"
-                  className="block text-sm font-medium text-primary mb-2"
+                  className="block text-sm font-medium text-secondary mb-2"
                 >
                   Photo URL <span className="text-red-500">*</span>
                 </label>
@@ -138,7 +138,7 @@ export default function Register() {
               <div>
                 <label
                   htmlFor="role"
-                  className="block text-sm font-medium text-primary mb-2"
+                  className="block text-sm font-medium text-secondary mb-2"
                 >
                   Role <span className="text-red-500">*</span>
                 </label>
@@ -177,7 +177,7 @@ export default function Register() {
               <div>
                 <label
                   htmlFor="password"
-                  className="block text-sm font-medium text-primary mb-2"
+                  className="block text-sm font-medium text-secondary mb-2"
                 >
                   Password <span className="text-red-500">*</span>
                 </label>
@@ -221,9 +221,9 @@ export default function Register() {
               </div>
 
               {/* Status Info */}
-              <div className="bg-base-200 border border-base-300 rounded-lg p-3">
+              <div className="bg-primary border border-base-300 rounded-lg p-3">
                 <p className="text-sm text-gray-600">
-                  <span className="font-medium text-primary">
+                  <span className="font-medium text-secondary">
                     Account Status:
                   </span>{" "}
                   Your account will be set to{" "}
@@ -258,7 +258,7 @@ export default function Register() {
               {/* Sign Up Button */}
               <button
                 type="submit"
-                className="w-full bg-primary text-secondary py-3 rounded-lg font-semibold hover:opacity-90 transition-all shadow-md hover:shadow-lg"
+                className="w-full bg-secondary text-primary py-3 rounded-lg font-semibold hover:opacity-90 transition-all shadow-md hover:shadow-lg"
               >
                 Create Account
               </button>
@@ -309,7 +309,7 @@ export default function Register() {
                 Already have an account?{" "}
                 <a
                   href="#signin"
-                  className="text-primary font-semibold hover:underline"
+                  className="text-secondary font-semibold hover:underline"
                 >
                   Sign in here
                 </a>

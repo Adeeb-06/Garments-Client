@@ -23,6 +23,8 @@ import UnauthorizedPage from "../pages/UnauthorizedPage";
 import ManagerRoute from "../provider/ManagerRoute";
 import ApprovedOrders from "../components/dashboards/manager/ApprovedOrders";
 import AdminRoute from "../provider/AdminRoute";
+import BuyerRoute from "../provider/BuyerRoute";
+import Orders from "../components/dashboards/buyer/Orders";
 
 export const router = createBrowserRouter([
   {
@@ -134,6 +136,14 @@ export const router = createBrowserRouter([
           <ManagerRoute>
             <PendingOrders />
           </ManagerRoute>
+        ),
+      },
+      {
+        path: "orders",
+        element: (
+          <BuyerRoute>
+            <Orders />
+          </BuyerRoute>
         ),
       },
       {

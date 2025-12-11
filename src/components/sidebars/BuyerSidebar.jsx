@@ -10,16 +10,17 @@ import {
   Settings, 
   LogOut
 } from 'lucide-react';
+import { Link } from 'react-router';
 
 export default function BuyerSidebar({logoutUser}) {
   const menuItems = [
     { name: 'Dashboard', icon: LayoutDashboard },
-    { name: 'Orders', icon: ShoppingCart },
+    { name: 'Orders', icon: ShoppingCart , href: "/dashboard/orders"},
     { name: 'Profile', icon: UserCheck },
   ];
 
   return (
-    <div className="w-64 bg-primary h-screen flex flex-col">
+    <div className="w-64 bg-secondary/40 h-screen flex flex-col">
       {/* Logo Section */}
       <div className="p-6 border-b border-secondary/20">
         <div className="flex items-center space-x-3">
@@ -40,13 +41,13 @@ export default function BuyerSidebar({logoutUser}) {
             const Icon = item.icon;
             return (
               <li key={index}>
-                <a
-                  href="#"
-                  className="flex items-center space-x-3 px-4 py-3 text-secondary rounded-lg hover:bg-secondary hover:text-primary transition-all"
+                <Link
+                  to={item.href}
+                  className="flex items-center space-x-3 px-4 py-3 text-base-200 rounded-lg hover:bg-primary hover:text-secondary transition-all"
                 >
                   <Icon className="w-5 h-5" />
                   <span className="font-medium">{item.name}</span>
-                </a>
+                </Link>
               </li>
             );
           })}

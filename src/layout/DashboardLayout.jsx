@@ -4,7 +4,7 @@ import { AuthContext } from "../context/AuthContext";
 
 import AdminDashboard from "../components/dashboards/admin/AdminDashboard";
 import ManagerDashboard from "../components/dashboards/manager/ManagerDashboard";
-import BuyerDashboard from "../components/dashboards/BuyerDashboard";
+import BuyerDashboard from "../components/dashboards/buyer/BuyerDashboard";
 
 const DashboardLayout = () => {
   const { userData, user, loading } = useContext(AuthContext);
