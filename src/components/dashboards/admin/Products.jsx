@@ -75,7 +75,7 @@ export default function Products() {
     }
   };
 
-  if (userData?.role == "admin") {
+ 
     return (
       <div className="min-h-screen w-[80vw] bg-primary p-8">
         <div className=" mx-auto">
@@ -241,7 +241,5 @@ export default function Products() {
         {/* Update Status Modal */}
       </div>
     );
-  } else {
-    return <UnauthorizedPage />;
-  }
+ 
 }

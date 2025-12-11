@@ -15,12 +15,7 @@ export default function BuyerSidebar({logoutUser}) {
   const menuItems = [
     { name: 'Dashboard', icon: LayoutDashboard },
     { name: 'Orders', icon: ShoppingCart },
-    // { name: 'Production', icon: Scissors },
-    { name: 'Inventory', icon: Package },
-    // { name: 'Buyers', icon: Users },
-    { name: 'User Management', icon: UserCheck },
-    { name: 'Analytics', icon: BarChart3 },
-    // { name: 'Settings', icon: Settings },
+    { name: 'Profile', icon: UserCheck },
   ];
 
   return (

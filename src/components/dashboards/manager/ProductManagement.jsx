@@ -46,7 +46,7 @@ export default function ProductManagement() {
 
   console.log(filteredProducts);
 
-  if (userData?.role == "manager") {
+
     return (
       <div className="min-h-screen w-[80vw] bg-base-200 p-8">
         <div className=" mx-auto">
@@ -181,7 +181,5 @@ export default function ProductManagement() {
         {/* Update Status Modal */}
       </div>
     );
-  } else {
-    return <UnauthorizedPage />;
-  }
+  
 }

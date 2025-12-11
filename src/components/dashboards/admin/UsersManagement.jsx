@@ -58,7 +58,6 @@ export default function UserManagement() {
     setSelectedUser(null);
   };
 
-  if(userData?.role == "admin") {
     return (
     <div className="min-h-screen w-[80vw] bg-base-200 p-8">
       <div className=" mx-auto">
@@ -287,7 +286,5 @@ export default function UserManagement() {
         </div>
       )}
     </div>
-  );} else{
-    return <UnauthorizedPage/>
-  }
+  );
 }

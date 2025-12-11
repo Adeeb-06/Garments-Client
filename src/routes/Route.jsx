@@ -22,6 +22,7 @@ import PendingOrders from "../components/dashboards/manager/PendingOrders";
 import UnauthorizedPage from "../pages/UnauthorizedPage";
 import ManagerRoute from "../provider/ManagerRoute";
 import ApprovedOrders from "../components/dashboards/manager/ApprovedOrders";
+import AdminRoute from "../provider/AdminRoute";
 
 export const router = createBrowserRouter([
   {
@@ -54,15 +55,30 @@ export const router = createBrowserRouter([
       },
       {
         path: "/payment/:orderId",
-        element: <ApproveRoute> <Payment /> </ApproveRoute>,
+        element: (
+          <ApproveRoute>
+            {" "}
+            <Payment />{" "}
+          </ApproveRoute>
+        ),
       },
       {
         path: "payment-success",
-        element: <ApproveRoute> <PaymentSuccess /> </ApproveRoute>,
+        element: (
+          <ApproveRoute>
+            {" "}
+            <PaymentSuccess />{" "}
+          </ApproveRoute>
+        ),
       },
       {
         path: "payment-cancel",
-        element: <ApproveRoute> <PaymentCancel /> </ApproveRoute>,
+        element: (
+          <ApproveRoute>
+            {" "}
+            <PaymentCancel />{" "}
+          </ApproveRoute>
+        ),
       },
     ],
   },
@@ -90,7 +106,7 @@ export const router = createBrowserRouter([
     children: [
       {
         path: "users",
-        element: <UserManagement />,
+        element: <AdminRoute><UserManagement /></AdminRoute> 
       },
       {
         path: "add-product",
@@ -98,7 +114,11 @@ export const router = createBrowserRouter([
       },
       {
         path: "products",
-        element: <ProductManagement />,
+        element: (
+          <ManagerRoute>
+            <ProductManagement />
+          </ManagerRoute>
+        ),
       },
       {
         path: "update-product/:id",
@@ -106,15 +126,23 @@ export const router = createBrowserRouter([
       },
       {
         path: "all-products",
-        element: <Products />,
+        element: <AdminRoute><Products /></AdminRoute> ,
       },
       {
         path: "pending-orders",
-        element: <ManagerRoute><PendingOrders /></ManagerRoute>
+        element: (
+          <ManagerRoute>
+            <PendingOrders />
+          </ManagerRoute>
+        ),
       },
       {
         path: "approved-orders",
-        element: <ManagerRoute><ApprovedOrders /></ManagerRoute>
+        element: (
+          <ManagerRoute>
+            <ApprovedOrders />
+          </ManagerRoute>
+        ),
       },
     ],
   },
@@ -125,5 +153,5 @@ export const router = createBrowserRouter([
   {
     path: "/unauthorized",
     element: <UnauthorizedPage />,
-  }
+  },
 ]);

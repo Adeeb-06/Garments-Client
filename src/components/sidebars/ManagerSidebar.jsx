@@ -10,20 +10,17 @@ import {
   Settings,
   LogOut,
   PackageIcon,
+  TimerIcon,
 } from "lucide-react";
 import { Link } from "react-router";
 
 export default function ManagerSidebar({ logoutUser }) {
   const menuItems = [
     { name: "Dashboard", icon: LayoutDashboard },
-    { name: "Orders", icon: ShoppingCart },
-    // { name: 'Production', icon: Scissors },
     { name: "Add Products", icon: Package, href: "/dashboard/add-product" },
     { name: "Products", icon: Package, href: "/dashboard/products" },
-    {name:"Pending Orders", icon: PackageIcon, href: "/dashboard/pending-orders"},
-    {name:"Approved Orders", icon: PackageIcon, href: "/dashboard/approved-orders"},
-    { name: "Analytics", icon: BarChart3 },
-    // { name: 'Settings', icon: Settings },
+    {name:"Pending Orders", icon: TimerIcon, href: "/dashboard/pending-orders"},
+    {name:"Approved Orders", icon: ShoppingCart, href: "/dashboard/approved-orders"},,
   ];
 
   return (
