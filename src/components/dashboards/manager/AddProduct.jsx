@@ -75,7 +75,7 @@ export default function AddProduct() {
     mutate(data);
   };
 
-  const categories = ["Shirt", "Pant", "Jacket", "Accessories"];
+  const categories = ["Men", "Woman", "Kids", "Winter"];
   const paymentOptions = ["Cash on Delivery", "PayFirst"];
 
   const handleAddFiles = (e) => {
@@ -86,11 +86,11 @@ export default function AddProduct() {
 
   if (userData?.role == "manager") {
     return (
-      <div className="min-h-screen w-[80vw] bg-base-200 p-8">
+      <div className="min-h-screen w-[80vw] bg-primary p-8">
         <div className="mx-auto">
           {/* Header */}
           <div className="mb-8">
-            <h1 className="text-3xl font-bold text-primary mb-2">
+            <h1 className="text-3xl font-bold text-secondary mb-2">
               Add New Product
             </h1>
             <p className="text-gray-600">
@@ -103,7 +103,7 @@ export default function AddProduct() {
               <div className="space-y-6">
                 {/* Product Name */}
                 <div>
-                  <label className="block text-sm font-medium text-primary mb-2">
+                  <label className="block text-sm font-medium text-secondary mb-2">
                     Product Name / Title <span className="text-red-500">*</span>
                   </label>
                   <div className="relative">
@@ -124,7 +124,7 @@ export default function AddProduct() {
 
                 {/* Product Description */}
                 <div>
-                  <label className="block text-sm font-medium text-primary mb-2">
+                  <label className="block text-sm font-medium text-secondary mb-2">
                     Product Description <span className="text-red-500">*</span>
                   </label>
                   <div className="relative">
@@ -145,7 +145,7 @@ export default function AddProduct() {
 
                 {/* Category Dropdown */}
                 <div>
-                  <label className="block text-sm font-medium text-primary mb-2">
+                  <label className="block text-sm font-medium text-secondary mb-2">
                     Category <span className="text-red-500">*</span>
                   </label>
                   <div className="relative">
@@ -186,7 +186,7 @@ export default function AddProduct() {
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                   {/* Price */}
                   <div>
-                    <label className="block text-sm font-medium text-primary mb-2">
+                    <label className="block text-sm font-medium text-secondary mb-2">
                       Price <span className="text-red-500">*</span>
                     </label>
                     <div className="relative">
@@ -209,7 +209,7 @@ export default function AddProduct() {
 
                   {/* Available Quantity */}
                   <div>
-                    <label className="block text-sm font-medium text-primary mb-2">
+                    <label className="block text-sm font-medium text-secondary mb-2">
                       Available Quantity <span className="text-red-500">*</span>
                     </label>
                     <div className="relative">
@@ -231,7 +231,7 @@ export default function AddProduct() {
 
                   {/* Minimum Order Quantity */}
                   <div>
-                    <label className="block text-sm font-medium text-primary mb-2">
+                    <label className="block text-sm font-medium text-secondary mb-2">
                       Min. Order (MOQ) <span className="text-red-500">*</span>
                     </label>
                     <div className="relative">
@@ -254,13 +254,13 @@ export default function AddProduct() {
 
                 {/* Images Upload */}
                 <div>
-                  <label className="block text-sm font-medium text-primary mb-2">
+                  <label className="block text-sm font-medium text-secondary mb-2">
                     Product Images <span className="text-red-500">*</span>
                   </label>
-                  <div className="border-2 border-dashed border-base-300 rounded-lg p-8 text-center hover:border-primary transition-all bg-base-200">
+                  <div className="border-2 border-dashed border-base-300 rounded-lg p-8 text-center hover:border-primary transition-all bg-primary">
                     <Upload className="w-12 h-12 text-gray-400 mx-auto mb-4" />
                     <p className="text-gray-600 mb-2">
-                      <span className="text-primary font-semibold cursor-pointer hover:underline">
+                      <span className="text-secondary font-semibold cursor-pointer hover:underline">
                         Click to upload
                       </span>{" "}
                       or drag and drop
@@ -304,7 +304,7 @@ export default function AddProduct() {
 
                 {/* Payment Options Dropdown */}
                 <div>
-                  <label className="block text-sm font-medium text-primary mb-2">
+                  <label className="block text-sm font-medium text-secondary mb-2">
                     Payment Options <span className="text-red-500">*</span>
                   </label>
                   <div className="relative">

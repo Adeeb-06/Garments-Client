@@ -15,6 +15,7 @@ import OrderPage from "../pages/OrderPage";
 import AccountStatus from "../components/AccountStatus";
 import ApproveRoute from "../provider/ApproveRoute";
 import Products from "../components/dashboards/admin/Products";
+import Payment from "../pages/Payment";
 
 export const router = createBrowserRouter([
   {
@@ -39,10 +40,16 @@ export const router = createBrowserRouter([
       },
       {
         path: "order/:id",
-        element: <ApproveRoute>
+        element: (
+          <ApproveRoute>
             <OrderPage />
           </ApproveRoute>
-      }
+        ),
+      },
+      {
+        path: "/payment/:orderId",
+        element: <Payment />,
+      },
     ],
   },
   {
@@ -84,13 +91,13 @@ export const router = createBrowserRouter([
         element: <UpdateProduct />,
       },
       {
-        path:"all-products",
-        element:<Products/>
-      }
+        path: "all-products",
+        element: <Products />,
+      },
     ],
   },
   {
     path: "/access-denied",
-    element: <AccountStatus/>,
-  }
+    element: <AccountStatus />,
+  },
 ]);

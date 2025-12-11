@@ -71,7 +71,7 @@ export default function ProductDetailsPage() {
 
               <h1 className="text-3xl font-bold text-secondary mb-4">{product?.product_name}</h1>
 
-              <p className="text-gray-700 leading-relaxed mb-6">{product?.description}</p>
+              <p className="text-gray-700 leading-relaxed mb-6">{product?.product_description}</p>
 
               {/* Price */}
               <div className="bg-primary rounded-xl p-4 mb-4">
@@ -90,7 +90,6 @@ export default function ProductDetailsPage() {
                   </div>
                   <p className="text-2xl font-bold text-green-600">{product?.available_quantity} pcs</p>
                 </div>
-
                 <div className="bg-yellow-50 border border-yellow-200 rounded-xl p-4">
                   <div className="flex items-center space-x-2 mb-1">
                     <ShoppingCart className="w-5 h-5 text-yellow-600" />
@@ -100,8 +99,6 @@ export default function ProductDetailsPage() {
                 </div>
               </div>
             </div>
-
-       
             {/* Payment Options */}
             <div className="bg-white rounded-2xl shadow-lg p-6 border border-base-300">
               <h3 className="text-lg font-bold text-base-200 mb-4 flex items-center">
@@ -129,7 +126,7 @@ export default function ProductDetailsPage() {
             {/* Additional Info */}
             <div className="bg-blue-50 border border-blue-200 rounded-xl p-4">
               <p className="text-sm text-blue-800">
-                <strong>Note:</strong> Minimum order quantity is {product?.minimumOrder} pieces. Orders will be processed within 24-48 hours.
+                <strong>Note:</strong> Minimum order quantity is {product?.min_order} pieces. Orders will be processed within 24-48 hours.
               </p>
             </div>
           </div>

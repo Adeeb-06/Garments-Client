@@ -31,7 +31,7 @@ const ManagerProvider = ({ children }) => {
   const  {data:product, isLoading, isError, refetch} = useQuery({
     queryKey: ["product",id],
     queryFn:()=> fetchProductByID(id),
-    enabled: !!user && !!id,
+    enabled: !!user,
   });
 
   const {data:products, isLoading:isLoadingProducts, isError:isErrorProducts, refetch:refetchProducts} = useQuery({
@@ -54,9 +54,9 @@ const ManagerProvider = ({ children }) => {
   };
 
   return (
-    <ManagerContext value={data}>
+    <ManagerContext.Provider value={data}>
       {children}
-    </ManagerContext>
+    </ManagerContext.Provider>
   );
 };
 

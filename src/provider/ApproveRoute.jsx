@@ -11,11 +11,11 @@ const ApproveRoute = ({children}) => {
     return <div className='flex justify-center items-center  w-full h-screen'><span className="loading mx-auto  w-10 h-10 loading-spinner text-secondary"></span></div>;
   }
 
-    if (userData.status === 'approve') {
-        return children
+    if (userData?.status === 'pending' || userData?.status === 'reject') {
+        return <Navigate state={location.pathname}  to="/access-denied" />
     }
 
-    return <Navigate state={location.pathname}  to="/access-denied" />;
+    return children ;
 
 }
 
