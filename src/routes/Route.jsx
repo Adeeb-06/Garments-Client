@@ -17,6 +17,7 @@ import ApproveRoute from "../provider/ApproveRoute";
 import Products from "../components/dashboards/admin/Products";
 import Payment from "../pages/Payment";
 import PaymentSuccess from "../pages/PaymentSuccess";
+import PaymentCancel from "../pages/PaymentCancel";
 
 export const router = createBrowserRouter([
   {
@@ -54,7 +55,11 @@ export const router = createBrowserRouter([
       {
         path: "payment-success",
         element: <ApproveRoute> <PaymentSuccess /> </ApproveRoute>,
-      }
+      },
+      {
+        path: "payment-cancel",
+        element: <ApproveRoute> <PaymentCancel /> </ApproveRoute>,
+      },
     ],
   },
   {
