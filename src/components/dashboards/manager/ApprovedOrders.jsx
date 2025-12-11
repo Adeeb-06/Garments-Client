@@ -6,12 +6,12 @@ import api from "../../../api";
 import { toast } from "react-toastify";
 import { AuthContext } from "../../../context/AuthContext";
 
-const PendingOrders = () => {
-  const { pendingOrders, refetchPendingOrders } = useContext(ManagerContext);
+const ApprovedOrders = () => {
+  const { approvedOrders, refetchApprovedOrders } = useContext(ManagerContext);
   const { user } = useContext(AuthContext);
   const [searchQuery, setSearchQuery] = useState("");
 
-  console.log(pendingOrders);
+
 
   const handleApprove = async (id) => {
     const res = await api.patch(
@@ -23,7 +23,7 @@ const PendingOrders = () => {
     );
     if (res.status === 200) {
       toast.success("Order approved successfully!");
-      refetchPendingOrders();
+    //   refetchPendingOrders();
     }
   };
   const handleReject = async (id) => {
@@ -36,11 +36,11 @@ const PendingOrders = () => {
     );
     if (res.status === 200) {
       toast.error("Order Rejected!");
-      refetchPendingOrders();
+    //   refetchPendingOrders();
     }
   };
 
-  const filteredOrders = pendingOrders?.filter((order) => {
+  const filteredOrders = approvedOrders?.filter((order) => {
     const query = searchQuery.toLowerCase();
 
     if (!query) return true; // return all when empty search
@@ -59,9 +59,9 @@ const PendingOrders = () => {
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-4">
             <div>
               <h1 className="text-3xl font-bold text-secondary mb-2">
-                Pending Orders
+                Approved  Orders
               </h1>
-              <p className="text-gray-600">Manage pending orders</p>
+              <p className="text-gray-600">Manage approved orders</p>
             </div>
 
             {/* Search Bar */}
@@ -98,7 +98,7 @@ const PendingOrders = () => {
                     Quantity
                   </th>
                   <th className="px-6 py-4 text-center text-sm font-semibold uppercase tracking-wider">
-                    Order Date
+                    Approved Date
                   </th>
                   <th className="px-6 py-4 text-center text-sm font-semibold uppercase tracking-wider">
                     Actions
@@ -141,7 +141,7 @@ const PendingOrders = () => {
                         <span
                           className={`inline-flex px-3 py-1 text-sm font-semibold rounded-full text-gray-700 `}
                         >
-                          {new Date(product.createdAt).toLocaleDateString()}
+                          {new Date(product.approvedDate).toLocaleDateString()}
                         </span>
                       </td>
                       <td className="px-2 py-4">
@@ -205,4 +205,4 @@ const PendingOrders = () => {
   );
 };
 
-export default PendingOrders;
+export default ApprovedOrders;

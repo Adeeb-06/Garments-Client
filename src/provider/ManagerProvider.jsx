@@ -34,6 +34,16 @@ const ManagerProvider = ({ children }) => {
     return res.data;
   };
 
+  const fetchApprovedOrders = async () => {
+    const res = await api.get("/manager/approved-orders", {
+      headers: {
+        Authorization: `Bearer ${user.accessToken}`,
+      },
+    });
+    return res.data;
+  };
+
+
   const {
     data: product,
     isLoading,
@@ -65,6 +75,19 @@ const ManagerProvider = ({ children }) => {
     queryFn: () => fetchPendingOrders(),
   });
 
+
+const {
+  data: approvedOrders,
+  isLoading: isLoadingApprovedOrders,
+  isError: isErrorApprovedOrders,
+  refetch: refetchApprovedOrders,
+} =  useQuery({
+  queryKey: ["approvedOrders"],
+  queryFn: () => fetchApprovedOrders(),
+})
+
+
+
   const data = {
     product,
     isLoadingUser: isLoading,
@@ -80,6 +103,10 @@ const ManagerProvider = ({ children }) => {
     isLoadingPendingOrders,
     isErrorPendingOrders,
     refetchPendingOrders,
+    approvedOrders,
+    isLoadingApprovedOrders,
+    isErrorApprovedOrders,
+    refetchApprovedOrders,
   };
 
   return (

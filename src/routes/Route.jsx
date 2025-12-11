@@ -21,6 +21,7 @@ import PaymentCancel from "../pages/PaymentCancel";
 import PendingOrders from "../components/dashboards/manager/PendingOrders";
 import UnauthorizedPage from "../pages/UnauthorizedPage";
 import ManagerRoute from "../provider/ManagerRoute";
+import ApprovedOrders from "../components/dashboards/manager/ApprovedOrders";
 
 export const router = createBrowserRouter([
   {
@@ -110,7 +111,11 @@ export const router = createBrowserRouter([
       {
         path: "pending-orders",
         element: <ManagerRoute><PendingOrders /></ManagerRoute>
-      }
+      },
+      {
+        path: "approved-orders",
+        element: <ManagerRoute><ApprovedOrders /></ManagerRoute>
+      },
     ],
   },
   {

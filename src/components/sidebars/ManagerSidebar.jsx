@@ -21,6 +21,7 @@ export default function ManagerSidebar({ logoutUser }) {
     { name: "Add Products", icon: Package, href: "/dashboard/add-product" },
     { name: "Products", icon: Package, href: "/dashboard/products" },
     {name:"Pending Orders", icon: PackageIcon, href: "/dashboard/pending-orders"},
+    {name:"Approved Orders", icon: PackageIcon, href: "/dashboard/approved-orders"},
     { name: "Analytics", icon: BarChart3 },
     // { name: 'Settings', icon: Settings },
   ];
