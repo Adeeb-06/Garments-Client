@@ -33,11 +33,12 @@ const BuyerProvider = ({ children }) => {
   };
 
   const fetchOrderByID = async (id) => {
-    const res = await api.get(`/order/${orderID}`, {
+    const res = await api.get(`/order/${id}`, {
       headers: {
         Authorization: `Bearer ${user.accessToken}`,
       },
     });
+    console.log(res)
     return res.data;
   };
 
@@ -64,7 +65,7 @@ const BuyerProvider = ({ children }) => {
   const {data:order, isLoading:isLoadingOrder, isError:isErrorOrder, refetch:refetchOrder} = useQuery({
     queryKey: ["order"],
     queryFn:()=> fetchOrderByID(orderID),
-    enabled: !!user && !!orderID,
+    enabled: !!user,
   });
   const {
     data: orders,
@@ -90,6 +91,7 @@ const BuyerProvider = ({ children }) => {
     isLoadingProducts,
     isErrorProducts,
     refetchProducts,
+    orderID,
     order,
     isLoadingOrder,
     setOrderID,

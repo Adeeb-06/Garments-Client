@@ -1,44 +1,19 @@
-import { Check, Edit, Eye, Search, X } from "lucide-react";
+import { Check, Edit, Edit2Icon, Eye, Search, X } from "lucide-react";
 import React, { useContext, useState } from "react";
 import { useNavigate, Link } from "react-router";
 import { ManagerContext } from "../../../context/ManagerContext";
 import api from "../../../api";
 import { toast } from "react-toastify";
 import { AuthContext } from "../../../context/AuthContext";
+import { MdSpatialTracking } from "react-icons/md";
+import UpdateTrackingModal from "../../UpdateTrackingModal";
 
 const ApprovedOrders = () => {
   const { approvedOrders, refetchApprovedOrders } = useContext(ManagerContext);
   const { user } = useContext(AuthContext);
   const [searchQuery, setSearchQuery] = useState("");
-
-
-
-  const handleApprove = async (id) => {
-    const res = await api.patch(
-      `/manager/approve-order/${id}`,
-      {},
-      {
-        headers: { Authorization: `Bearer ${user.accessToken}` },
-      }
-    );
-    if (res.status === 200) {
-      toast.success("Order approved successfully!");
-    //   refetchPendingOrders();
-    }
-  };
-  const handleReject = async (id) => {
-    const res = await api.patch(
-      `/manager/reject-order/${id}`,
-      {},
-      {
-        headers: { Authorization: `Bearer ${user.accessToken}` },
-      }
-    );
-    if (res.status === 200) {
-      toast.error("Order Rejected!");
-      refetchApprovedOrders();
-    }
-  };
+  const [isOpen, setIsOpen] = useState(false);
+  const [selectedOrder, setSelectedOrder] = useState(null);
 
   const filteredOrders = approvedOrders?.filter((order) => {
     const query = searchQuery.toLowerCase();
@@ -51,6 +26,14 @@ const ApprovedOrders = () => {
     );
   });
 
+
+  const handleClick = (order) => {
+    setSelectedOrder(order);
+    setIsOpen(true);
+  };
+
+
+
   return (
     <div className="min-h-screen w-[82vw] bg-primary p-8">
       <div className=" mx-auto">
@@ -59,7 +42,7 @@ const ApprovedOrders = () => {
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-4">
             <div>
               <h1 className="text-3xl font-bold text-secondary mb-2">
-                Approved  Orders
+                Approved Orders
               </h1>
               <p className="text-gray-600">Manage approved orders</p>
             </div>
@@ -146,36 +129,12 @@ const ApprovedOrders = () => {
                       </td>
                       <td className="px-2 py-4">
                         <div className="flex items-center justify-center gap-1">
-                          {product?.status === "pending" ? (
-                            <>
-                              {/* Approve */}
-                              <button
-                                onClick={() => handleApprove(product._id)}
-                                className="flex items-center space-x-2 bg-green-600 hover:bg-green-700 text-white px-2 py-2 rounded-lg transition-all shadow-md hover:shadow-lg font-medium"
-                              >
-                                <Check className="w-4 h-4" />
-                              </button>
-
-                              {/* Reject */}
-                              <button
-                                onClick={() => handleReject(product._id)}
-                                className="flex items-center space-x-2 bg-yellow-500 hover:bg-yellow-600 text-white px-2 py-2 rounded-lg transition-all shadow-md hover:shadow-lg font-medium"
-                              >
-                                <X className="w-4 h-4" />
-                              </button>
-                            </>
-                          ) : product?.status === "rejected" ? (
-                            <>
-                              {/* Approve only */}
-                              <button
-                                onClick={() => handleApprove(product._id)}
-                                className="flex items-center space-x-2 bg-green-600 hover:bg-green-700 text-white px-2 py-2 rounded-lg transition-all shadow-md hover:shadow-lg font-medium"
-                              >
-                                <Check className="w-4 h-4" />
-                              </button>
-                            </>
-                          ) : null}
-
+                          <button
+                            onClick={() => handleClick(product)}
+                            className="flex items-center space-x-2 bg-gray-700 hover:bg-gray-800 text-white px-2 py-2 rounded-lg transition-all shadow-md hover:shadow-lg font-medium"
+                          >
+                            <Edit className="w-4 h-4" />
+                          </button>
                           <Link
                             to={`/dashboard/view-product/`}
                             className="flex items-center space-x-2 bg-gray-700 hover:bg-gray-800 text-white px-2 py-2 rounded-lg transition-all shadow-md hover:shadow-lg font-medium"
@@ -201,6 +160,14 @@ const ApprovedOrders = () => {
           </div>
         </div>
       </div>
+      {isOpen && (
+        <UpdateTrackingModal
+          order={selectedOrder}
+          refetchOrders={refetchApprovedOrders}
+          isOpen={isOpen}
+          onClose={() => setIsOpen(false)}
+        />
+      )}
     </div>
   );
 };

@@ -27,6 +27,7 @@ import BuyerRoute from "../provider/BuyerRoute";
 import Orders from "../components/dashboards/buyer/Orders";
 import Profile from "../pages/Profile";
 import ManagerOrBuyerRoute from "../provider/ManagerOrBuyerRoute";
+import OrderDetail from "../pages/OrderDetail";
 
 export const router = createBrowserRouter([
   {
@@ -162,6 +163,14 @@ export const router = createBrowserRouter([
           <ManagerOrBuyerRoute>
             <Profile />
           </ManagerOrBuyerRoute>
+        ),
+      },
+      {
+        path: "track-order/:id",
+        element: (
+          <BuyerRoute>
+            <OrderDetail />
+          </BuyerRoute>
         ),
       },
       {

@@ -31,6 +31,7 @@ const ManagerProvider = ({ children }) => {
         Authorization: `Bearer ${user.accessToken}`,
       },
     });
+    console.log(res)
     return res.data;
   };
 
@@ -40,6 +41,7 @@ const ManagerProvider = ({ children }) => {
         Authorization: `Bearer ${user.accessToken}`,
       },
     });
+    console.log(res)
     return res.data;
   };
 
@@ -63,6 +65,7 @@ const ManagerProvider = ({ children }) => {
   } = useQuery({
     queryKey: ["products"],
     queryFn: () => fetchProducts(),
+    enabled: !!user,
   });
 
   const {
@@ -73,6 +76,7 @@ const ManagerProvider = ({ children }) => {
   } = useQuery({
     queryKey: ["pendingOrders"],
     queryFn: () => fetchPendingOrders(),
+    enabled: !!user,
   });
 
 
@@ -84,6 +88,7 @@ const {
 } =  useQuery({
   queryKey: ["approvedOrders"],
   queryFn: () => fetchApprovedOrders(),
+  enabled: !!user,
 })
 
 
