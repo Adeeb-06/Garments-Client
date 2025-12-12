@@ -19,7 +19,7 @@ export default function Navbar() {
   const { userData, loading, logout } = useContext(AuthContext);
 
   const navLinks = [
-    { name: "Dashboard", icon: BarChart3, href: "#dashboard" },
+    { name: "All Products", icon: Package, href: "/all-products" },
     { name: "Orders", icon: ClipboardList, href: "#orders" },
     { name: "Production", icon: Scissors, href: "#production" },
     { name: "Inventory", icon: Package, href: "#inventory" },

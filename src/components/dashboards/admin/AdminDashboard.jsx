@@ -1,13 +1,15 @@
 import React, { useContext } from "react";
-import { Outlet, useNavigate } from "react-router";
+import { Outlet, useLocation, useNavigate } from "react-router";
 import { AuthContext } from "../../../context/AuthContext";
 
 import AdminSidebar from "../../sidebars/AdminSidebar";
+import Dashboard from "../../Dashboard";
 
 
 const AdminDashboard = () => {
   const { userData ,user, logout , loading } = useContext(AuthContext);
   const navigate = useNavigate();
+  const location = useLocation();
   console.log(userData)
 
   if(!user) navigate("/auth/login");
@@ -20,19 +22,23 @@ const AdminDashboard = () => {
     if (res) {
       navigate("/");
     }
+
   };
+
 
 
   return (
     <div className="flex">
       {/* Sidebar */}
-      <aside className="w-[20%]">
+      <aside className="w-[]">
        <AdminSidebar logoutUser={logoutUser}/>
       </aside>
 
       {/* Dashboard content */}
       <main className=" ">
        <Outlet/>
+{location.pathname === "/dashboard" ? <Dashboard/> : null}
+       
       </main>
     </div>
   );

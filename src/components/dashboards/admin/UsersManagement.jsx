@@ -67,13 +67,13 @@ export default function UserManagement() {
   };
 
   return (
-    <div className="min-h-screen w-[80vw] bg-base-200 p-8">
+    <div className="min-h-screen w-[80vw] bg-primary p-8">
       <div className=" mx-auto">
         {/* Header with Search */}
         <div className="mb-6">
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-4">
             <div>
-              <h1 className="text-3xl font-bold text-primary mb-2">
+              <h1 className="text-3xl font-bold text-base-200 mb-2">
                 User Management
               </h1>
               <p className="text-gray-600">
@@ -101,7 +101,7 @@ export default function UserManagement() {
             <table className="w-full">
               {/* Table Header */}
               <thead>
-                <tr className="bg-primary text-secondary">
+                <tr className="bg-secondary text-primary">
                   <th className="px-6 py-4 text-left text-sm font-semibold uppercase tracking-wider">
                     Name
                   </th>
@@ -123,7 +123,7 @@ export default function UserManagement() {
                   filteredUsers?.map((user, index) => (
                     <tr
                       key={index}
-                      className="hover:bg-base-200 transition-colors"
+                      className="hover:bg-primary/50 transition-colors"
                     >
                       <td className="px-6 py-4">
                         <div className="flex items-center space-x-3">
@@ -207,7 +207,7 @@ export default function UserManagement() {
             <div className="p-6">
               <div className="mb-6">
                 <div className="flex items-center space-x-3 mb-4">
-                  <div className="w-12 h-12 bg-primary text-secondary rounded-full flex items-center justify-center font-bold text-lg">
+                  <div className="w-12 h-12 bg-secondary text-primary rounded-full flex items-center justify-center font-bold text-lg">
                     {selectedUser.name
                       .split(" ")
                       .map((n) => n[0])
@@ -223,15 +223,15 @@ export default function UserManagement() {
                   </div>
                 </div>
 
-                <div className="bg-base-200 p-4 rounded-lg mb-4">
+                <div className="bg-primary p-4 rounded-lg mb-4">
                   <p className="text-sm text-gray-600 mb-1">Current Role</p>
-                  <p className="font-semibold text-primary">
+                  <p className="font-semibold text-base-200">
                     {selectedUser.role}
                   </p>
                 </div>
-                <div className="bg-base-200 p-4 rounded-lg mb-4">
+                <div className="bg-primary p-4 rounded-lg mb-4">
                   <p className="text-sm text-gray-600 mb-1">Current Status</p>
-                  <p className="font-semibold text-primary">
+                  <p className="font-semibold text-base-200">
                     {selectedUser.status}
                   </p>
                 </div>
@@ -315,7 +315,7 @@ export default function UserManagement() {
                     </div>
                   )}
 
-                  <button type="submit" className="px-6 py-2 bg-primary text-secondary rounded-lg hover:opacity-90 transition-all font-medium" > Save Changes </button>
+                  <button type="submit" className="px-6 cursor-pointer py-2 bg-primary text-secondary rounded-lg hover:opacity-90 transition-all font-medium" > Save Changes </button>
                 </form>
               </div>
             </div>

@@ -1,31 +1,29 @@
-import React from 'react';
-import { 
-  LayoutDashboard, 
-  ShoppingCart, 
-  Scissors, 
-  Package, 
-  Users, 
+import React from "react";
+import {
+  LayoutDashboard,
+  ShoppingCart,
+  Scissors,
+  Package,
+  Users,
   UserCheck,
-  BarChart3, 
-  Settings, 
-  LogOut
-} from 'lucide-react';
-import { Link } from 'react-router';
+  BarChart3,
+  Settings,
+  LogOut,
+} from "lucide-react";
+import { Link } from "react-router";
 
-export default function Sidebar({logoutUser}) {
+export default function Sidebar({ logoutUser }) {
   const menuItems = [
-    { name: 'Dashboard', icon: LayoutDashboard },
-    { name: 'Orders', icon: ShoppingCart },
-    // { name: 'Production', icon: Scissors },
-    { name: 'Products', icon: Package , href:"/dashboard/all-products" },
-    // { name: 'Buyers', icon: Users },
-    { name: 'User Management', icon: UserCheck , href:"/dashboard/users"},
-    { name: 'Analytics', icon: BarChart3 },
-    // { name: 'Settings', icon: Settings },
+    { name: "Dashboard", icon: LayoutDashboard },
+    { name: "Orders", icon: ShoppingCart, href: "/dashboard/all-orders" },
+
+    { name: "Products", icon: Package, href: "/dashboard/all-products" },
+
+    { name: "User Management", icon: UserCheck, href: "/dashboard/users" },
   ];
 
   return (
-    <div className="w-64 bg-primary h-screen flex flex-col">
+    <div className="w-64 bg-secondary/40 h-screen flex flex-col">
       {/* Logo Section */}
       <div className="p-6 border-b border-secondary/20">
         <div className="flex items-center space-x-3">
@@ -33,8 +31,10 @@ export default function Sidebar({logoutUser}) {
             <Scissors className="w-6 h-6" />
           </div>
           <div>
-            <h1 className="text-secondary font-bold text-lg">Garments Tracker</h1>
-            <p className="text-secondary/70 text-xs">Production System</p>
+            <h1 className="text-base-200 font-bold text-lg">
+              Garments Tracker
+            </h1>
+            <p className="text-base-200 text-xs">Admin</p>
           </div>
         </div>
       </div>
@@ -47,8 +47,8 @@ export default function Sidebar({logoutUser}) {
             return (
               <li key={index}>
                 <Link
-                  to= {item.href}
-                  className="flex items-center space-x-3 px-4 py-3 text-secondary rounded-lg hover:bg-secondary hover:text-primary transition-all"
+                  to={item.href}
+                  className="flex items-center space-x-3 px-4 py-3 text-base-200 rounded-lg hover:bg-primary hover:text-base-200 transition-all"
                 >
                   <Icon className="w-5 h-5" />
                   <span className="font-medium">{item.name}</span>
@@ -61,13 +61,13 @@ export default function Sidebar({logoutUser}) {
 
       {/* Logout Section */}
       <div className="p-4 border-t border-secondary/20">
-       <button
-                 onClick={()=> logoutUser()}
-                 className="flex items-center space-x-3 px-4 py-3 text-secondary rounded-lg hover:bg-red-500 hover:text-white transition-all"
-               >
-                 <LogOut className="w-5 h-5" />
-                 <span className="font-medium">Logout</span>
-               </button>
+        <button
+          onClick={() => logoutUser()}
+          className="flex items-center space-x-3 px-4 py-3 text-secondary rounded-lg hover:bg-red-500 hover:text-white transition-all"
+        >
+          <LogOut className="w-5 h-5" />
+          <span className="font-medium">Logout</span>
+        </button>
       </div>
     </div>
   );

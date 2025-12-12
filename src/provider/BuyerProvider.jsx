@@ -50,6 +50,13 @@ const BuyerProvider = ({ children }) => {
     });
     return res.data;
   };
+
+  const fetchAllProducts = async () => {
+    const res = await api.get("/all-products", {
+      
+    });
+    return res.data;
+  };
  
   const  {data:product, isLoading, isError, refetch} = useQuery({
     queryKey: ["product",id],
@@ -78,6 +85,17 @@ const BuyerProvider = ({ children }) => {
     enabled: !!user,
   });
 
+  const {
+    data: allProducts,
+    isLoading: isLoadingAllProducts,
+    isError: isErrorAllProducts,
+    refetch: refetchAllProducts,
+  } = useQuery({
+    queryKey: ["allProducts"],
+    queryFn: () => fetchAllProducts(),
+    enabled: !!user,
+  });
+
 
 
 
@@ -96,7 +114,9 @@ const BuyerProvider = ({ children }) => {
     isLoadingOrder,
     setOrderID,
     orders,
-    isLoadingOrders
+    isLoadingOrders,
+    allProducts,
+    isLoadingAllProducts,
   };
 
   return (

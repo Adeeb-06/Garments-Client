@@ -166,12 +166,7 @@ export default function OrderDetails() {
   return (
     <div className="min-h-screen w-[81vw] bg-primary p-8">
       <div className=" mx-auto">
-        {/* Back Button */}
-        <Link to={'/dashboard/orders'} className="flex items-center space-x-2 text-secondary hover:opacity-80 transition-colors mb-6">
-          <ArrowLeft className="w-5 h-5" />
-          <span className="font-medium">Back to Orders</span>
-        </Link>
-
+       
         {/* Header */}
         <div className="bg-white rounded-2xl shadow-lg p-6 borderData borderData-gray-200 mb-6">
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
@@ -182,7 +177,7 @@ export default function OrderDetails() {
               <p className="text-gray-600">
                 Order ID:{" "}
                 <span className="font-semibold text-secondary">
-                  {order._id}
+                  {order?._id ? order._id.toString() : "Loading..."}
                 </span>
               </p>
               <p className="text-gray-600 text-sm">

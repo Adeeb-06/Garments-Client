@@ -28,6 +28,8 @@ import Orders from "../components/dashboards/buyer/Orders";
 import Profile from "../pages/Profile";
 import ManagerOrBuyerRoute from "../provider/ManagerOrBuyerRoute";
 import OrderDetail from "../pages/OrderDetail";
+import AllProducts from "../pages/AllProducts";
+import OrdersAdmin from "../components/dashboards/admin/OrdersAdmin";
 
 export const router = createBrowserRouter([
   {
@@ -85,6 +87,10 @@ export const router = createBrowserRouter([
           </ApproveRoute>
         ),
       },
+      {
+        path: "all-products",
+        element: <AllProducts />
+      }
     ],
   },
   {
@@ -158,6 +164,14 @@ export const router = createBrowserRouter([
         ),
       },
       {
+        path: "all-orders",
+        element: (
+          <AdminRoute>
+            <OrdersAdmin />
+          </AdminRoute>
+        ),
+      },
+      {
         path: "profile",
         element: (
           <ManagerOrBuyerRoute>
@@ -171,6 +185,14 @@ export const router = createBrowserRouter([
           <BuyerRoute>
             <OrderDetail />
           </BuyerRoute>
+        ),
+      },
+      {
+        path:"order-details/:id",
+        element: (
+          <AdminRoute>
+            <OrderDetail />
+          </AdminRoute>
         ),
       },
       {

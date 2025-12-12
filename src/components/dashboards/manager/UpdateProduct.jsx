@@ -120,9 +120,9 @@ export default function UpdateProduct() {
     setImageList((prev) => [...prev, ...files]); // accumulate
   };
 
-  if (userData?.role == "manager") {
+  if (userData?.role == "manager" || userData?.role == "admin") {
     return (
-      <div className="min-h-screen w-[80vw] bg-base-200 p-8">
+      <div className="min-h-screen w-[80vw] bg-primary p-8">
         <div className="mx-auto">
           {/* Header */}
           <div className="mb-8">
@@ -298,7 +298,7 @@ export default function UpdateProduct() {
                   <label className="block text-sm font-medium text-primary mb-2">
                     Product Images <span className="text-red-500">*</span>
                   </label>
-                  <div className="border-2 border-dashed border-base-300 rounded-lg p-8 text-center hover:border-primary transition-all bg-base-200">
+                  <div className="border-2 border-dashed border-base-300 rounded-lg p-8 text-center hover:border-primary transition-all bg-primary">
                     <Upload className="w-12 h-12 text-gray-400 mx-auto mb-4" />
                     <p className="text-gray-600 mb-2">
                       <span className="text-primary font-semibold cursor-pointer hover:underline">
@@ -324,7 +324,7 @@ export default function UpdateProduct() {
                     />
                     <label
                       htmlFor="imageUpload"
-                      className="inline-block mt-4 px-6 py-2 bg-primary text-secondary rounded-lg font-medium cursor-pointer hover:opacity-90 transition-all"
+                      className="inline-block mt-4 px-6 py-2 bg-primary text-primary. rounded-lg font-medium cursor-pointer hover:opacity-90 transition-all"
                     >
                       Browse Files
                     </label>
@@ -393,13 +393,13 @@ export default function UpdateProduct() {
 
                 {/* Action Buttons */}
                 <div className="flex items-center justify-end space-x-4 pt-4">
-                  <button className="px-6 py-3 border-2 border-base-300 text-gray-700 rounded-lg hover:bg-base-200 transition-all font-medium">
+                  <button className="px-6 py-3 border-2 border-base-300 text-gray-700 rounded-lg hover:bg-primary transition-all font-medium">
                     Cancel
                   </button>
                   <button
                     type="submit"
                     // disabled={isPending}
-                    className="px-6 py-3 bg-primary text-secondary rounded-lg hover:opacity-90 transition-all font-medium shadow-lg flex items-center gap-2"
+                    className="px-6 py-3 bg-primary text-primary. rounded-lg hover:opacity-90 transition-all font-medium shadow-lg flex items-center gap-2"
                   >
                     {isPending ? (
                       <>

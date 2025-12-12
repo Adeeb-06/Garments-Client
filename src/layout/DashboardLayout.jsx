@@ -5,6 +5,7 @@ import { AuthContext } from "../context/AuthContext";
 import AdminDashboard from "../components/dashboards/admin/AdminDashboard";
 import ManagerDashboard from "../components/dashboards/manager/ManagerDashboard";
 import BuyerDashboard from "../components/dashboards/buyer/BuyerDashboard";
+import { toast } from "react-toastify";
 
 const DashboardLayout = () => {
   const { userData, user, loading } = useContext(AuthContext);
@@ -13,6 +14,7 @@ const DashboardLayout = () => {
 
   useEffect(() => {
     if (!loading && !user) {
+      toast.error("Logged Out");
       navigate("/auth/login");
     }
   }, [user, loading, navigate]);

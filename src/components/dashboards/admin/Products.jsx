@@ -9,11 +9,14 @@ import UnauthorizedPage from "../../../pages/UnauthorizedPage";
 import { QueryClient, useQuery, useQueryClient } from "@tanstack/react-query";
 import { Link } from "react-router";
 import { toast } from "react-toastify";
+import DeleteModal from "../../DeleteModal";
 
 export default function Products() {
   const { userData, user, isLoadingUser } = useContext(AuthContext);
   const { users } = useContext(AdminContext);
   const [searchQuery, setSearchQuery] = useState("");
+  const [isOpen , setIsOpen] = useState(false);
+  const [selectedProduct , setSelectedProduct] = useState(null);
   const fetchProducts = async () => {
     const res = await api.get("/products-management", {
       headers: {
@@ -61,6 +64,11 @@ export default function Products() {
       toast.success("Product updated successfully!");
       refetch();
     }
+  };
+
+  const handleClick = (product) => {
+    setSelectedProduct(product); 
+    setIsOpen(true);
   };
 
   // --- Add this inside your component ---
@@ -198,10 +206,10 @@ if(isLoadingUser) return <p> Loading...</p>;
                             </Link>
 
                             {/* Delete Link */}
-                            <Link className="flex items-center space-x-2 bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg transition-all shadow-md hover:shadow-lg font-medium">
+                            <button onClick={()=> handleClick(product)} className="flex items-center space-x-2 bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg transition-all shadow-md hover:shadow-lg font-medium">
                               <X className="w-4 h-4" />
                               <span>Delete</span>
-                            </Link>
+                            </button>
                           </div>
                         </td>
                       </tr>
@@ -229,7 +237,7 @@ if(isLoadingUser) return <p> Loading...</p>;
           </div>
         </div>
 
-        {/* Update Status Modal */}
+       {isOpen && <DeleteModal isOpen={isOpen} onClose={()=> setIsOpen(false)} product={selectedProduct}/>}
       </div>
     );
  
