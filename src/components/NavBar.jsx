@@ -20,10 +20,7 @@ export default function Navbar() {
 
   const navLinks = [
     { name: "All Products", icon: Package, href: "/all-products" },
-    { name: "Orders", icon: ClipboardList, href: "#orders" },
-    { name: "Production", icon: Scissors, href: "#production" },
-    { name: "Inventory", icon: Package, href: "#inventory" },
-    { name: "Buyers", icon: Users, href: "#buyers" },
+  
   ];
 
   const logoutUser = async() => {
@@ -39,30 +36,29 @@ export default function Navbar() {
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
           <div className="flex items-center space-x-3">
-            <div className="bg-secondary text-primary p-2 rounded-lg">
-              <Scissors className="w-6 h-6" />
-            </div>
-            <div className="flex flex-col">
-              <span className="text-lg font-bold text-secondary">
-                Garments Tracker
-              </span>
-              <span className="text-xs text-secondary/70 hidden sm:block">
-                Order & Production System
-              </span>
-            </div>
+            <Link to={'/'} className="flex items-center space-x-3">
+                      
+                      <div className="bg-secondary text-primary p-2 rounded-lg">
+                        <Scissors className="w-6 h-6" />
+                      </div>
+                      <div>
+                        <h1 className="text-secondary font-bold text-lg">Garments Tracker</h1>
+                        <p className="text-secondary/70 text-xs">Buyer</p>
+                      </div>
+                      </Link>
           </div>
 
           {/* Desktop Nav */}
           <div className="hidden md:flex items-center space-x-1">
             {navLinks.map((link) => (
-              <a
+              <Link
                 key={link.name}
-                href={link.href}
+                to={link.href}
                 className="flex items-center space-x-2 px-4 py-2 rounded-lg text-secondary hover:bg-secondary hover:text-primary transition-all duration-200"
               >
-                <link.icon className="w-4 h-4" />
-                <span className="font-medium">{link.name}</span>
-              </a>
+                <link.icon className="w-6 h-6" />
+                <span className="font-medium text-xl">{link.name}</span>
+              </Link>
             ))}
           </div>
 

@@ -4,6 +4,7 @@ import { AuthContext } from "../../../context/AuthContext";
 
 import AdminSidebar from "../../sidebars/AdminSidebar";
 import Dashboard from "../../Dashboard";
+import Footer from "../../Footer";
 
 
 const AdminDashboard = () => {
@@ -40,6 +41,7 @@ const AdminDashboard = () => {
 {location.pathname === "/dashboard" ? <Dashboard/> : null}
        
       </main>
+      <Footer/>
     </div>
   );
 };

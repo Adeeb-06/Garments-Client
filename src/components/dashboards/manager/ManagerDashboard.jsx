@@ -34,6 +34,7 @@ const ManagerDashboard = () => {
       <main className="w-[%]">
        <Outlet/>
       </main>
+      <Footer/>
     </div>
   );
 };

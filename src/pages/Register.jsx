@@ -11,11 +11,12 @@ import {
 } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { AuthContext } from "../context/AuthContext";
-import { useNavigate } from "react-router";
+import { Link, useNavigate } from "react-router";
+import { toast } from "react-toastify";
 
 export default function Register() {
   const [showPassword, setShowPassword] = useState(false);
-  const {registerUser ,googleSignIn} = useContext(AuthContext);
+  const { registerUser, googleSignIn } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const {
@@ -24,15 +25,21 @@ export default function Register() {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = async(data) => {
-    try{
-      const res = await registerUser(data.email, data.password, data.name, data.photoURL, data.role);
+  const onSubmit = async (data) => {
+    try {
+      const res = await registerUser(
+        data.email,
+        data.password,
+        data.name,
+        data.photoURL,
+        data.role
+      );
       console.log(res);
-      if(res){
+      if (res) {
         navigate("/");
       }
     } catch (error) {
-      console.log(error);
+      toast.error(error.message || "Register failed!");
     }
   };
 
@@ -43,7 +50,7 @@ export default function Register() {
         navigate("/");
       }
     } catch (error) {
-      console.log(error);
+      toast.error(error.message || "Google sign-in failed!");
     }
   };
 
@@ -106,6 +113,9 @@ export default function Register() {
                     placeholder="you@example.com"
                   />
                 </div>
+                {errors.email && (
+                  <p className="text-sm text-red-500">{errors.email.message}</p>
+                )}
               </div>
 
               {/* Photo URL Input */}
@@ -132,6 +142,11 @@ export default function Register() {
                     placeholder="https://example.com/photo.jpg"
                   />
                 </div>
+                {errors.photoURL && (
+                  <p className="text-sm text-red-500">
+                    {errors.photoURL.message}
+                  </p>
+                )}
               </div>
 
               {/* Role Dropdown */}
@@ -171,6 +186,9 @@ export default function Register() {
                     </svg>
                   </div>
                 </div>
+                {errors.role && (
+                  <p className="text-sm text-red-500">{errors.role.message}</p>
+                )}
               </div>
 
               {/* Password Input */}
@@ -218,6 +236,11 @@ export default function Register() {
                     )}
                   </button>
                 </div>
+                {errors.password && (
+                  <p className="text-sm text-red-500">
+                    {errors.password.message}
+                  </p>
+                )}
               </div>
 
               {/* Status Info */}
@@ -233,27 +256,6 @@ export default function Register() {
               </div>
 
               {/* Error Messages */}
-              <div className="flex gap-2">
-                {errors.name && (
-                  <p className="text-sm text-red-500">{errors.name.message}</p>
-                )}
-                {errors.email && (
-                  <p className="text-sm text-red-500">{errors.email.message}</p>
-                )}
-                {errors.role && (
-                  <p className="text-sm text-red-500">{errors.role.message}</p>
-                )}
-                {errors.photoURL && (
-                  <p className="text-sm text-red-500">
-                    {errors.photoURL.message}
-                  </p>
-                )}
-                {errors.password && (
-                  <p className="text-sm text-red-500">
-                    {errors.password.message}
-                  </p>
-                )}
-              </div>
 
               {/* Sign Up Button */}
               <button
@@ -307,12 +309,12 @@ export default function Register() {
             <div className="mt-6 text-center">
               <p className="text-sm text-gray-600">
                 Already have an account?{" "}
-                <a
-                  href="#signin"
+                <Link
+                  to="/auth/login"
                   className="text-secondary font-semibold hover:underline"
                 >
                   Sign in here
-                </a>
+                </Link>
               </p>
             </div>
           </div>

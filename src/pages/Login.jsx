@@ -3,6 +3,7 @@ import { Mail, Lock, Scissors, Eye, EyeOff } from 'lucide-react';
 import { Link, useLocation, useNavigate } from 'react-router';
 import { useForm } from 'react-hook-form';
 import { AuthContext } from '../context/AuthContext';
+import { toast } from 'react-toastify';
 
 export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
@@ -16,10 +17,11 @@ export default function Login() {
       const res = await loginUser(data.email, data.password);
       console.log(res)
       if(res) {
+        toast.success("Login Successful!");
       navigate(location.state || "/");
       }
     } catch (error) {
-      console.log(error)
+         toast.error(error.message || "Sign-in failed!");
     }
   };
 
@@ -27,10 +29,11 @@ export default function Login() {
     try {
       const res = await googleSignIn();
       if (res) {
+        toast.success("Login Successful!");
          navigate(location.state || "/");
       }
     } catch (error) {
-      console.log(error);
+        toast.error(error.message || "Google sign-in failed!");
     }
   };
 
@@ -61,10 +64,14 @@ export default function Login() {
                   {...register("email", {
                     required: { value: true, message: "Email is required" },
                   })}
+
                   className="block w-full pl-10 pr-3 py-3 border border-base-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-all outline-none"
                   placeholder="you@example.com"
                 />
               </div>
+              {errors.email && (
+                <p className="text-red-500 text-sm mt-1 flex items-center gap-1"> {errors.email.message}</p>
+              )}
             </div>
 
             {/* Password Input */}
@@ -80,18 +87,6 @@ export default function Login() {
                   type={showPassword ? "text" : "password"}
                   {...register("password", {
                     required: "Password is required",
-                    minLength: {
-                      value: 6,
-                      message: "Password must be at least 6 characters",
-                    },
-                    validate: {
-                      hasUppercase: (value) =>
-                        /[A-Z]/.test(value) ||
-                        "Must have at least one uppercase letter",
-                      hasLowercase: (value) =>
-                        /[a-z]/.test(value) ||
-                        "Must have at least one lowercase letter",
-                    },
                   })}
                   className="block w-full pl-10 pr-12 py-3 border border-base-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-all outline-none"
                   placeholder="••••••••"
@@ -108,6 +103,9 @@ export default function Login() {
                   )}
                 </button>
               </div>
+              {errors.password && (
+                <p className="text-red-500 text-sm mt-1 flex items-center gap-1"> {errors.password.message}</p>
+              )}
             </div>
 
           

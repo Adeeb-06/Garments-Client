@@ -12,6 +12,7 @@ import {
 } from "lucide-react";
 import { Link } from "react-router";
 
+
 export default function Sidebar({ logoutUser }) {
   const menuItems = [
     { name: "Dashboard", icon: LayoutDashboard },
@@ -27,15 +28,16 @@ export default function Sidebar({ logoutUser }) {
       {/* Logo Section */}
       <div className="p-6 border-b border-secondary/20">
         <div className="flex items-center space-x-3">
+           <Link to={'/'} className="flex items-center space-x-3">
+          
           <div className="bg-secondary text-primary p-2 rounded-lg">
             <Scissors className="w-6 h-6" />
           </div>
           <div>
-            <h1 className="text-base-200 font-bold text-lg">
-              Garments Tracker
-            </h1>
-            <p className="text-base-200 text-xs">Admin</p>
+            <h1 className="text-secondary font-bold text-lg">Garments Tracker</h1>
+            <p className="text-secondary/70 text-xs">Buyer</p>
           </div>
+          </Link>
         </div>
       </div>
 
