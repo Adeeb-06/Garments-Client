@@ -63,9 +63,9 @@ const BuyerProvider = ({ children }) => {
     enabled: !!user,
   });
   const {data:order, isLoading:isLoadingOrder, isError:isErrorOrder, refetch:refetchOrder} = useQuery({
-    queryKey: ["order"],
+    queryKey: ["order" , orderID],
     queryFn:()=> fetchOrderByID(orderID),
-    enabled: !!user,
+    enabled: !!user && !!orderID,
   });
   const {
     data: orders,
