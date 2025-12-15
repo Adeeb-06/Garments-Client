@@ -1,15 +1,25 @@
 import { Check, Edit, Eye, Search, X } from "lucide-react";
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useNavigate, Link } from "react-router";
 import { ManagerContext } from "../../../context/ManagerContext";
 import api from "../../../api";
 import { toast } from "react-toastify";
 import { AuthContext } from "../../../context/AuthContext";
+import { useQueryClient } from "@tanstack/react-query";
 
 const PendingOrders = () => {
-  const { pendingOrders, refetchPendingOrders,refetchApprovedOrders } = useContext(ManagerContext);
+  const {
+    pendingOrders,
+    refetchPendingOrders,
+    refetchApprovedOrders,
+    isLoadingPendingOrders,
+  } = useContext(ManagerContext);
   const { user } = useContext(AuthContext);
   const [searchQuery, setSearchQuery] = useState("");
+
+  const queryClient = useQueryClient();
+
+ 
 
   console.log(pendingOrders);
 
@@ -36,8 +46,8 @@ const PendingOrders = () => {
     );
     if (res.status === 200) {
       toast.error("Order Rejected!");
-      refetchPendingOrders();
-      refetchApprovedOrders()
+      queryClient.invalidateQueries(["pendingOrders"]);
+      queryClient.invalidateQueries(["approvedOrders"]);
     }
   };
 
@@ -51,6 +61,13 @@ const PendingOrders = () => {
       order.email.toLowerCase().includes(query)
     );
   });
+
+  if (isLoadingPendingOrders)
+    return (
+      <div className="flex justify-center items-center  w-full h-screen">
+        <span className="loading mx-auto  w-10 h-10 loading-spinner text-secondary"></span>
+      </div>
+    );
 
   return (
     <div className="min-h-screen w-[82vw] bg-primary p-8">

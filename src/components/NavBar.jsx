@@ -35,18 +35,19 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
-          <div className="flex items-center space-x-3">
-            <Link to={'/'} className="flex items-center space-x-3">
-                      
-                      <div className="bg-secondary text-primary p-2 rounded-lg">
-                        <Scissors className="w-6 h-6" />
-                      </div>
-                      <div>
-                        <h1 className="text-secondary font-bold text-lg">Garments Tracker</h1>
-                        <p className="text-secondary/70 text-xs">Buyer</p>
-                      </div>
-                      </Link>
-          </div>
+          <Link to={'/'} className="flex items-center space-x-3">
+            <div className="bg-secondary text-primary p-2 rounded-lg">
+              <Scissors className="w-6 h-6" />
+            </div>
+            <div className="flex flex-col">
+              <span className="text-lg font-bold text-secondary">
+                Garments Production
+              </span>
+              <span className="text-xs text-secondary/70 hidden sm:block">
+                Order & Production System
+              </span>
+            </div>
+          </Link>
 
           {/* Desktop Nav */}
           <div className="hidden md:flex items-center space-x-1">

@@ -31,7 +31,7 @@ const ManagerProvider = ({ children }) => {
         Authorization: `Bearer ${user.accessToken}`,
       },
     });
-    console.log(res)
+    console.log("Pending................",res);
     return res.data;
   };
 
@@ -41,14 +41,14 @@ const ManagerProvider = ({ children }) => {
         Authorization: `Bearer ${user.accessToken}`,
       },
     });
-    console.log(res)
+    console.log("Approve........",res);
     return res.data;
   };
-
 
   const {
     data: product,
     isLoading,
+    isFetching,
     isError,
     refetch,
   } = useQuery({
@@ -76,22 +76,24 @@ const ManagerProvider = ({ children }) => {
   } = useQuery({
     queryKey: ["pendingOrders"],
     queryFn: () => fetchPendingOrders(),
-    enabled: !!user,
+    enabled: !!user?.accessToken,
+    refetchOnMount: true,
+    refetchOnWindowFocus: true,
   });
 
-
-const {
-  data: approvedOrders,
-  isLoading: isLoadingApprovedOrders,
-  isError: isErrorApprovedOrders,
-  refetch: refetchApprovedOrders,
-} =  useQuery({
-  queryKey: ["approvedOrders"],
-  queryFn: () => fetchApprovedOrders(),
-  enabled: !!user,
-})
-
-
+  const {
+    data: approvedOrders,
+    isLoading: isLoadingApprovedOrders,
+    isError: isErrorApprovedOrders,
+    refetch: refetchApprovedOrders,
+    isFetching: isFetchingApprovedOrders,
+  } = useQuery({
+    queryKey: ["approvedOrders" , user?.email],
+    queryFn: () => fetchApprovedOrders(),
+    enabled: !!user?.accessToken,
+    refetchOnMount: true,
+    refetchOnWindowFocus: true,
+  });
 
   const data = {
     product,
@@ -112,6 +114,7 @@ const {
     isLoadingApprovedOrders,
     isErrorApprovedOrders,
     refetchApprovedOrders,
+    isFetchingApprovedOrders,
   };
 
   return (

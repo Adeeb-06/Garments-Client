@@ -28,31 +28,27 @@ export default function UpdateProduct() {
     setId(id);
   }, [id]);
 
-  
-
   const {
     register,
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm({
-   
-  });
+  } = useForm({});
 
   useEffect(() => {
-  if (product) {
-    reset({
-      product_name: product.product_name,
-      product_description: product.product_description,
-      category: product.category,
-      price: product.price,
-      available_quantity: product.available_quantity,
-      min_order: product.min_order,
-      images: product.images,
-      payment: product.payment,
-    });
-  }
-}, [product]);
+    if (product) {
+      reset({
+        product_name: product.product_name,
+        product_description: product.product_description,
+        category: product.category,
+        price: product.price,
+        available_quantity: product.available_quantity,
+        min_order: product.min_order,
+        images: product.images,
+        payment: product.payment,
+      });
+    }
+  }, [product]);
 
   const uploadToImgBB = async (imageFile) => {
     const form = new FormData();
@@ -82,7 +78,9 @@ export default function UpdateProduct() {
   const { mutate, isPending, isError, error } = useMutation({
     mutationFn: async (formData) => {
       const uploadedUrls = await Promise.all(
-        allImages.filter(img => img.isNew).map(async (img) => uploadToImgBB(img.file))
+        allImages
+          .filter((img) => img.isNew)
+          .map(async (img) => uploadToImgBB(img.file))
       );
 
       const finalData = {
@@ -93,7 +91,7 @@ export default function UpdateProduct() {
       const res = await api.put(`/update-product/${id}`, finalData, {
         headers: { Authorization: `Bearer ${user.accessToken}` },
       });
-      console.log(res)
+      console.log(res);
       return res.data;
     },
 
@@ -120,13 +118,17 @@ export default function UpdateProduct() {
     setImageList((prev) => [...prev, ...files]); // accumulate
   };
 
+  const handleRemoveImage = (index) => {
+    setImageList((prev) => prev.filter((_, i) => i !== index));
+  };
+
   if (userData?.role == "manager" || userData?.role == "admin") {
     return (
       <div className="min-h-screen w-[80vw] bg-primary p-8">
         <div className="mx-auto">
           {/* Header */}
           <div className="mb-8">
-            <h1 className="text-3xl font-bold text-primary mb-2">
+            <h1 className="text-3xl font-bold text-base-200 mb-2">
               Add New Product
             </h1>
             <p className="text-gray-600">
@@ -139,7 +141,7 @@ export default function UpdateProduct() {
               <div className="space-y-6">
                 {/* Product Name */}
                 <div>
-                  <label className="block text-sm font-medium text-primary mb-2">
+                  <label className="block text-sm font-medium text-base-200 mb-2">
                     Product Name / Title <span className="text-red-500">*</span>
                   </label>
                   <div className="relative">
@@ -161,7 +163,7 @@ export default function UpdateProduct() {
 
                 {/* Product Description */}
                 <div>
-                  <label className="block text-sm font-medium text-primary mb-2">
+                  <label className="block text-sm font-medium text-base-200 mb-2">
                     Product Description <span className="text-red-500">*</span>
                   </label>
                   <div className="relative">
@@ -183,7 +185,7 @@ export default function UpdateProduct() {
 
                 {/* Category Dropdown */}
                 <div>
-                  <label className="block text-sm font-medium text-primary mb-2">
+                  <label className="block text-sm font-medium text-base-200 mb-2">
                     Category <span className="text-red-500">*</span>
                   </label>
                   <div className="relative">
@@ -224,7 +226,7 @@ export default function UpdateProduct() {
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                   {/* Price */}
                   <div>
-                    <label className="block text-sm font-medium text-primary mb-2">
+                    <label className="block text-sm font-medium text-base-200 mb-2">
                       Price <span className="text-red-500">*</span>
                     </label>
                     <div className="relative">
@@ -248,7 +250,7 @@ export default function UpdateProduct() {
 
                   {/* Available Quantity */}
                   <div>
-                    <label className="block text-sm font-medium text-primary mb-2">
+                    <label className="block text-sm font-medium text-base-200 mb-2">
                       Available Quantity <span className="text-red-500">*</span>
                     </label>
                     <div className="relative">
@@ -271,7 +273,7 @@ export default function UpdateProduct() {
 
                   {/* Minimum Order Quantity */}
                   <div>
-                    <label className="block text-sm font-medium text-primary mb-2">
+                    <label className="block text-sm font-medium text-base-200 mb-2">
                       Min. Order (MOQ) <span className="text-red-500">*</span>
                     </label>
                     <div className="relative">
@@ -294,14 +296,15 @@ export default function UpdateProduct() {
                 </div>
 
                 {/* Images Upload */}
+                {/* Images Upload */}
                 <div>
-                  <label className="block text-sm font-medium text-primary mb-2">
+                  <label className="block text-sm font-medium text-base-200 mb-2">
                     Product Images <span className="text-red-500">*</span>
                   </label>
                   <div className="border-2 border-dashed border-base-300 rounded-lg p-8 text-center hover:border-primary transition-all bg-primary">
                     <Upload className="w-12 h-12 text-gray-400 mx-auto mb-4" />
                     <p className="text-gray-600 mb-2">
-                      <span className="text-primary font-semibold cursor-pointer hover:underline">
+                      <span className="text-base-200 font-semibold cursor-pointer hover:underline">
                         Click to upload
                       </span>{" "}
                       or drag and drop
@@ -324,28 +327,37 @@ export default function UpdateProduct() {
                     />
                     <label
                       htmlFor="imageUpload"
-                      className="inline-block mt-4 px-6 py-2 bg-primary text-primary. rounded-lg font-medium cursor-pointer hover:opacity-90 transition-all"
+                      className="inline-block mt-4 px-6 py-2 bg-primary text-base-200 rounded-lg font-medium cursor-pointer hover:opacity-90 transition-all"
                     >
                       Browse Files
                     </label>
                   </div>
-                  <div className="flex items-center gap-4 justify-center">
+
+                  <div className="flex items-center gap-4 justify-center mt-4 flex-wrap">
                     {allImages.map((img, index) => (
-                      <img
-                        key={index}
-                        src={
-                          img.isNew ? URL.createObjectURL(img.file) : img.url
-                        }
-                        alt="Product"
-                        className="w-24 h-20 rounded-lg border-2 mt-2 object-cover"
-                      />
+                      <div key={index} className="relative">
+                        <img
+                          src={
+                            img.isNew ? URL.createObjectURL(img.file) : img.url
+                          }
+                          alt="Product"
+                          className="w-24 h-20 rounded-lg border-2 object-cover"
+                        />
+                        <button
+                          type="button"
+                          onClick={() => handleRemoveImage(index)}
+                          className="absolute -top-2 -right-2 bg-red-500 text-white w-5 h-5 rounded-full flex items-center justify-center hover:bg-red-600 transition-all"
+                        >
+                          ×
+                        </button>
+                      </div>
                     ))}
                   </div>
                 </div>
 
                 {/* Payment Options Dropdown */}
                 <div>
-                  <label className="block text-sm font-medium text-primary mb-2">
+                  <label className="block text-sm font-medium text-base-200 mb-2">
                     Payment Options <span className="text-red-500">*</span>
                   </label>
                   <div className="relative">
@@ -399,7 +411,7 @@ export default function UpdateProduct() {
                   <button
                     type="submit"
                     // disabled={isPending}
-                    className="px-6 py-3 bg-primary text-primary. rounded-lg hover:opacity-90 transition-all font-medium shadow-lg flex items-center gap-2"
+                    className="px-6 py-3 bg-primary text-base-200. rounded-lg hover:opacity-90 transition-all font-medium shadow-lg flex items-center gap-2"
                   >
                     {isPending ? (
                       <>

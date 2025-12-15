@@ -1,6 +1,6 @@
 import { Check, Edit, Eye, Search, X } from "lucide-react";
-import React, { useContext, useState } from "react";
-import { useNavigate, Link } from "react-router";
+import React, { useContext, useEffect, useState } from "react";
+import { useNavigate, Link, useParams } from "react-router";
 import { ManagerContext } from "../../../context/ManagerContext";
 import api from "../../../api";
 import { toast } from "react-toastify";
@@ -8,14 +8,13 @@ import { AuthContext } from "../../../context/AuthContext";
 import { BuyerContext } from "../../../context/BuyerContext";
 
 const Orders = () => {
-  const { orders, isLoadingOrders,  } = useContext(BuyerContext);
+  const { buyerOrders: orders, isLoadingBuyerOrders} = useContext(BuyerContext);
   const { user } = useContext(AuthContext);
   const [searchQuery, setSearchQuery] = useState("");
 
-  console.log(orders)
-
-
  
+
+  console.log(orders);
 
   const filteredOrders = orders?.filter((order) => {
     const query = searchQuery.toLowerCase();
@@ -23,10 +22,29 @@ const Orders = () => {
     if (!query) return true; // return all when empty search
 
     return (
-      order.product_name.toLowerCase().includes(query) ||
-      order.email.toLowerCase().includes(query)
+      order?.product_name?.toLowerCase().includes(query) 
     );
   });
+
+  const handlePayment = async (order) => {
+    try {
+      const paymentInfo = {
+        product_name: order.product_name,
+        product_id: order.product_id,
+        order_id: order._id,
+        quantity: order.qty,
+        price: order.orderPrice,
+        email: order.email,
+      };
+      const res = await api.post(`/stripe-payment`, paymentInfo);
+      if (res.status === 200) {
+        window.location.assign(res.data.url);
+      }
+    } catch (error) {
+      console.log(error)
+      toast.error(error.message);
+    }
+  };
 
   return (
     <div className="min-h-screen w-[82vw] bg-primary p-8">
@@ -46,7 +64,7 @@ const Orders = () => {
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
               <input
                 type="text"
-                placeholder="Search by name, email or role..."
+                placeholder="Search by name."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="w-full pl-10 pr-4 py-3 border-2 border-base-300 rounded-xl focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all"
@@ -75,7 +93,8 @@ const Orders = () => {
                     Status
                   </th>
                   <th className="px-6 py-4 text-center text-sm font-semibold uppercase tracking-wider">
-Payment                  </th>
+                    Payment{" "}
+                  </th>
                   <th className="px-6 py-4 text-center text-sm font-semibold uppercase tracking-wider">
                     Actions
                   </th>
@@ -110,19 +129,38 @@ Payment                  </th>
                         <span
                           className={`inline-flex px-3 py-1 text-sm font-semibold rounded-full text-gray-700 `}
                         >
-                          {product.status}
+                          {product.status.toUpperCase()}
                         </span>
                       </td>
-                      <td className="px-6 py-4">
-                        <span
-                          className={`inline-flex px-3 py-1 text-sm font-semibold rounded-full text-gray-700 `}
-                        >
-                        {product.paymentStatus}
-                        </span>
-                      </td>
+                      {product.paymentMethod == "Cash on Delivery" ? (
+                        <td className="px-6 py-4">
+                          <span
+                            className={`inline-flex px-3 py-1 text-sm font-semibold rounded-full text-gray-700 `}
+                          >
+                            {product.paymentStatus.toUpperCase()}
+                          </span>
+                        </td>
+                      ) : (
+                        <td className="px-6 py-4">
+                          {product.paymentStatus == "pending" ? (
+                            <button
+                              onClick={() => handlePayment(product)}
+                              className="bg-secondary text-white px-16 py-3 cursor-pointer rounded-xl text-lg font-semibold hover:bg-secondary/70 transition-all shadow-lg"
+                            >
+                              Pay
+                            </button>
+                          ) : (
+                            <span
+                              className={`inline-flex px-3 py-1 text-sm font-semibold rounded-full text-gray-700 `}
+                            >
+                              {product.paymentStatus.toUpperCase()}
+                            </span>
+                          )}
+                        </td>
+                      )}
+
                       <td className="px-2 py-4">
                         <div className="flex items-center justify-center gap-1">
-                       
                           <Link
                             to={`/dashboard/track-order/${product._id}`}
                             className="flex items-center space-x-2 bg-gray-700 hover:bg-gray-800 text-white px-2 py-2 rounded-lg transition-all shadow-md hover:shadow-lg font-medium"

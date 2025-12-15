@@ -48,13 +48,13 @@ export default function ProductManagement() {
 
 
     return (
-      <div className="min-h-screen w-[80vw] bg-base-200 p-8">
+      <div className="min-h-screen w-[80vw] bg-primary p-8">
         <div className=" mx-auto">
           {/* Header with Search */}
           <div className="mb-6">
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-4">
               <div>
-                <h1 className="text-3xl font-bold text-primary mb-2">
+                <h1 className="text-3xl font-bold text-base-200 mb-2">
                   Product Management
                 </h1>
                 <p className="text-gray-600">
@@ -107,7 +107,7 @@ export default function ProductManagement() {
                     filteredProducts.map((product, index) => (
                       <tr
                         key={index}
-                        className="hover:bg-base-200 transition-colors"
+                        className="hover:bg-primary transition-colors"
                       >
                         <td className="px-6 py-4">
                           <div className="flex items-center space-x-3">
@@ -147,10 +147,10 @@ export default function ProductManagement() {
                             </Link>
 
                             {/* Delete Link */}
-                            <Link className="flex items-center space-x-2 bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg transition-all shadow-md hover:shadow-lg font-medium">
+                            <button className="flex items-center space-x-2 bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg transition-all shadow-md hover:shadow-lg font-medium">
                               <X className="w-4 h-4" />
                               <span>Delete</span>
-                            </Link>
+                            </button>
                           </div>
                         </td>
                       </tr>

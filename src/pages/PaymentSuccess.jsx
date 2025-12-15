@@ -1,14 +1,19 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link, useSearchParams } from "react-router";
 import api from "../api";
 import { toast } from "react-toastify";
 import { CheckCircle, Package, ArrowRight, Home } from "lucide-react";
+import { BuyerContext } from "../context/BuyerContext";
 
 const PaymentSuccess = () => {
+  const {setOrderID , order} = useContext(BuyerContext);
   const [searchParam] = useSearchParams();
   const sessionId = searchParam.get("session_id");
   const [paymentStatus, setPaymentStatus] = useState(null);
   const [price , setPrice] = useState(null)
+
+
+  // console.log(order)
 
   useEffect(() => {
     if (sessionId) {
@@ -19,6 +24,7 @@ const PaymentSuccess = () => {
           if (res.status === 200) {
             setPaymentStatus("success");
             setPrice(res.data.amount_total)
+            setOrderID(res.data.metadata.orderId)
             toast.success("Payment successful!");
           } else {
             setPaymentStatus("failed");
@@ -74,33 +80,27 @@ const PaymentSuccess = () => {
             <div className="space-y-3 text-left">
               <div className="flex justify-between items-center">
                 <span className="text-gray-600 text-sm">Order ID</span>
-                <span className="font-semibold text-secondary">#ORD-2024-001</span>
+                <span className="font-semibold text-secondary">#{order?._id}</span>
               </div>
               <div className="flex justify-between items-center">
                 <span className="text-gray-600 text-sm">Order Date</span>
-                <span className="font-semibold text-secondary">{ new Date().toLocaleDateString() }</span>
+                <span className="font-semibold text-secondary">{ new Date(order?.createdAt).toLocaleDateString() }</span>
               </div>
               <div className="flex justify-between items-center">
                 <span className="text-gray-600 text-sm">Total Amount</span>
-                <span className="font-semibold text-secondary">${price}</span>
+                <span className="font-semibold text-secondary">${order?.orderPrice}</span>
               </div>
             </div>
           </div>
 
-          {/* Info Message */}
-          <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6">
-            <p className="text-sm text-blue-800">
-              A confirmation email has been sent to your registered email address with order details.
-            </p>
-          </div>
 
           {/* Action Buttons */}
           <div className="space-y-3">
-            <button className="w-full bg-secondary text-primary py-3 rounded-lg font-semibold hover:opacity-90 transition-all shadow-lg flex items-center justify-center space-x-2">
+            <Link to={`/dashboard/track-order/${order?._id}`} className="w-full bg-secondary text-primary py-3 rounded-lg font-semibold hover:opacity-90 transition-all shadow-lg flex items-center justify-center space-x-2">
               <Package className="w-5 h-5" />
               <span>Track Your Order</span>
               <ArrowRight className="w-5 h-5" />
-            </button>
+            </Link>
 
             <Link to={'/'} className="w-full border-2 border-secondary text-secondary py-3 rounded-lg font-semibold hover:bg-secondary/5 transition-all flex items-center justify-center space-x-2">
               <Home className="w-5 h-5" />

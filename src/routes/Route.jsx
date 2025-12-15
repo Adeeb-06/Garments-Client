@@ -180,7 +180,7 @@ export const router = createBrowserRouter([
         ),
       },
       {
-        path: "track-order/:id",
+        path: "/dashboard/track-order/:id",
         element: (
           <BuyerRoute>
             <OrderDetail />

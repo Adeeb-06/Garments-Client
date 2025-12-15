@@ -35,7 +35,7 @@ export default function Sidebar({ logoutUser }) {
           </div>
           <div>
             <h1 className="text-secondary font-bold text-lg">Garments Tracker</h1>
-            <p className="text-secondary/70 text-xs">Buyer</p>
+            <p className="text-secondary/70 text-xs">Admin Dashboard</p>
           </div>
           </Link>
         </div>

@@ -272,6 +272,10 @@ export default function OrderPage() {
                               message: `Order quantity must be at least ${product.min_order}`,
                             }
                           : undefined,
+                        max: product?.available_quantity ? {
+                          value: Number(product.available_quantity),
+                          message: `Available quantity is ${product.available_quantity}`,
+                        } : undefined,
                       })}
                       value={qty}
                       onChange={(e) => setQty(Number(e.target.value))}

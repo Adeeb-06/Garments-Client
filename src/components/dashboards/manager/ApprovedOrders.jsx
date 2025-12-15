@@ -1,5 +1,5 @@
 import { Check, Edit, Edit2Icon, Eye, Search, X } from "lucide-react";
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useNavigate, Link } from "react-router";
 import { ManagerContext } from "../../../context/ManagerContext";
 import api from "../../../api";
@@ -8,12 +8,20 @@ import { AuthContext } from "../../../context/AuthContext";
 import { MdSpatialTracking } from "react-icons/md";
 import UpdateTrackingModal from "../../UpdateTrackingModal";
 
+
 const ApprovedOrders = () => {
-  const { approvedOrders, refetchApprovedOrders } = useContext(ManagerContext);
+  const { approvedOrders, refetchApprovedOrders, isFetchingApprovedOrders } =
+    useContext(ManagerContext);
   const { user } = useContext(AuthContext);
   const [searchQuery, setSearchQuery] = useState("");
   const [isOpen, setIsOpen] = useState(false);
   const [selectedOrder, setSelectedOrder] = useState(null);
+
+console.log("first......" , approvedOrders)
+useEffect(() => {
+  refetchApprovedOrders();
+}, []);
+
 
   const filteredOrders = approvedOrders?.filter((order) => {
     const query = searchQuery.toLowerCase();
@@ -26,14 +34,17 @@ const ApprovedOrders = () => {
     );
   });
 
-
   const handleClick = (order) => {
     setSelectedOrder(order);
     setIsOpen(true);
   };
 
-
-
+  if (isFetchingApprovedOrders)
+    return (
+      <div className="flex justify-center items-center  w-full h-screen">
+        <span className="loading mx-auto  w-10 h-10 loading-spinner text-secondary"></span>
+      </div>
+    );
   return (
     <div className="min-h-screen w-[82vw] bg-primary p-8">
       <div className=" mx-auto">
@@ -94,7 +105,7 @@ const ApprovedOrders = () => {
                 {filteredOrders?.length > 0 ? (
                   filteredOrders.map((product, index) => (
                     <tr
-                      // key={index}
+                      key={index}
                       className="hover:bg-secondary/50 transition-colors"
                     >
                       <td className="px-6 py-4">

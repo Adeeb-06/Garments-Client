@@ -18,7 +18,7 @@ export default function Products() {
   const [isOpen , setIsOpen] = useState(false);
   const [selectedProduct , setSelectedProduct] = useState(null);
   const fetchProducts = async () => {
-    const res = await api.get("/products-management", {
+    const res = await api.get("/admin/products", {
       headers: {
         Authorization: `Bearer ${user.accessToken}`,
       },
@@ -27,23 +27,22 @@ export default function Products() {
   };
 
   const {
-    data: products,
+    data: adminProducts,
     isLoading,
     isError,
     error,
     refetch,
   } = useQuery({
-    queryKey: ["products"],
+    queryKey: ["adminProducts"],
     queryFn: () => fetchProducts(),
     enabled: !!user,
   });
 
-  console.log(products);
-  console.log(error);
+
 
   if (isLoadingUser) return <p> Loading...</p>;
 
-  const filteredProducts = products
+  const filteredProducts = adminProducts
     ?.filter((product) => product)
     .filter((product) =>
       product.product_name?.toLowerCase().includes(searchQuery.toLowerCase())
@@ -82,11 +81,11 @@ if(isLoadingUser) return <p> Loading...</p>;
           <div className="mb-6">
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-4">
               <div>
-                <h1 className="text-3xl font-bold text-primary mb-2">
+                <h1 className="text-3xl font-bold text-secondary mb-2">
                   Product Management
                 </h1>
                 <p className="text-gray-600">
-                  Manage user registrations and status
+                  Manage products
                 </p>
               </div>
 
@@ -232,12 +231,12 @@ if(isLoadingUser) return <p> Loading...</p>;
           {/* Table Footer Info */}
           <div className="mt-4 text-sm text-gray-600">
             <p>
-              Showing {filteredProducts?.length} of {products?.length} users
+              Showing {filteredProducts?.length} of {adminProducts?.length} users
             </p>
           </div>
         </div>
 
-       {isOpen && <DeleteModal isOpen={isOpen} onClose={()=> setIsOpen(false)} product={selectedProduct}/>}
+       {isOpen && <DeleteModal refetch={refetch} isOpen={isOpen} onClose={()=> setIsOpen(false)} product={selectedProduct}/>}
       </div>
     );
  
