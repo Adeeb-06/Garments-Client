@@ -85,7 +85,6 @@ export default function AddProduct() {
     setImageList((prev) => [...prev, ...files]); // accumulate
   };
 
-  if (userData?.role == "manager") {
     return (
       <div className="min-h-screen lg:w-[80vw] w-full bg-primary overflow-x-hidden p-8">
         <div className="mx-auto">
@@ -379,7 +378,5 @@ export default function AddProduct() {
         </div>
       </div>
     );
-  } else {
-    return <UnauthorizedPage />;
-  }
+  
 }

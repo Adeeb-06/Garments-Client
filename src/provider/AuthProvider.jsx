@@ -35,19 +35,22 @@ const AuthProvider = ({ children }) => {
         displayName: name,
         photoURL,
       });
-      const res = await api.post("/register", {
-        name,
-        email,
-        password,
-        photoURL,
-        role,
-      });
+      console.log(userCredential)
+      if (userCredential) {
+        const res = await api.post("/register", {
+          name,
+          email,
+          password,
+          photoURL,
+          role,
+        });
 
-      await getUser(email);
+        await getUser(email);
 
-      console.log(res);
-      setLoading(false);
-      return userCredential;
+        console.log(res);
+        setLoading(false);
+        return userCredential;
+      }
     } catch (error) {
       throw error;
     }
@@ -74,7 +77,7 @@ const AuthProvider = ({ children }) => {
     }
   };
 
- const getUser = async (email) => {
+  const getUser = async (email) => {
     try {
       const res = await api.get(`/users/${encodeURIComponent(email)}`);
       setUserData(res.data);
@@ -125,13 +128,12 @@ const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     if (user?.email) {
-    getUser(user?.email);
+      getUser(user?.email);
       // setLoading(false);
     }
-    
   }, [user]);
 
-  console.log(userData)
+  console.log(userData);
 
   const authData = {
     user,
@@ -143,7 +145,7 @@ const AuthProvider = ({ children }) => {
     loginUser,
     loading,
   };
-  return <AuthContext value={authData}> {children} </AuthContext>;
+  return <AuthContext.Provider value={authData}> {children} </AuthContext.Provider>;
 };
 
 export default AuthProvider;

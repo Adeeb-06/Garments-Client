@@ -31,6 +31,7 @@ import OrderDetail from "../pages/OrderDetail";
 import AllProducts from "../pages/AllProducts";
 import OrdersAdmin from "../components/dashboards/admin/OrdersAdmin";
 import AdminOrManagerRoute from "../provider/AdminOrManagerRoute";
+import NotFound from "../pages/NotFound";
 
 export const router = createBrowserRouter([
   {
@@ -90,8 +91,8 @@ export const router = createBrowserRouter([
       },
       {
         path: "all-products",
-        element: <AllProducts />
-      }
+        element: <AllProducts />,
+      },
     ],
   },
   {
@@ -126,7 +127,13 @@ export const router = createBrowserRouter([
       },
       {
         path: "add-product",
-        element: <AddProduct />,
+        element: (
+          <ApproveRoute>
+            <ManagerRoute>
+              <AddProduct />
+            </ManagerRoute>
+          </ApproveRoute>
+        ),
       },
       {
         path: "products",
@@ -189,7 +196,7 @@ export const router = createBrowserRouter([
         ),
       },
       {
-        path:"order-details/:id",
+        path: "order-details/:id",
         element: (
           <AdminOrManagerRoute>
             <OrderDetail />
@@ -214,4 +221,8 @@ export const router = createBrowserRouter([
     path: "/unauthorized",
     element: <UnauthorizedPage />,
   },
+  {
+    path: "*",
+    element: <NotFound />
+  }
 ]);

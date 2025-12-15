@@ -14,7 +14,7 @@ const PendingOrders = () => {
     refetchApprovedOrders,
     isLoadingPendingOrders,
   } = useContext(ManagerContext);
-  const { user } = useContext(AuthContext);
+  const { user ,userData } = useContext(AuthContext);
   const [searchQuery, setSearchQuery] = useState("");
 
   const queryClient = useQueryClient();
@@ -24,6 +24,7 @@ const PendingOrders = () => {
   console.log(pendingOrders);
 
   const handleApprove = async (id) => {
+    if(userData?.status === "reject" || userData?.status === "pending") toast.error("You can't approve this order");
     const res = await api.patch(
       `/manager/approve-order/${id}`,
       {},
@@ -37,6 +38,7 @@ const PendingOrders = () => {
     }
   };
   const handleReject = async (id) => {
+     if(userData?.status === "reject" || userData?.status === "pending") toast.error("You can't reject this order");
     const res = await api.patch(
       `/manager/reject-order/${id}`,
       {},

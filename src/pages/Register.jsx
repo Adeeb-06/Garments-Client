@@ -25,23 +25,23 @@ export default function Register() {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = async (data) => {
-    try {
-      const res = await registerUser(
-        data.email,
-        data.password,
-        data.name,
-        data.photoURL,
-        data.role
-      );
-      console.log(res);
-      if (res) {
-        navigate("/");
-      }
-    } catch (error) {
-      toast.error(error.message || "Register failed!");
-    }
-  };
+ const onSubmit = async (data) => {
+  try {
+    const res = await registerUser(
+      data.email,
+      data.password,
+      data.name,
+      data.photoURL,
+      data.role
+    );
+    console.log("registerUser response:", res); // 🔹 Check what it returns
+    navigate("/auth/login");
+    toast.success("Account created successfully!");
+  } catch (error) {
+    console.error("Register error:", error); // 🔹 Log errors
+    toast.error(error.message || "Register failed!");
+  }
+};
 
   const handleGoogleSignIn = async () => {
     try {
