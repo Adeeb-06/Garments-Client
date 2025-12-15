@@ -28,15 +28,15 @@ const ManagerDashboard = () => {
       <ManagerSidebar logoutUser={logoutUser} />
 
       {/* Right Side */}
-      <div className="ml-64 flex flex-col min-h-screen w-full">
+      <div className="md:ml-64 flex flex-col min-h-screen w-full">
         {/* Page Content */}
-        <main className="flex-1 ">
+        <main className="flex-1 pt-10 md:pt-1  ">
           {location.pathname === "/dashboard" && <ManagerDash />}
           <Outlet />
         </main>
 
         {/* Footer */}
-        <Footer />
+        {/* <Footer /> */}
       </div>
     </div>
   );

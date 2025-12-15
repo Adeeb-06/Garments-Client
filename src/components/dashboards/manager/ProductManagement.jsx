@@ -54,7 +54,7 @@ export default function ProductManagement() {
   console.log(filteredProducts);
 
   return (
-    <div className="min-h-screen w-[80vw] bg-primary p-8">
+    <div className="min-h-screen md:w-[80vw] w- bg-primary p-8">
       <div className=" mx-auto">
         {/* Header with Search */}
         <div className="mb-6">

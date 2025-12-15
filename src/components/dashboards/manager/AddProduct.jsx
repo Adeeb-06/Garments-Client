@@ -87,7 +87,7 @@ export default function AddProduct() {
 
   if (userData?.role == "manager") {
     return (
-      <div className="min-h-screen w-[80vw] bg-primary p-8">
+      <div className="min-h-screen lg:w-[80vw] w-full bg-primary overflow-x-hidden p-8">
         <div className="mx-auto">
           {/* Header */}
           <div className="mb-8">

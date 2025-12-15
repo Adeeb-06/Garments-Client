@@ -47,7 +47,7 @@ export default function Profile() {
   const StatusIcon = statusConfig.icon;
 
   return (
-    <div className="min-h-screen w-[81vw]  bg-primary p-8">
+    <div className="min-h-screen lg:w-[81vw] w-screen  bg-primary p-8">
       <div className=" mx-auto">
         {/* Header */}
         <div className="mb-6">

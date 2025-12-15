@@ -20,7 +20,7 @@ export default function ManagerDash() {
   });
 
   return (
-    <div className="min-h-screen w-[81vw] bg-primary p-8">
+    <div className="min-h-screen lg:w-[81vw] w-screen pt-10 bg-primary p-8">
       <div className=" mx-auto">
         {/* Welcome Header */}
         <div className="bg-gradient-to-r from-secondary to-secondary/80 rounded-3xl shadow-xl p-8 md:p-12 mb-8 text-primary relative overflow-hidden">
