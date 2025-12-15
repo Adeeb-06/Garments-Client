@@ -70,8 +70,8 @@ const PendingOrders = () => {
     );
 
   return (
-    <div className="min-h-screen md:w-[82vw] w-screen bg-primary p-8">
-      <div className=" mx-auto">
+    <div className="min-h-screen lg:w-[82vw] overflow-x-hidden w-screen bg-primary p-8">
+      <div className=" mx-auo">
         {/* Header with Search */}
         <div className="mb-6">
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-4">

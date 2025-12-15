@@ -117,26 +117,34 @@ export default function Navbar() {
           <div className="md:hidden py-4 border-t border-secondary/20">
             <div className="flex flex-col space-y-2">
               {navLinks.map((link) => (
-                <a
+                <Link
                   key={link.name}
-                  href={link.href}
+                  to={link.href}
                   onClick={() => setIsMenuOpen(false)}
                   className="flex items-center space-x-3 px-4 py-3 rounded-lg text-secondary hover:bg-secondary hover:text-primary transition-all duration-200"
                 >
                   <link.icon className="w-5 h-5" />
                   <span className="font-medium">{link.name}</span>
-                </a>
+                </Link>
               ))}
 
               {/* Mobile Profile */}
               {userData ? (
-                <button
+                <><button
                   onClick={() => logoutUser()}
                   className="flex items-center space-x-2 px-4 py-3 rounded-lg bg-red-500 text-white"
                 >
                   <MdAccountCircle className="w-7 h-7" />
                   <span>Logout</span>
-                </button>
+                </button><Link to={'/dashboard'}
+                  className="flex items-center px-4 py-2 rounded-lg bg-secondary text-primary hover:bg-secondary/90 transition-all duration-200"
+                >
+                    <MdAccountCircle className="w-7 h-7" />
+                    <span className="ml-2">
+                      {loading ? "Loading..." : userData?.name }
+                    </span>
+                  </Link></>
+
               ) : (
                 <Link
                   to="/auth/login"

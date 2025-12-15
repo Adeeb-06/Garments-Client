@@ -36,7 +36,7 @@ const ManagerDashboard = () => {
         </main>
 
         {/* Footer */}
-        {/* <Footer /> */}
+        <Footer />
       </div>
     </div>
   );

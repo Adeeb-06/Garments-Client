@@ -75,7 +75,7 @@ export default function Products() {
 if(isLoadingUser) return <p> Loading...</p>;
  
     return (
-      <div className="min-h-screen w-[80vw] bg-primary p-8">
+      <div className="min-h-screen md:w-[81vw] w-screen  bg-primary p-8">
         <div className=" mx-auto">
           {/* Header with Search */}
           <div className="mb-6">

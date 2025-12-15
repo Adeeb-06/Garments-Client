@@ -2,9 +2,10 @@ import React, { useContext } from "react";
 import { Outlet, useLocation, useNavigate } from "react-router";
 import { AuthContext } from "../../../context/AuthContext";
 
-import AdminSidebar from "../../sidebars/AdminSidebar";
+import AdminSidebar from "../../sidebars/AdminSideBar";
 import Dashboard from "../../Dashboard";
 import Footer from "../../Footer";
+import AdminSideBar from "../../sidebars/AdminSideBar";
 
 
 const AdminDashboard = () => {
@@ -29,20 +30,22 @@ const AdminDashboard = () => {
 
 
   return (
-    <div className="flex">
-      {/* Sidebar */}
-      <aside className="w-[]">
-       <AdminSidebar logoutUser={logoutUser}/>
-      </aside>
-
-      {/* Dashboard content */}
-      <main className=" ">
-       <Outlet/>
-{location.pathname === "/dashboard" ? <Dashboard/> : null}
-       
-      </main>
-      <Footer/>
-    </div>
+   <div className="min-h-screen flex">
+         {/* Fixed Sidebar */}
+         <AdminSideBar logoutUser={logoutUser} />
+   
+         {/* Right Side */}
+         <div className="md:ml-64 flex flex-col min-h-screen w-full">
+           {/* Page Content */}
+           <main className="flex-1 pt-10 md:pt-1  ">
+             {location.pathname === "/dashboard" && <Dashboard />}
+             <Outlet />
+           </main>
+   
+           {/* Footer */}
+           <Footer />
+         </div>
+       </div>
   );
 };
 
