@@ -14,6 +14,7 @@ import UnauthorizedPage from "../../../pages/UnauthorizedPage";
 import { useForm } from "react-hook-form";
 import api from "../../../api";
 import { useMutation } from "@tanstack/react-query";
+import { toast } from "react-toastify";
 
 export default function AddProduct() {
   const [imageList, setImageList] = useState([]);
@@ -63,7 +64,7 @@ export default function AddProduct() {
 
     onSuccess: () => {
       navigate("/dashboard/products");
-      console.log("Product created successfully!");
+      toast.success("Product created successfully!");
     },
 
     onError: (err) => {

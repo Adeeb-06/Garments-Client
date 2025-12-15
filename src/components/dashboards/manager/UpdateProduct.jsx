@@ -15,6 +15,8 @@ import { useForm } from "react-hook-form";
 import api from "../../../api";
 import { useMutation } from "@tanstack/react-query";
 import { ManagerContext } from "../../../context/ManagerContext";
+import { all } from "axios";
+import { toast } from "react-toastify";
 
 export default function UpdateProduct() {
   const { id } = useParams();
@@ -22,6 +24,7 @@ export default function UpdateProduct() {
   const [imageList, setImageList] = useState([]);
   const { userData, user } = useContext(AuthContext);
   const { setId, product } = useContext(ManagerContext);
+  const [existingImages, setExistingImages] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -50,6 +53,13 @@ export default function UpdateProduct() {
     }
   }, [product]);
 
+
+  useEffect(() => {
+    if (product?.images) {
+      setExistingImages(product?.images || []);
+    }
+  }, [product?.images]);
+
   const uploadToImgBB = async (imageFile) => {
     const form = new FormData();
     form.append("image", imageFile);
@@ -68,12 +78,12 @@ export default function UpdateProduct() {
     return data.data.url; // image URL
   };
 
-  const existingImages = product?.images || [];
-
   const allImages = [
     ...existingImages.map((url) => ({ url, isNew: false })),
     ...imageList.map((file) => ({ file, isNew: true })),
   ];
+
+  console.log(allImages);
 
   const { mutate, isPending, isError, error } = useMutation({
     mutationFn: async (formData) => {
@@ -96,8 +106,9 @@ export default function UpdateProduct() {
     },
 
     onSuccess: () => {
-      navigate("/dashboard/products");
-      console.log("Product created successfully!");
+      if(userData?.role == "manager") navigate("/dashboard/products");
+      else navigate("/dashboard/all-products");
+      toast.success("Product updated successfully!");
     },
 
     onError: (err) => {
@@ -109,7 +120,7 @@ export default function UpdateProduct() {
     mutate(data);
   };
 
-  const categories = ["Shirt", "Pant", "Jacket", "Accessories"];
+  const categories = ["Men", "Woman", "Kids", "Winter"];
   const paymentOptions = ["Cash on Delivery", "PayFirst"];
 
   const handleAddFiles = (e) => {
@@ -118,8 +129,13 @@ export default function UpdateProduct() {
     setImageList((prev) => [...prev, ...files]); // accumulate
   };
 
-  const handleRemoveImage = (index) => {
-    setImageList((prev) => prev.filter((_, i) => i !== index));
+  const handleRemoveImage = (index, isNew) => {
+    if (isNew) {
+      const newIndex = index - existingImages.length;
+      setImageList((prev) => prev.filter((_, i) => i !== newIndex));
+    } else {
+      setExistingImages((prev) => prev.filter((_, i) => i !== index));
+    }
   };
 
   if (userData?.role == "manager" || userData?.role == "admin") {
@@ -129,11 +145,9 @@ export default function UpdateProduct() {
           {/* Header */}
           <div className="mb-8">
             <h1 className="text-3xl font-bold text-base-200 mb-2">
-              Add New Product
+              Update Product
             </h1>
-            <p className="text-gray-600">
-              Fill in the product details to add to inventory
-            </p>
+          
           </div>
 
           <form onSubmit={handleSubmit(onsubmit)}>
@@ -160,6 +174,11 @@ export default function UpdateProduct() {
                     />
                   </div>
                 </div>
+                {errors.product_name && (
+                  <p className="text-sm text-red-500">
+                    {errors.product_name.message}
+                  </p>
+                )}
 
                 {/* Product Description */}
                 <div>
@@ -182,6 +201,11 @@ export default function UpdateProduct() {
                     ></textarea>
                   </div>
                 </div>
+                {errors.product_description && (
+                  <p className="text-sm text-red-500">
+                    {errors.product_description.message}
+                  </p>
+                )}
 
                 {/* Category Dropdown */}
                 <div>
@@ -221,6 +245,9 @@ export default function UpdateProduct() {
                     </div>
                   </div>
                 </div>
+                {errors.category && (
+                  <p className="text-sm text-red-500">{errors.category.message}</p>
+                )}
 
                 {/* Price, Available Quantity, MOQ - Grid */}
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -247,6 +274,9 @@ export default function UpdateProduct() {
                       />
                     </div>
                   </div>
+                  {errors.price && (
+                    <p className="text-sm text-red-500">{errors.price.message}</p>
+                  )}
 
                   {/* Available Quantity */}
                   <div>
@@ -270,6 +300,11 @@ export default function UpdateProduct() {
                       />
                     </div>
                   </div>
+                          {errors.available_quantity && (
+                    <p className="text-sm text-red-500">
+                      {errors.available_quantity.message}
+                    </p>
+                  )}
 
                   {/* Minimum Order Quantity */}
                   <div>
@@ -293,6 +328,11 @@ export default function UpdateProduct() {
                       />
                     </div>
                   </div>
+                  {errors.min_order && (
+                    <p className="text-sm text-red-500">
+                      {errors.min_order.message}
+                    </p>
+                  )}
                 </div>
 
                 {/* Images Upload */}
@@ -345,7 +385,7 @@ export default function UpdateProduct() {
                         />
                         <button
                           type="button"
-                          onClick={() => handleRemoveImage(index)}
+                          onClick={() => handleRemoveImage(index, img.isNew)}
                           className="absolute -top-2 -right-2 bg-red-500 text-white w-5 h-5 rounded-full flex items-center justify-center hover:bg-red-600 transition-all"
                         >
                           ×
@@ -354,6 +394,9 @@ export default function UpdateProduct() {
                     ))}
                   </div>
                 </div>
+                {errors.images && (
+                  <p className="text-sm text-red-500">{errors.images.message}</p>
+                )}
 
                 {/* Payment Options Dropdown */}
                 <div>
@@ -393,6 +436,9 @@ export default function UpdateProduct() {
                     </div>
                   </div>
                 </div>
+                            {errors.payment && (
+                  <p className="text-sm text-red-500">{errors.payment.message}</p>
+                )}
 
                 {/* Info Note */}
                 <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
@@ -405,9 +451,6 @@ export default function UpdateProduct() {
 
                 {/* Action Buttons */}
                 <div className="flex items-center justify-end space-x-4 pt-4">
-                  <button className="px-6 py-3 border-2 border-base-300 text-gray-700 rounded-lg hover:bg-primary transition-all font-medium">
-                    Cancel
-                  </button>
                   <button
                     type="submit"
                     // disabled={isPending}
@@ -416,10 +459,10 @@ export default function UpdateProduct() {
                     {isPending ? (
                       <>
                         <span className="loading loading-spinner loading-sm"></span>
-                        Uploading...
+                        Updating...
                       </>
                     ) : (
-                      "Add Product"
+                      "Update Product"
                     )}
                   </button>
                 </div>

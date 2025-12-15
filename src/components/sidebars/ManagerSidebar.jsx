@@ -26,9 +26,9 @@ export default function ManagerSidebar({ logoutUser }) {
   ];
 
   return (
-    <div className="w-64 bg-secondary/40 h-screen flex flex-col">
+    <div className="w-64 bg-secondary/70 fixed top-0 left-0 h-full flex flex-col">
       {/* Logo Section */}
-      <div className="p-6 border-b border-secondary/20">
+      <div className="p-6 border-b border-primary/20">
         <div className="flex items-center space-x-3">
            <Link to={'/'} className="flex items-center space-x-3">
           
@@ -36,8 +36,8 @@ export default function ManagerSidebar({ logoutUser }) {
             <Scissors className="w-6 h-6" />
           </div>
           <div>
-            <h1 className="text-secondary font-bold text-lg">Garments Tracker</h1>
-            <p className="text-secondary/70 text-xs">Buyer</p>
+            <h1 className="text-primary font-bold text-lg">Garments Tracker</h1>
+            <p className="text-primary/70 text-xs">Manager</p>
           </div>
           </Link>
         </div>
@@ -67,7 +67,7 @@ export default function ManagerSidebar({ logoutUser }) {
       <div className="p-4 border-t border-secondary/20">
         <button
           onClick={() => logoutUser()}
-          className="flex items-center space-x-3 px-4 py-3 text-secondary rounded-lg hover:bg-red-500 hover:text-white transition-all"
+          className="flex items-center space-x-3 px-4 py-3 text-primary rounded-lg bg-base-200/60 cursor-pointer  transition-all"
         >
           <LogOut className="w-5 h-5" />
           <span className="font-medium">Logout</span>

@@ -1,51 +1,45 @@
-import React, { useContext } from "react";
+import { useContext } from "react";
 import { Outlet, useLocation, useNavigate } from "react-router";
 import { AuthContext } from "../../../context/AuthContext";
-
 import ManagerSidebar from "../../sidebars/ManagerSidebar";
 import Footer from "../../Footer";
-import BuyerDash from "../../BuyerDash";
-import ManagerDash from "../../ManagerDash";
+import ManagerDash from '../../ManagerDash'
 
 const ManagerDashboard = () => {
-  const { userData, user, logout, loading } = useContext(AuthContext);
+  const { user, logout, loading } = useContext(AuthContext);
   const navigate = useNavigate();
-
   const location = useLocation();
 
-  if (!user) navigate("/auth/login");
+  if (!user) {
+    navigate("/auth/login");
+    return null;
+  }
 
   if (loading) return <p>Loading...</p>;
 
   const logoutUser = async () => {
     const res = await logout();
-    if (res) {
-      navigate("/");
-    }
+    if (res) navigate("/");
   };
 
- return (
-  <div className="flex flex-col min-h-screen">
+  return (
+    <div className="min-h-screen flex">
+      {/* Fixed Sidebar */}
+      <ManagerSidebar logoutUser={logoutUser} />
 
-    {/* Main content wrapper */}
-    <div className="flex flex-1">
-      {/* Sidebar */}
-      <aside className="">
-        <ManagerSidebar logoutUser={logoutUser} />
-      </aside>
+      {/* Right Side */}
+      <div className="ml-64 flex flex-col min-h-screen w-full">
+        {/* Page Content */}
+        <main className="flex-1 ">
+          {location.pathname === "/dashboard" && <ManagerDash />}
+          <Outlet />
+        </main>
 
-      {/* Page Content */}
-      <main className="flex-1">
-        <Outlet />
-        {location.pathname === "/dashboard" && <ManagerDash />}
-      </main>
+        {/* Footer */}
+        <Footer />
+      </div>
     </div>
-
-    {/* Footer always at bottom */}
-    <Footer />
-  </div>
-);
-
+  );
 };
 
 export default ManagerDashboard;

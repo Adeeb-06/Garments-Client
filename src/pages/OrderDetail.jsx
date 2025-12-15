@@ -272,7 +272,7 @@ export default function OrderDetails() {
                               d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
                             />
                           </svg>
-                          {isCompleted ? new Date(order?.tracking?.[idx].createdAt).toLocaleString() : "Pending"}
+                          {isCompleted ? new Date(order?.tracking?.[idx]?.createdAt).toLocaleString() : "Pending"}
                         </div>
 
                         <div className="flex items-center justify-center text-gray-700">
@@ -296,7 +296,7 @@ export default function OrderDetails() {
                             />
                           </svg>
                           <span className="font-semibold text-sm">
-                            {isCompleted? order?.tracking?.[idx].location : "Pending"}
+                            {isCompleted? order?.tracking?.[idx]?.location : "Pending"}
                           </span>
                         </div>
                       </div>

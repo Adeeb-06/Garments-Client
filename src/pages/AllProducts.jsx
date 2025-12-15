@@ -26,10 +26,10 @@ const AllProducts = () => {
         <div className="max-w-7xl mx-auto px-8 py-6">
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
             <div>
-              <h1 className="text-3xl font-bold text-secondary mb-2">
+              <h1 className="text-4xl font-bold text-secondary mb-2">
                 All Products
               </h1>
-              <p className="text-gray-600">Browse our complete collection</p>
+             
             </div>
 
             {/* Search Bar */}
@@ -48,7 +48,7 @@ const AllProducts = () => {
           </div>
 
           {/* Results Count */}
-          <div className="mt-4 flex items-center justify-between">
+          <div className="mt-1 flex items-center justify-between">
             <p className="text-sm text-gray-600">
               Showing{" "}
               <span className="font-semibold text-secondary">

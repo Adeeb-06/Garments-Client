@@ -30,6 +30,7 @@ import ManagerOrBuyerRoute from "../provider/ManagerOrBuyerRoute";
 import OrderDetail from "../pages/OrderDetail";
 import AllProducts from "../pages/AllProducts";
 import OrdersAdmin from "../components/dashboards/admin/OrdersAdmin";
+import AdminOrManagerRoute from "../provider/AdminOrManagerRoute";
 
 export const router = createBrowserRouter([
   {
@@ -190,9 +191,9 @@ export const router = createBrowserRouter([
       {
         path:"order-details/:id",
         element: (
-          <AdminRoute>
+          <AdminOrManagerRoute>
             <OrderDetail />
-          </AdminRoute>
+          </AdminOrManagerRoute>
         ),
       },
       {

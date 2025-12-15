@@ -195,7 +195,7 @@ const PendingOrders = () => {
                           ) : null}
 
                           <Link
-                            to={`/dashboard/view-product/`}
+                            to={`/dashboard/order-details/${product._id}`}
                             className="flex items-center space-x-2 bg-gray-700 hover:bg-gray-800 text-white px-2 py-2 rounded-lg transition-all shadow-md hover:shadow-lg font-medium"
                           >
                             <Eye className="w-4 h-4" />
