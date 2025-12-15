@@ -8,11 +8,10 @@ import { AuthContext } from "../../../context/AuthContext";
 import { BuyerContext } from "../../../context/BuyerContext";
 
 const Orders = () => {
-  const { buyerOrders: orders, isLoadingBuyerOrders} = useContext(BuyerContext);
+  const { buyerOrders: orders, isLoadingBuyerOrders , refetchBuyerOrders } =
+    useContext(BuyerContext);
   const { user } = useContext(AuthContext);
   const [searchQuery, setSearchQuery] = useState("");
-
- 
 
   console.log(orders);
 
@@ -21,9 +20,7 @@ const Orders = () => {
 
     if (!query) return true; // return all when empty search
 
-    return (
-      order?.product_name?.toLowerCase().includes(query) 
-    );
+    return order?.product_name?.toLowerCase().includes(query);
   });
 
   const handlePayment = async (order) => {
@@ -41,10 +38,29 @@ const Orders = () => {
         window.location.assign(res.data.url);
       }
     } catch (error) {
-      console.log(error)
+      console.log(error);
       toast.error(error.message);
     }
   };
+
+
+  const handleDelete = async (id) => {
+    const res = await api.delete(`/delete-order/${id}`, {
+      headers: {
+        Authorization: `Bearer ${user.accessToken}`,
+      },
+    });
+    if (res.status === 200) {
+      toast.success("Order deleted successfully!");
+      refetchBuyerOrders();
+    }
+  };
+
+  if (isLoadingBuyerOrders) return (
+      <div className="flex justify-center items-center  w-full h-screen">
+        <span className="loading mx-auto  w-10 h-10 loading-spinner text-secondary"></span>
+      </div>
+    );
 
   return (
     <div className="min-h-screen md:w-[81vw] w-screen bg-primary p-8">
@@ -142,7 +158,7 @@ const Orders = () => {
                         </td>
                       ) : (
                         <td className="px-6 py-4">
-                          {product.paymentStatus == "pending" ? (
+                          {product.paymentStatus == "pending" && product.paymentMethod === "PayFirst" ? (
                             <button
                               onClick={() => handlePayment(product)}
                               className="bg-secondary text-white px-16 py-3 cursor-pointer rounded-xl text-lg font-semibold hover:bg-secondary/70 transition-all shadow-lg"
@@ -161,6 +177,11 @@ const Orders = () => {
 
                       <td className="px-2 py-4">
                         <div className="flex items-center justify-center gap-1">
+                          {product?.status === "pending" ? (
+                            <button onClick={()=> handleDelete(product._id)} className="flex items-center space-x-2 bg-yellow-500 hover:bg-yellow-600 text-white px-2 py-2 rounded-lg transition-all shadow-md hover:shadow-lg font-medium">
+                              <X className="w-4 h-4" />
+                            </button>
+                          ) : null}
                           <Link
                             to={`/dashboard/track-order/${product._id}`}
                             className="flex items-center space-x-2 bg-gray-700 hover:bg-gray-800 text-white px-2 py-2 rounded-lg transition-all shadow-md hover:shadow-lg font-medium"

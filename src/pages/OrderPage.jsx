@@ -17,7 +17,7 @@ import { toast } from "react-toastify";
 import api from "../api";
 
 export default function OrderPage() {
-  const { userData , user } = useContext(AuthContext);
+  const { userData, user } = useContext(AuthContext);
   const { setId, product, isLoading } = useContext(ManagerContext);
   const { id } = useParams();
   const navigate = useNavigate();
@@ -32,28 +32,27 @@ export default function OrderPage() {
   } = useForm();
 
   const onsubmit = async (data) => {
-    console.log(data)
+    console.log(data);
     const finalData = {
       ...data,
       product_id: product?._id,
       paymentMethod: product?.payment,
-    }
+    };
     try {
       const res = await api.post(`/order/${product?._id}`, finalData, {
         headers: {
-          Authorization: `Bearer ${user?.accessToken}`
-        }
-      })
-      if(res.status === 201){
-        if(product?.payment === "PayFirst"){
-          
-          navigate(`/payment/${res.data._id}`)
-        } else{
-          navigate(`/`)
-          toast.success("Order placed successfully!")
+          Authorization: `Bearer ${user?.accessToken}`,
+        },
+      });
+      if (res.status === 201) {
+        if (product?.payment === "PayFirst") {
+          navigate(`/payment/${res.data._id}`);
+        } else {
+          navigate(`/`);
+          toast.success("Order placed successfully!");
         }
       }
-      console.log(res)
+      console.log(res);
     } catch (error) {
       toast.error(error.message);
       console.log(error);
@@ -194,7 +193,7 @@ export default function OrderPage() {
                   </div>
                   <div>
                     <label className="block text-sm font-medium text-base-200 mb-2">
-                     Last Name <span className="text-red-500">*</span>
+                      Last Name <span className="text-red-500">*</span>
                     </label>
                     <div className="relative">
                       <User className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
@@ -272,10 +271,12 @@ export default function OrderPage() {
                               message: `Order quantity must be at least ${product.min_order}`,
                             }
                           : undefined,
-                        max: product?.available_quantity ? {
-                          value: Number(product.available_quantity),
-                          message: `Available quantity is ${product.available_quantity}`,
-                        } : undefined,
+                        max: product?.available_quantity
+                          ? {
+                              value: Number(product.available_quantity),
+                              message: `Available quantity is ${product.available_quantity}`,
+                            }
+                          : undefined,
                       })}
                       value={qty}
                       onChange={(e) => setQty(Number(e.target.value))}
@@ -385,12 +386,21 @@ export default function OrderPage() {
               </div>
 
               {/* Submit Button */}
-              <button
-                type="submit"
-                className="w-full bg-primary text-secondary py-4 rounded-xl font-bold text-lg hover:opacity-90 transition-all shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
-              >
-                Confirm Booking
-              </button>
+              {userData?.role === "buyer" ? (
+                <button
+                  type="submit"
+                  className="w-full bg-primary text-secondary py-4 rounded-xl font-bold text-lg hover:opacity-90 transition-all shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  Confirm Booking
+                </button>
+              ) : (
+                <button
+
+                  className="w-full bg-primary text-secondary py-4 rounded-xl font-bold text-lg hover:opacity-90 transition-all shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  Not Allowed
+                </button>
+              )}
 
               {/* Terms Notice */}
               <p className="text-xs text-gray-600 text-center">
