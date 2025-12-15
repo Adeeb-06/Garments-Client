@@ -164,7 +164,7 @@ export default function OrderDetails() {
   };
 
   return (
-    <div className="min-h-screen w-[81vw] bg-primary p-8">
+    <div className="min-h-screen md:w-[81vw] w-screen bg-primary p-8">
       <div className=" mx-auto">
        
         {/* Header */}
@@ -213,7 +213,7 @@ export default function OrderDetails() {
             ) : null}
 
             {order?.tracking ? (
-              <div className="flex gap-3 ">
+              <div className="flex overflow-x-auto gap-3 p-3 ">
                 {statuses.map((status, idx) => {
                   const trackingItem = order?.tracking?.find(
                     (t) => t.status === status
@@ -221,7 +221,7 @@ export default function OrderDetails() {
                   const isCompleted = !!trackingItem;
                   return (
                     <div
-                      className={`m rounded-2xl p-4 shadow-lg border-2 ${
+                      className={`m rounded-2xl p-2 md:p-4 shadow-lg border-2 ${
                         isCompleted
                           ? "bg-green-50 border-green-200"
                           : "bg-gray-50 border-gray-200"
@@ -231,7 +231,7 @@ export default function OrderDetails() {
                         {isCompleted ? (
                           <div className="bg-green-500 p-3 rounded-full">
                             <svg
-                              className="w-6 h-6 text-white"
+                              className="w-4 md:w-6 h-4 md:h-6 text-white"
                               fill="none"
                               stroke="currentColor"
                               viewBox="0 0 24 24"
@@ -246,13 +246,13 @@ export default function OrderDetails() {
                           </div>
                         ) : (
                           <div className="bg-secondary p-3 rounded-full">
-                            <TimerIcon className="text-primary w-6 h-6" />
+                            <TimerIcon className="text-primary md:w-6 w-4 h-4 md:h-6" />
                           </div>
                         )}
                       </div>
 
-                      <div className="text-center mb-4">
-                        <span className="text-xl font-bold text-green-800 block mb-1">
+                      <div className="text-center md:mb-4">
+                        <span className="md:text-xl text-md font-bold text-green-800 block mb-1">
                           {status}
                         </span>
                       </div>
