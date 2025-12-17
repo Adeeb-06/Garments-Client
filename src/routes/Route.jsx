@@ -32,6 +32,8 @@ import AllProducts from "../pages/AllProducts";
 import OrdersAdmin from "../components/dashboards/admin/OrdersAdmin";
 import AdminOrManagerRoute from "../provider/AdminOrManagerRoute";
 import NotFound from "../pages/NotFound";
+import AboutUs from "../components/AboutUs";
+import ContactUs from "../components/ContactUs";
 
 export const router = createBrowserRouter([
   {
@@ -93,6 +95,14 @@ export const router = createBrowserRouter([
         path: "all-products",
         element: <AllProducts />,
       },
+      {
+    path:"about-us",
+    element: <AboutUs />
+  },
+  {
+    path:"contact-us",
+    element: <ContactUs />
+  },
     ],
   },
   {
@@ -221,6 +231,7 @@ export const router = createBrowserRouter([
     path: "/unauthorized",
     element: <UnauthorizedPage />,
   },
+  
   {
     path: "*",
     element: <NotFound />

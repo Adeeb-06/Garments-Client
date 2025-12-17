@@ -31,7 +31,7 @@ export default function Products() {
     isLoading,
     isError,
     error,
-    refetch,
+    refetch:refetchAdminProducts,
   } = useQuery({
     queryKey: ["adminProducts"],
     queryFn: () => fetchProducts(),
@@ -61,9 +61,11 @@ export default function Products() {
     );
     if (res.status === 200) {
       toast.success("Product updated successfully!");
-      refetch();
+      refetchAdminProducts();
     }
   };
+
+
 
   const handleClick = (product) => {
     setSelectedProduct(product); 

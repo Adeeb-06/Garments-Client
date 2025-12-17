@@ -27,6 +27,7 @@ export default function AboutUs() {
       whileInView="visible"
       viewport={{ once: true, amount: 0.2 }}
       variants={container}
+      id="about-us"
     >
       <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-16 items-center">
         {/* LEFT — IMAGE SIDE */}

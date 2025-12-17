@@ -16,7 +16,7 @@ import { AuthContext } from "../context/AuthContext";
 export default function ProductDetailsPage() {
   const { id } = useParams();
   console.log(id);
-  const { product, setId, isLoading } = useContext(ManagerContext);
+  const { productManager, setId, isLoading } = useContext(ManagerContext);
   const {userData} = useContext(AuthContext);
   const [quantity, setQuantity] = useState(50);
   const [selectedImage, setSelectedImage] = useState(0);
@@ -43,15 +43,15 @@ export default function ProductDetailsPage() {
             {/* Main Image */}
             <div className="bg-white rounded-2xl shadow-lg overflow-hidden border border-base-300">
               <img
-                src={product?.images[selectedImage]}
-                alt={product?.product_name}
+                src={productManager?.images[selectedImage]}
+                alt={productManager?.product_name}
                 className="w-full h-96 lg:h-[500px] object-cover"
               />
             </div>
 
             {/* Thumbnail Images */}
             <div className="grid grid-cols-4 gap-3">
-              {product?.images.map((image, index) => (
+              {productManager?.images.map((image, index) => (
                 <button
                   key={index}
                   onClick={() => setSelectedImage(index)}
@@ -63,7 +63,7 @@ export default function ProductDetailsPage() {
                 >
                   <img
                     src={image}
-                    alt={`${product?.product_name} ${index + 1}`}
+                    alt={`${productManager?.product_name} ${index + 1}`}
                     className="w-full h-20 object-cover"
                   />
                 </button>
@@ -78,16 +78,16 @@ export default function ProductDetailsPage() {
               <div className="flex items-center space-x-3 mb-4">
                 <span className="inline-flex items-center px-3 py-1 text-sm font-semibold rounded-full bg-blue-100 text-blue-800">
                   <Tag className="w-4 h-4 mr-1" />
-                  {product?.category}
+                  {productManager?.category}
                 </span>
               </div>
 
               <h1 className="text-3xl font-bold text-secondary mb-4">
-                {product?.product_name}
+                {productManager?.product_name}
               </h1>
 
               <p className="text-gray-700 leading-relaxed mb-6">
-                {product?.product_description}
+                {productManager?.product_description}
               </p>
 
               {/* Price */}
@@ -95,7 +95,7 @@ export default function ProductDetailsPage() {
                 <div className="flex items-baseline space-x-2">
                   <span className="font-bold  text-3xl">Price:</span>
                   <span className="text-4xl font-bold text-secondary">
-                    ${product?.price}
+                    ${productManager?.price}
                   </span>
                 </div>
               </div>
@@ -110,7 +110,7 @@ export default function ProductDetailsPage() {
                     </span>
                   </div>
                   <p className="text-2xl font-bold text-green-600">
-                    {product?.available_quantity} pcs
+                    {productManager?.available_quantity} pcs
                   </p>
                 </div>
                 <div className="bg-yellow-50 border border-yellow-200 rounded-xl p-4">
@@ -121,7 +121,7 @@ export default function ProductDetailsPage() {
                     </span>
                   </div>
                   <p className="text-2xl font-bold text-yellow-600">
-                    {product?.min_order} pcs
+                    {productManager?.min_order} pcs
                   </p>
                 </div>
               </div>
@@ -136,13 +136,13 @@ export default function ProductDetailsPage() {
                 <div className="flex items-center space-x-2 bg-primary px-4 py-3 rounded-lg border border-base-300">
                   <DollarSign className="w-4 h-4 text-primary" />
                   <span className="text-md font-medium text-gray-700">
-                    {product?.payment}
+                    {productManager?.payment}
                   </span>
                 </div>
               </div>
             </div>
 
-            {product?.available_quantity < 0 || product?.min_order > product?.available_quantity ? (
+            {productManager?.available_quantity < 0 || productManager?.min_order > productManager?.available_quantity ? (
               <Link
        
                 className="w-full bg-secondary text-primary py-4 rounded-xl font-bold text-lg hover:opacity-90 transition-all shadow-lg flex items-center justify-center space-x-3"
@@ -153,7 +153,7 @@ export default function ProductDetailsPage() {
             ): (
                userData?.role === "buyer" ? (
                 <Link
-                  to={`/order/${product?._id}`}
+                  to={`/order/${productManager?._id}`}
                   className="w-full bg-secondary text-primary py-4 rounded-xl font-bold text-lg hover:opacity-90 transition-all shadow-lg flex items-center justify-center space-x-3"
                 >
                  Place Order 
@@ -172,7 +172,7 @@ export default function ProductDetailsPage() {
             <div className="bg-blue-50 border border-blue-200 rounded-xl p-4">
               <p className="text-sm text-blue-800">
                 <strong>Note:</strong> Minimum order quantity is{" "}
-                {product?.min_order} pieces. Orders will be processed within
+                {productManager?.min_order} pieces. Orders will be processed within
                 24-48 hours.
               </p>
             </div>

@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import api from "../api";
 import { AdminContext } from "../context/AdminContext.jsx";
 import { AuthContext } from "../context/AuthContext.jsx";
@@ -6,6 +6,8 @@ import { useQuery } from "@tanstack/react-query";
 
 const AdminProvider = ({ children }) => {
   const { user } = useContext(AuthContext);
+  const [page, setPage] = useState(1);
+  const limit = 10
 
   const fetchUsers = async () => {
     if (!user?.accessToken) return [];
@@ -17,14 +19,14 @@ const AdminProvider = ({ children }) => {
     return res.data;
   };
 
-  const fetchOrdersAdmin = async () => {
-    const res = await api.get("/admin/all-orders", {
+  const fetchOrdersAdmin = async (page=1 , limit) => {
+    const res = await api.get(`/admin/all-orders?page=${page}&limit=${limit}`, {
       headers: {
         Authorization: `Bearer ${user.accessToken}`,
       },
     });
     console.log(res , "route")
-    return res.data;
+    return res;
   };
 
   const {
@@ -44,8 +46,8 @@ const AdminProvider = ({ children }) => {
     isError: isErrorOrdersAdmin,
     refetch: refetchOrdersAdmin,
   } = useQuery({
-    queryKey: ["ordersAdmin"],
-    queryFn: () => fetchOrdersAdmin(),
+    queryKey: ["ordersAdmin" , page],
+    queryFn: () => fetchOrdersAdmin(page, limit),
     enabled: !!user,
   });
 
@@ -55,6 +57,7 @@ const AdminProvider = ({ children }) => {
     refetch,
     ordersAdmin,
     isLoadingOrdersAdmin,
+    setPage,
   };
 
   return <AdminContext value={data}>{children}</AdminContext>;

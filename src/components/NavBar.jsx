@@ -7,6 +7,7 @@ import {
   Scissors,
   Users,
   BarChart3,
+  Mail,
 } from "lucide-react";
 import { MdAccountCircle } from "react-icons/md";
 import { Link } from "react-router";
@@ -20,10 +21,11 @@ export default function Navbar() {
 
   const navLinks = [
     { name: "All Products", icon: Package, href: "/all-products" },
-  
+    { name: "About Us", icon: Users, href: "/about-us" },
+    { name: "Contact Us", icon: Mail, href: "/contact-us" },
   ];
 
-  const logoutUser = async() => {
+  const logoutUser = async () => {
     const res = await logout();
     if (res) {
       setProfileOpen(false);
@@ -35,7 +37,7 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
-          <Link to={'/'} className="flex items-center space-x-3">
+          <Link to={"/"} className="flex items-center space-x-3">
             <div className="bg-secondary text-primary p-2 rounded-lg">
               <Scissors className="w-6 h-6" />
             </div>
@@ -57,8 +59,8 @@ export default function Navbar() {
                 to={link.href}
                 className="flex items-center space-x-2 px-4 py-2 rounded-lg text-secondary hover:bg-secondary hover:text-primary transition-all duration-200"
               >
-                <link.icon className="w-6 h-6" />
-                <span className="font-medium text-xl">{link.name}</span>
+                <link.icon className="w-4 h-4" />
+                <span className="font-medium text-md">{link.name}</span>
               </Link>
             ))}
           </div>
@@ -70,9 +72,21 @@ export default function Navbar() {
               onClick={() => setProfileOpen(!profileOpen)}
               className="hidden md:flex items-center px-4 py-2 rounded-lg bg-secondary text-primary hover:bg-secondary/90 transition-all duration-200"
             >
-              <MdAccountCircle className="w-7 h-7" />
+              {userData ? (
+                <img
+                  src={userData?.photoURL}
+                  alt="Profile"
+                  referrerPolicy="no-referrer"
+                  className="w-8 h-8 rounded-full"
+                />
+              ) : (
+                <MdAccountCircle className="w-7 h-7" />
+              )}
+
               <span className="ml-2">
-                {loading ? "Loading..." : userData?.name || <Link to="/auth/login">Login</Link>}
+                {loading
+                  ? "Loading..."
+                  : userData?.name || <Link to="/auth/login">Login</Link>}
               </span>
             </button>
 
@@ -91,26 +105,25 @@ export default function Navbar() {
         </div>
 
         {/* Profile Dropdown */}
-      {userData && profileOpen && (
-  <div className="absolute right-[18%] top-14 bg-white text-black rounded-xl shadow-lg p-4 w-48 backdrop-blur-xl z-50 animate-fadeIn">
-    <div className="flex flex-col space-y-3">
-      <Link
-        to="/dashboard"
-        className="px-3 py-2 rounded-lg bg-gray-100 hover:bg-gray-200 transition"
-      >
-        Dashboard
-      </Link>
+        {userData && profileOpen && (
+          <div className="absolute right-[18%] top-14 bg-white text-black rounded-xl shadow-lg p-4 w-48 backdrop-blur-xl z-50 animate-fadeIn">
+            <div className="flex flex-col space-y-3">
+              <Link
+                to="/dashboard"
+                className="px-3 py-2 rounded-lg bg-gray-100 hover:bg-gray-200 transition"
+              >
+                Dashboard
+              </Link>
 
-      <button
-        onClick={() => logoutUser()}
-        className="px-3 py-2 rounded-lg bg-red-500 text-white hover:bg-red-600 transition"
-      >
-        Logout
-      </button>
-    </div>
-  </div>
-)}
-
+              <button
+                onClick={() => logoutUser()}
+                className="px-3 py-2 rounded-lg bg-red-500 text-white hover:bg-red-600 transition"
+              >
+                Logout
+              </button>
+            </div>
+          </div>
+        )}
 
         {/* Mobile Nav */}
         {isMenuOpen && (
@@ -130,21 +143,24 @@ export default function Navbar() {
 
               {/* Mobile Profile */}
               {userData ? (
-                <><button
-                  onClick={() => logoutUser()}
-                  className="flex items-center space-x-2 px-4 py-3 rounded-lg bg-red-500 text-white"
-                >
-                  <MdAccountCircle className="w-7 h-7" />
-                  <span>Logout</span>
-                </button><Link to={'/dashboard'}
-                  className="flex items-center px-4 py-2 rounded-lg bg-secondary text-primary hover:bg-secondary/90 transition-all duration-200"
-                >
+                <>
+                  <button
+                    onClick={() => logoutUser()}
+                    className="flex items-center space-x-2 px-4 py-3 rounded-lg bg-red-500 text-white"
+                  >
+                    <MdAccountCircle className="w-7 h-7" />
+                    <span>Logout</span>
+                  </button>
+                  <Link
+                    to={"/dashboard"}
+                    className="flex items-center px-4 py-2 rounded-lg bg-secondary text-primary hover:bg-secondary/90 transition-all duration-200"
+                  >
                     <MdAccountCircle className="w-7 h-7" />
                     <span className="ml-2">
-                      {loading ? "Loading..." : userData?.name }
+                      {loading ? "Loading..." : userData?.name}
                     </span>
-                  </Link></>
-
+                  </Link>
+                </>
               ) : (
                 <Link
                   to="/auth/login"
