@@ -46,15 +46,17 @@ const ManagerProvider = ({ children }) => {
   };
 
   const {
-    data: product,
-    isLoading,
+    data: productManager,
+    isLoadingProductManager,
     isFetching,
     isError,
-    refetch,
+    refetch: refetchProductManager,
   } = useQuery({
-    queryKey: ["product", id],
+    queryKey: ["productManager", id],
     queryFn: () => fetchProductByID(id),
-    enabled: !!user,
+    enabled: !!user && !!id,
+    refetchOnMount: true,
+    refetchOnWindowFocus: true,
   });
 
   const {
@@ -66,6 +68,8 @@ const ManagerProvider = ({ children }) => {
     queryKey: ["products"],
     queryFn: () => fetchProducts(),
     enabled: !!user,
+    refetchOnMount: true,
+    refetchOnWindowFocus: true,
   });
 
   const {
@@ -88,7 +92,7 @@ const ManagerProvider = ({ children }) => {
     refetch: refetchApprovedOrders,
     isFetching: isFetchingApprovedOrders,
   } = useQuery({
-    queryKey: ["approvedOrders" , user?.email],
+    queryKey: ["approvedOrders"],
     queryFn: () => fetchApprovedOrders(),
     enabled: !!user?.accessToken,
     refetchOnMount: true,
@@ -96,16 +100,14 @@ const ManagerProvider = ({ children }) => {
   });
 
   const data = {
-    product,
-    isLoadingUser: isLoading,
+    productManager,
+    refetchProductManager,
     isError,
-    refetch,
     setId,
     products,
     isLoadingProducts,
     isErrorProducts,
     refetchProducts,
-    isLoading,
     pendingOrders,
     isLoadingPendingOrders,
     isErrorPendingOrders,

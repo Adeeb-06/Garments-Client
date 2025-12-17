@@ -11,11 +11,13 @@ import {
 } from "lucide-react";
 import { Link, useNavigate, useParams } from "react-router";
 import { ManagerContext } from "../context/ManagerContext";
+import { AuthContext } from "../context/AuthContext";
 
 export default function ProductDetailsPage() {
   const { id } = useParams();
   console.log(id);
   const { product, setId, isLoading } = useContext(ManagerContext);
+  const {userData} = useContext(AuthContext);
   const [quantity, setQuantity] = useState(50);
   const [selectedImage, setSelectedImage] = useState(0);
 
@@ -142,20 +144,27 @@ export default function ProductDetailsPage() {
 
             {product?.available_quantity < 0 || product?.min_order > product?.available_quantity ? (
               <Link
-                to={`/order/${product?._id}`}
+       
                 className="w-full bg-secondary text-primary py-4 rounded-xl font-bold text-lg hover:opacity-90 transition-all shadow-lg flex items-center justify-center space-x-3"
               >
                 <ShoppingCart className="w-6 h-6" />
                 <span>Not in Stock</span>
               </Link>
             ): (
-              <Link
-                to={`/order/${product?._id}`}
-                className="w-full bg-secondary text-primary py-4 rounded-xl font-bold text-lg hover:opacity-90 transition-all shadow-lg flex items-center justify-center space-x-3"
-              >
-                <ShoppingCart className="w-6 h-6" />
-                <span>Place Order</span>
-              </Link>
+               userData?.role === "buyer" ? (
+                <Link
+                  to={`/order/${product?._id}`}
+                  className="w-full bg-secondary text-primary py-4 rounded-xl font-bold text-lg hover:opacity-90 transition-all shadow-lg flex items-center justify-center space-x-3"
+                >
+                 Place Order 
+                </Link>
+              ) : (
+                <button
+                  className="w-full bg-primary text-secondary py-4 rounded-xl font-bold text-lg hover:opacity-90 transition-all shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  Not Allowed
+                </button>
+              )
             )  }
             {/* Order Button */}
 

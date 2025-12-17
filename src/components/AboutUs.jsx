@@ -1,13 +1,36 @@
 import React from "react";
 import { CheckCircle, Award, Users, Factory } from "lucide-react";
+import { motion } from "framer-motion";
+
+const container = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: { staggerChildren: 0.15 },
+  },
+};
+
+const item = {
+  hidden: { opacity: 0, y: 30 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.6, ease: "easeOut" },
+  },
+};
 
 export default function AboutUs() {
   return (
-    <section className="py-20 bg-white px-6">
+    <motion.section
+      className="py-20 bg-white px-6"
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, amount: 0.2 }}
+      variants={container}
+    >
       <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-16 items-center">
-        
         {/* LEFT — IMAGE SIDE */}
-        <div className="relative">
+        <motion.div variants={item} className="relative">
           {/* Background Shape */}
           <div className="absolute inset-0 bg-primary/10 rounded-3xl blur-2xl"></div>
 
@@ -22,65 +45,55 @@ export default function AboutUs() {
           <div className="absolute bottom-6 right-6 bg-secondary text-primary px-6 py-4 rounded-2xl shadow-xl z-20">
             <p className="text-lg font-bold">10+ Years of Experience</p>
           </div>
-        </div>
+        </motion.div>
 
         {/* RIGHT — CONTENT SIDE */}
-        <div>
-          <h2 className="text-4xl lg:text-5xl font-bold text-secondary mb-6">
+        <motion.div variants={item}>
+          <motion.h2 variants={item} className="text-4xl lg:text-5xl font-bold text-secondary mb-6">
             About Us
-          </h2>
+          </motion.h2>
 
-          <p className="text-gray-700 text-lg leading-relaxed mb-6">
+          <motion.p variants={item} className="text-gray-700 text-lg leading-relaxed mb-6">
             We are a trusted garment manufacturing partner delivering premium
             quality apparel to clients worldwide. Our mission is to combine
             craftsmanship, innovation, and technology to offer reliable production
             solutions that meet global standards.
-          </p>
+          </motion.p>
 
-          <p className="text-gray-700 text-lg leading-relaxed mb-8">
+          <motion.p variants={item} className="text-gray-700 text-lg leading-relaxed mb-8">
             With a strong focus on quality control, ethical production, and on-time
             delivery, we help brands scale confidently while maintaining complete
             visibility into every stage of production.
-          </p>
+          </motion.p>
 
           {/* Features */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-8">
-            {/* Feature */}
-            <div className="flex items-start space-x-3">
-              <div className="text-secondary">
-                <CheckCircle className="w-6 h-6" />
-              </div>
-              <p className="text-gray-700">Premium Quality Standards</p>
-            </div>
-
-            <div className="flex items-start space-x-3">
-              <div className="text-secondary">
-                <Factory className="w-6 h-6" />
-              </div>
-              <p className="text-gray-700">State-of-the-Art Production Unit</p>
-            </div>
-
-            <div className="flex items-start space-x-3">
-              <div className="text-secondary">
-                <Users className="w-6 h-6" />
-              </div>
-              <p className="text-gray-700">Skilled & Experienced Team</p>
-            </div>
-
-            <div className="flex items-start space-x-3">
-              <div className="text-secondary">
-                <Award className="w-6 h-6" />
-              </div>
-              <p className="text-gray-700">Guaranteed On-Time Delivery</p>
-            </div>
-          </div>
+          <motion.div variants={container} className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-8">
+            {[
+              { icon: CheckCircle, text: "Premium Quality Standards" },
+              { icon: Factory, text: "State-of-the-Art Production Unit" },
+              { icon: Users, text: "Skilled & Experienced Team" },
+              { icon: Award, text: "Guaranteed On-Time Delivery" },
+            ].map((feature, idx) => (
+              <motion.div key={idx} variants={item} className="flex items-start space-x-3">
+                <div className="text-secondary">
+                  <feature.icon className="w-6 h-6" />
+                </div>
+                <p className="text-gray-700">{feature.text}</p>
+              </motion.div>
+            ))}
+          </motion.div>
 
           {/* CTA Button */}
-          <button className="px-8 py-4 bg-secondary text-primary text-lg font-semibold rounded-xl shadow-xl hover:opacity-90 transition-all">
+          <motion.button
+            variants={item}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className="px-8 py-4 bg-secondary text-primary text-lg font-semibold rounded-xl shadow-xl hover:opacity-90 transition-all"
+          >
             Learn More
-          </button>
-        </div>
+          </motion.button>
+        </motion.div>
       </div>
-    </section>
+    </motion.section>
   );
 }

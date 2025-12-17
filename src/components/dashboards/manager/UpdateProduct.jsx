@@ -23,7 +23,7 @@ export default function UpdateProduct() {
 
   const [imageList, setImageList] = useState([]);
   const { userData, user } = useContext(AuthContext);
-  const { setId, product } = useContext(ManagerContext);
+  const { setId, productManager , refetchProductManager } = useContext(ManagerContext);
   const [existingImages, setExistingImages] = useState([]);
   const navigate = useNavigate();
 
@@ -39,26 +39,26 @@ export default function UpdateProduct() {
   } = useForm({});
 
   useEffect(() => {
-    if (product) {
+    if (productManager) {
       reset({
-        product_name: product.product_name,
-        product_description: product.product_description,
-        category: product.category,
-        price: product.price,
-        available_quantity: product.available_quantity,
-        min_order: product.min_order,
-        images: product.images,
-        payment: product.payment,
+        product_name: productManager.product_name,
+        product_description: productManager.product_description,
+        category: productManager.category,
+        price: productManager.price,
+        available_quantity: productManager.available_quantity,
+        min_order: productManager.min_order,
+        images: productManager.images,
+        payment: productManager.payment,
       });
     }
-  }, [product]);
+  }, [productManager]);
 
 
   useEffect(() => {
-    if (product?.images) {
-      setExistingImages(product?.images || []);
+    if (productManager?.images) {
+      setExistingImages(productManager?.images || []);
     }
-  }, [product?.images]);
+  }, [productManager?.images]);
 
   const uploadToImgBB = async (imageFile) => {
     const form = new FormData();
@@ -106,6 +106,7 @@ export default function UpdateProduct() {
     },
 
     onSuccess: () => {
+      refetchProductManager()
       if(userData?.role == "manager") navigate("/dashboard/products");
       else navigate("/dashboard/all-products");
       toast.success("Product updated successfully!");
@@ -117,6 +118,10 @@ export default function UpdateProduct() {
   });
 
   const onsubmit = async (data) => {
+      if (allImages.length === 0) {
+    toast.error("At least one image is required");
+    return;
+  }
     mutate(data);
   };
 
@@ -167,7 +172,7 @@ export default function UpdateProduct() {
                           message: "Product name is required",
                         },
                       })}
-                      defaultValue={product?.product_name}
+                      defaultValue={productManager?.product_name}
                       type="text"
                       placeholder="Enter product name"
                       className="w-full pl-10 pr-4 py-3 border border-base-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all"
@@ -195,7 +200,7 @@ export default function UpdateProduct() {
                         },
                       })}
                       placeholder="Enter detailed product description..."
-                      defaultValue={product?.product_description}
+                      defaultValue={productManager?.product_description}
                       rows="5"
                       className="w-full pl-10 pr-4 py-3 border border-base-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all resize-none"
                     ></textarea>
@@ -266,7 +271,7 @@ export default function UpdateProduct() {
                             message: "Price is required",
                           },
                         })}
-                        defaultValue={product?.price}
+                        defaultValue={productManager?.price}
                         placeholder="0.00"
                         step="0.01"
                         min="0"
@@ -293,7 +298,7 @@ export default function UpdateProduct() {
                             message: "Available quantity is required",
                           },
                         })}
-                        defaultValue={product?.available_quantity}
+                        defaultValue={productManager?.available_quantity}
                         placeholder="0"
                         min="0"
                         className="w-full pl-10 pr-4 py-3 border border-base-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all"
@@ -321,7 +326,7 @@ export default function UpdateProduct() {
                             message: "Min. order is required",
                           },
                         })}
-                        defaultValue={product?.min_order}
+                        defaultValue={productManager?.min_order}
                         placeholder="0"
                         min="0"
                         className="w-full pl-10 pr-4 py-3 border border-base-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all"
@@ -356,10 +361,7 @@ export default function UpdateProduct() {
                       type="file"
                       multiple
                       {...register("images", {
-                        required: {
-                          value: true,
-                          message: "Images are required",
-                        },
+                       
                       })}
                       onChange={handleAddFiles}
                       className="hidden"
@@ -394,9 +396,7 @@ export default function UpdateProduct() {
                     ))}
                   </div>
                 </div>
-                {errors.images && (
-                  <p className="text-sm text-red-500">{errors.images.message}</p>
-                )}
+         
 
                 {/* Payment Options Dropdown */}
                 <div>

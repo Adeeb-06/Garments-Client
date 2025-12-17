@@ -25,19 +25,20 @@ export default function ProductManagement() {
     return res.data;
   };
   const {
-    data: products,
+    data: productsManagement,
     isLoading,
     isError,
     error,
     refetch,
   } = useQuery({
-    queryKey: ["products"],
+    queryKey: ["productsManagement"],
     queryFn: () => fetchProducts(),
     enabled: !!user,
+    refetchOnMount: true,
+    refetchOnWindowFocus: true,
   });
 
-  console.log(products);
-  console.log(error);
+
 
   const handleClick = (product) => {
     setSelectedProduct(product);
@@ -45,7 +46,7 @@ export default function ProductManagement() {
   };
   if (isLoadingUser) return <p> Loading...</p>;
 
-  const filteredProducts = products
+  const filteredProducts = productsManagement
     ?.filter((product) => product)
     .filter((product) =>
       product.product_name?.toLowerCase().includes(searchQuery.toLowerCase())
@@ -185,7 +186,7 @@ export default function ProductManagement() {
         {/* Table Footer Info */}
         <div className="mt-4 text-sm text-gray-600">
           <p>
-            Showing {filteredProducts?.length} of {products?.length} users
+            Showing {filteredProducts?.length} of {productsManagement?.length} products
           </p>
         </div>
       </div>

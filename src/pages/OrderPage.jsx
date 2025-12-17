@@ -386,21 +386,14 @@ export default function OrderPage() {
               </div>
 
               {/* Submit Button */}
-              {userData?.role === "buyer" ? (
+             
                 <button
                   type="submit"
                   className="w-full bg-primary text-secondary py-4 rounded-xl font-bold text-lg hover:opacity-90 transition-all shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   Confirm Booking
                 </button>
-              ) : (
-                <button
-
-                  className="w-full bg-primary text-secondary py-4 rounded-xl font-bold text-lg hover:opacity-90 transition-all shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
-                >
-                  Not Allowed
-                </button>
-              )}
+             
 
               {/* Terms Notice */}
               <p className="text-xs text-gray-600 text-center">

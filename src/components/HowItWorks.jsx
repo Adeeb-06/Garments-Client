@@ -1,5 +1,6 @@
 import React from "react";
 import { ClipboardCheck, Truck, ShieldCheck, Package, BarChart3 } from "lucide-react";
+import { motion } from "framer-motion";
 
 export default function HowItWorks() {
   const steps = [
@@ -35,26 +36,46 @@ export default function HowItWorks() {
     },
   ];
 
+  const container = {
+    hidden: { opacity: 0 },
+    visible: { 
+      opacity: 1, 
+      transition: { staggerChildren: 0.15 } 
+    },
+  };
+
+  const item = {
+    hidden: { opacity: 0, y: 30 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } },
+  };
+
   return (
-    <section className="py-20 bg-gray-50 px-6">
+    <motion.section
+      className="py-20 bg-gray-50 px-6"
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, amount: 0.2 }}
+      variants={container}
+    >
       <div className="max-w-7xl mx-auto">
         {/* Header */}
-        <div className="text-center mb-14">
-          <h2 className="text-4xl lg:text-5xl font-bold text-secondary mb-4">
+        <motion.div className="text-center mb-14" variants={container}>
+          <motion.h2 variants={item} className="text-4xl lg:text-5xl font-bold text-secondary mb-4">
             How It Works
-          </h2>
-          <p className="text-gray-600 text-lg max-w-2xl mx-auto">
+          </motion.h2>
+          <motion.p variants={item} className="text-gray-600 text-lg max-w-2xl mx-auto">
             A transparent, step-by-step process designed to give you confidence in our production workflow.
-          </p>
-        </div>
+          </motion.p>
+        </motion.div>
 
         {/* Steps Grid */}
-        <div className="grid sm:grid-cols-2  lg:grid-cols-3 gap-10">
+        <motion.div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-10" variants={container}>
           {steps.map((step, index) => {
             const Icon = step.icon;
             return (
-              <div
+              <motion.div
                 key={index}
+                variants={item}
                 className="bg-white shadow-xl rounded-3xl p-8 border border-gray-200 text-center hover:shadow-2xl transition-all"
               >
                 {/* Icon */}
@@ -69,11 +90,11 @@ export default function HowItWorks() {
 
                 {/* Description */}
                 <p className="text-gray-600 leading-relaxed">{step.description}</p>
-              </div>
+              </motion.div>
             );
           })}
-        </div>
+        </motion.div>
       </div>
-    </section>
+    </motion.section>
   );
 }

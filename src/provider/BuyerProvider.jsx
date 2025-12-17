@@ -59,6 +59,8 @@ const BuyerProvider = ({ children }) => {
     queryKey: ["product", id],
     queryFn: () => fetchProductByID(id),
     enabled: !!user && !!id,
+    refetchOnWindowFocus: true,
+    refetchOnMount: true,
   });
 
   const {
@@ -105,7 +107,6 @@ const BuyerProvider = ({ children }) => {
 
   const data = {
     product,
-    isLoadingUser: isLoading,
     isError,
     refetch,
     setId,

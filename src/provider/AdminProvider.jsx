@@ -51,7 +51,6 @@ const AdminProvider = ({ children }) => {
 
   const data = {
     users,
-    isLoadingUser: isLoading,
     isError,
     refetch,
     ordersAdmin,
