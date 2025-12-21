@@ -17,7 +17,7 @@ export default function ProductDetailsPage() {
   const { id } = useParams();
   console.log(id);
   const { productManager, setId, isLoading } = useContext(ManagerContext);
-  const {userData} = useContext(AuthContext);
+  const { userData } = useContext(AuthContext);
   const [quantity, setQuantity] = useState(50);
   const [selectedImage, setSelectedImage] = useState(0);
 
@@ -26,6 +26,9 @@ export default function ProductDetailsPage() {
   }, [id]);
 
   const navigate = useNavigate();
+
+  const availableQty = Number(productManager?.available_quantity);
+  const minOrder = Number(productManager?.min_order);
 
   if (isLoading)
     return (
@@ -142,38 +145,32 @@ export default function ProductDetailsPage() {
               </div>
             </div>
 
-            {productManager?.available_quantity < 0 || productManager?.min_order > productManager?.available_quantity ? (
-              <Link
-       
-                className="w-full bg-secondary text-primary py-4 rounded-xl font-bold text-lg hover:opacity-90 transition-all shadow-lg flex items-center justify-center space-x-3"
-              >
+            {availableQty < 0 ||
+           minOrder > availableQty ? (
+              <Link className="w-full bg-secondary text-primary py-4 rounded-xl font-bold text-lg hover:opacity-90 transition-all shadow-lg flex items-center justify-center space-x-3">
                 <ShoppingCart className="w-6 h-6" />
                 <span>Not in Stock</span>
               </Link>
-            ): (
-               userData?.role === "buyer" ? (
-                <Link
-                  to={`/order/${productManager?._id}`}
-                  className="w-full bg-secondary text-primary py-4 rounded-xl font-bold text-lg hover:opacity-90 transition-all shadow-lg flex items-center justify-center space-x-3"
-                >
-                 Place Order 
-                </Link>
-              ) : (
-                <button
-                  className="w-full bg-primary text-secondary py-4 rounded-xl font-bold text-lg hover:opacity-90 transition-all shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
-                >
-                  Not Allowed
-                </button>
-              )
-            )  }
+            ) : userData?.role === "buyer" ? (
+              <Link
+                to={`/order/${productManager?._id}`}
+                className="w-full bg-secondary text-primary py-4 rounded-xl font-bold text-lg hover:opacity-90 transition-all shadow-lg flex items-center justify-center space-x-3"
+              >
+                Place Order
+              </Link>
+            ) : (
+              <button className="w-full bg-primary text-secondary py-4 rounded-xl font-bold text-lg hover:opacity-90 transition-all shadow-lg disabled:opacity-50 disabled:cursor-not-allowed">
+                Not Allowed
+              </button>
+            )}
             {/* Order Button */}
 
             {/* Additional Info */}
             <div className="bg-blue-50 border border-blue-200 rounded-xl p-4">
               <p className="text-sm text-blue-800">
                 <strong>Note:</strong> Minimum order quantity is{" "}
-                {productManager?.min_order} pieces. Orders will be processed within
-                24-48 hours.
+                {productManager?.min_order} pieces. Orders will be processed
+                within 24-48 hours.
               </p>
             </div>
           </div>
